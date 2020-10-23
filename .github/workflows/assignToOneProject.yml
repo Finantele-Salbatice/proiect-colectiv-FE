@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Assign NEW issues and NEW pull requests to project 1
       uses: srggrs/assign-one-project-github-action@1.2.0
-      if: github.event.issues == 'opened'
+      if: github.event.issue == 'opened'
       with:
         project: 'https://github.com/orgs/Finantele-Salbatice/projects/1'
         column_name: 'To Do'
