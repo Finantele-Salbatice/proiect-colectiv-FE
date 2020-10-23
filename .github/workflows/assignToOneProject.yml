@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Assign NEW issues to project card To Do
       uses: srggrs/assign-one-project-github-action@1.2.0
-      if: github.event_name == 'issue' && github.event.action == 'opened'
+      if: github.event_name == 'issues' && github.event.action == 'opened'
       with:
         project: 'https://github.com/orgs/Finantele-Salbatice/projects/1'
         column_name: 'To Do'
