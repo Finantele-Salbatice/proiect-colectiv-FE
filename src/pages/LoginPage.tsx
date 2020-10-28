@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { Component } from 'react';
-import LoginForm from '../components/login/login2'
+import LoginForm from '../components/login/LoginForm'
 
 export interface LoginPageProps {
     
 }
  
 export interface LoginPageState {
-    password: String;
-    email: String;
+    password: string;
+    email: string;
 }
  
 class LoginPage extends React.Component<LoginPageProps, LoginPageState> {

@@ -1,11 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 import LoginPage from "./pages/LoginPage"
 
 function App() {
   return (
-    <LoginPage></LoginPage>
+    <Router>
+      <Switch>
+        <Route path="/">
+          <LoginPage/>
+        </Route>
+      </Switch>
+  </Router>
     
   );
 }
