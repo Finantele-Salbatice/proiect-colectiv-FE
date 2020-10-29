@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Login from "../components/login/Login"
-import { RecentActors } from '@material-ui/icons';
-import axios, { AxiosAdapter, AxiosInstance } from "axios"
+import axios, { AxiosInstance } from "axios"
 
 export interface LoginPageProps {
     
