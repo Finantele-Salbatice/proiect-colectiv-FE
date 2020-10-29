@@ -4,14 +4,16 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import{config} from "dotenv"  
 
 import LoginPage from "./pages/LoginPage"
 
 function App() {
+  config();
   return (
     <Router>
       <Switch>
-        <Route path="/">
+        <Route exact path="/">
           <LoginPage/>
         </Route>
       </Switch>

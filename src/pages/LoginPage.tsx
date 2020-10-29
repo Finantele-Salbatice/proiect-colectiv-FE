@@ -1,5 +1,6 @@
 import * as React from 'react';
-import LoginForm from '../components/login/LoginForm'
+import Login from "../components/login/Login"
+import axios, { AxiosInstance } from "axios"
 
 export interface LoginPageProps {
     
@@ -11,12 +12,16 @@ export interface LoginPageState {
 }
  
 class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
+    instance: AxiosInstance;
     constructor(props: LoginPageProps) {
         super(props);
         this.state = {
             password:'',
             email:'' 
         };
+        this.instance = axios.create({
+            baseURL: 'https://localhost:3000',
+          });
     }
 
 
@@ -27,8 +32,19 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
         })
     }
 
+    submit  = async ()=>{
+        console.log("ma logez");
+       // const result =await this.instance.post("/login",this.state);
+       // const data = result.data;
+    }
+
     render() { 
-        return (<LoginForm {...this.state} handleChange={this.handleChange}></LoginForm>  );
+        return (
+        <div>
+            <Login {...this.state} handleChange={this.handleChange} submit={this.submit}></Login>
+        </div>
+         );
+        
     }
 }
  
