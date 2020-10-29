@@ -34,8 +34,13 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 
     submit  = async ()=>{
         console.log("ma logez");
-       // const result =await this.instance.post("/login",this.state);
-       // const data = result.data;
+        try{
+            const result =await this.instance.post("/login",this.state);
+            const data = result.data;
+            console.log("E bine,",data);
+        }catch(err){
+            console.log(err)
+        }
     }
 
     render() { 
