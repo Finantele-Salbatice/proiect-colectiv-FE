@@ -15,6 +15,7 @@ export interface LoginProps {
     classes:any;
     email:string;
     password:string;
+    isError: boolean;
     handleChange(data:any):void;
     submit():void;
     
@@ -52,7 +53,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
 
     render() { 
-        const {classes , password , email}  =this.props;
+        const {classes , password , email, isError}  =this.props;
         return (
             <Container component="main" maxWidth="xs">
               <CssBaseline />
@@ -76,9 +77,10 @@ class Login extends React.Component<LoginProps, LoginState> {
                     autoFocus
                     value={email}
                     onChange={this.handleData("email")}
-                   
+                    error={isError}
                   />
                   <TextField
+                    error={isError}
                     variant="outlined"
                     margin="normal"
                     required

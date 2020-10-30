@@ -9,6 +9,7 @@ export interface LoginPageProps {
 export interface LoginPageState {
     password: string;
     email: string;
+    isError: boolean;
 }
  
 class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
@@ -17,10 +18,11 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
         super(props);
         this.state = {
             password:'',
-            email:'' 
+            email:'',
+            isError: false
         };
         this.instance = axios.create({
-            baseURL: 'https://localhost:3000',
+            baseURL: 'http://localhost:3000',
           });
     }
 
@@ -28,18 +30,30 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 
     handleChange = (data:any)=>{
         this.setState({
-            ...data
+            ...data,
+            isError: false
         })
     }
 
+    clearUserData() {
+        this.setState({
+            email: '',
+            password: ''
+        });
+    }
+
     submit  = async ()=>{
-        console.log("ma logez");
-        try{
-            const result =await this.instance.post("/login",this.state);
+        try {
+            const result = await this.instance.post("/login",this.state);
             const data = result.data;
             console.log("E bine,",data);
-        }catch(err){
-            console.log(err)
+        } catch(error) {
+            const {response} = error;
+            console.log(response.data); // make some text appear if this error is received
+            this.setState({
+                isError: true
+            });
+            this.clearUserData();
         }
     }
 
