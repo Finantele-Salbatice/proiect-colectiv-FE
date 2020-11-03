@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Login from "../components/login/Login"
 import axios, { AxiosInstance } from "axios"
+import { withRouter } from "react-router";
 
 export interface LoginPageProps {
     
@@ -10,6 +11,7 @@ export interface LoginPageState {
     password: string;
     email: string;
     isError: boolean;
+    errorMessage:string;
 }
  
 class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
@@ -19,7 +21,8 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
         this.state = {
             password:'',
             email:'',
-            isError: false
+            isError: false,
+            errorMessage:'Parola nu este corecta.'
         };
         this.instance = axios.create({
             baseURL: 'http://localhost:3000',
@@ -37,8 +40,8 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 
     clearUserData() {
         this.setState({
-            email: '',
-            password: ''
+            password: '',
+            isError: true
         });
     }
 

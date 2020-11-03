@@ -16,6 +16,7 @@ export interface LoginProps {
     email:string;
     password:string;
     isError: boolean;
+    errorMessage:string;
     handleChange(data:any):void;
     submit():void;
     
@@ -28,12 +29,25 @@ export interface LoginState {
 const styles = createStyles( {
     paper: {
       display: 'flex',
+      marginTop :'130px',
       flexDirection: 'column',
       alignItems: 'center',
     },
     form: {
       width: '100%', // Fix IE 11 issue.
+    },
+    message:{
+      display :"none",
+    },
+    errMessage:{
+      display :"block",
+      color:'red',
+      margin:'0px'
+    },
+    button:{
+      marginBottom:'10px'
     }
+
   });
  
 class Login extends React.Component<LoginProps, LoginState> {
@@ -48,12 +62,8 @@ class Login extends React.Component<LoginProps, LoginState> {
     this.props.submit();
   }
 
-
-
-
-
     render() { 
-        const {classes , password , email, isError}  =this.props;
+        const {classes , password , email, isError , errorMessage}  =this.props;
         return (
             <Container component="main" maxWidth="xs">
               <CssBaseline />
@@ -64,6 +74,11 @@ class Login extends React.Component<LoginProps, LoginState> {
                 <Typography component="h1" variant="h5">
                   Sign in
                 </Typography>
+                <div>
+                  <h4 className={ (isError?classes.errMessage:classes.message)}>
+                    {errorMessage}
+                  </h4>
+                </div>
                 <form className={classes.form} noValidate>
                   <TextField
                     variant="outlined"
@@ -94,6 +109,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                     value={password}
                   />
                   <Button
+                    className={classes.button}
                     fullWidth
                     variant="contained"
                     color="primary"
@@ -103,12 +119,12 @@ class Login extends React.Component<LoginProps, LoginState> {
                   </Button>
                   <Grid container>
                     <Grid item xs>
-                      <Link href="#" variant="body2">
+                      <Link href="/reset" variant="body2">
                         Forgot password?
                       </Link>
                     </Grid>
                     <Grid item>
-                      <Link href="#" variant="body2">
+                      <Link href="/register" variant="body2">
                         {"Don't have an account? Sign Up"}
                       </Link>
                     </Grid>
