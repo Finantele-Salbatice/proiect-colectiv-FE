@@ -7,6 +7,7 @@ import {
 import{config} from "dotenv"  
 
 import LoginPage from "./pages/LoginPage"
+import RegisterPage from "./pages/RegsiterPage"
 
 function App() {
   config();
@@ -15,6 +16,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <LoginPage/>
+        </Route>
+        <Route exact path="/register">
+          <RegisterPage/>
         </Route>
       </Switch>
   </Router>
