@@ -7,6 +7,7 @@ import {
 import{config} from "dotenv"  
 
 import LoginPage from "./pages/LoginPage"
+import RegisterPage from "./pages/RegsiterPage"
 
 function App() {
   config();
@@ -14,6 +15,8 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={LoginPage}>
+        </Route>
+        <Route exact path="/register" component={RegisterPage}>
         </Route>
       </Switch>
   </Router>

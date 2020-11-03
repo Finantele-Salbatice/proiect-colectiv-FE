@@ -36,7 +36,6 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
             isError: false
         })
     }
-
     clearUserData() {
         this.setState({
             password: '',

@@ -46,7 +46,6 @@ const styles = createStyles( {
     button:{
       marginBottom:'10px'
     }
-
   });
  
 class Login extends React.Component<LoginProps, LoginState> {
@@ -60,7 +59,6 @@ class Login extends React.Component<LoginProps, LoginState> {
   login = ()=>{
     this.props.submit();
   }
-
     render() { 
         const {classes , password , email, isError , errorMessage}  = this.props;
         return (
