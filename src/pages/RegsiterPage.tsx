@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Register from "../components/login/Register"
 import axios, { AxiosInstance } from "axios"
-
+import validator from 'validator';
 export interface RegisterPageProps {
     
 }
@@ -46,13 +46,25 @@ class RegisterPage extends React.Component<RegisterPageProps, RegisterPageState>
     }
 
     submit = async () => {
-        console.log("ma inregistrez");
+        this.validate();
+        const body = {
+          first_name: this.state.firstName,
+          last_name: this.state.lastName,
+          password: this.state.password,
+          email: this.state.email
+        };
+        console.log(body);
+        try {
+          const result = await this.instance.post('/register', body);
+          console.log(result);
+        } catch (err) {
+          console.log(err.data);
+        }
     }
 
     
   
       validate = () => {
-        var validator = require('validator');
         var val = true;
   
         var firstNames = this.state.firstName.replaceAll(' ', '');

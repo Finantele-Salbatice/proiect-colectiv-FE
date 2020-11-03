@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Component } from 'react';
 
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,8 +8,6 @@ import AssignmentSharpIcon from '@material-ui/icons/AssignmentSharp';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
-import validator from 'validator';
-import Input from '@material-ui/core/Input';
 
 
 export interface RegisterProps {
@@ -100,68 +97,10 @@ class Register extends React.Component<RegisterProps, RegisterState> {
       passwordConfirmError: '',
     }
 
-    validate = () => {
-      var validator = require('validator');
-      var val = true;
-
-      var firstNames = this.props.firstName.replaceAll(' ', '');
-      
-      if(!validator.isAlpha(firstNames)) {
-        this.errors.firstNameError = "First name is invalid";
-        val = false;
-      }
-      else {
-        this.errors.firstNameError = '';
-      }
-
-      if(!validator.isAlpha(this.props.lastName)) {
-        this.errors.lastNameError = "Last name invalid";
-        val = false;
-      }
-      else {
-        this.errors.lastNameError = '';
-      }
-
-      if(!validator.isEmail(this.props.email)) {
-        this.errors.emailError = 'E-mail invalid';
-        val = false;
-      }
-      else {
-        this.errors.emailError = '';
-      }
-
-      if((this.props.password.length == 0 || this.props.passwordConfirm.length == 0) 
-        || (this.props.password !== this.props.passwordConfirm)) {
-        this.errors.passwordError = 'Passwords must be  identical';
-        this.errors.passwordConfirmError = 'Passwords must be identical';
-        val = false;
-      }
-      else {
-        this.errors.passwordError = '';
-        this.errors.passwordConfirmError = '';
-      }
-
-      this.setState({firstNameError: ''});
-      this.setState({lastNameError: ''});
-      this.setState({emailError: ''});
-      this.setState({passwordError: ''});
-      this.setState({passwordConfirmError: ''});
-
-      return val;
-
-    }
-
     handleData = (type:any) =>(event:any) =>{
         this.props.handleChange({
             [type] : event.target.value
         })
-    }
-
-    register = () => {
-      if(this.validate() == false) {
-        //console.log(this.errors.passwordError);
-      }
-      else this.props.submit();
     }
     
     render() { 
@@ -290,7 +229,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                           fullWidth
                           variant="outlined"
                           color="primary"
-                          onClick={this.register}
+                          onClick={this.props.submit}
                         >
                         Register
                         </Button>
