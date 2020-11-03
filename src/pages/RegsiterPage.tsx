@@ -35,7 +35,7 @@ class RegisterPage extends React.Component<RegisterPageProps, RegisterPageState>
               }
         };
         this.instance = axios.create({
-            baseURL : 'http://localhost:3000',
+          baseURL: process.env.HOST,
         })
     }
 
