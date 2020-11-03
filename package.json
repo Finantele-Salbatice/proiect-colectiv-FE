@@ -25,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "production": "npm run build && pm2 serve build 3010 --spa --name fe-app",
+    "serve": "serve -s build -p 3010"
   },
   "eslintConfig": {
     "extends": [
