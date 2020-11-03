@@ -1,13 +1,12 @@
 import * as React from 'react';
 import Login from "../components/login/Login"
 import axios, { AxiosInstance } from "axios"
-import { withRouter } from "react-router";
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-export interface LoginPageProps {
-    
+interface LoginPageProps extends RouteComponentProps {
 }
  
-export interface LoginPageState {
+interface LoginPageState {
     password: string;
     email: string;
     isError: boolean;
@@ -50,6 +49,7 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
             const result = await this.instance.post("/login",this.state);
             const data = result.data;
             console.log("E bine,",data);
+            this.props.history.push('/reset');
         } catch(error) {
             const {response} = error;
             console.log(response.data); // make some text appear if this error is received
@@ -70,4 +70,4 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
     }
 }
  
-export default LoginPage;
+export default withRouter(LoginPage);

@@ -19,7 +19,6 @@ export interface LoginProps {
     errorMessage:string;
     handleChange(data:any):void;
     submit():void;
-    
 }
  
 export interface LoginState {
@@ -63,7 +62,7 @@ class Login extends React.Component<LoginProps, LoginState> {
   }
 
     render() { 
-        const {classes , password , email, isError , errorMessage}  =this.props;
+        const {classes , password , email, isError , errorMessage}  = this.props;
         return (
             <Container component="main" maxWidth="xs">
               <CssBaseline />
