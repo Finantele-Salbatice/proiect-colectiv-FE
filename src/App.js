@@ -14,11 +14,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
-          <LoginPage/>
+        <Route exact path="/" component={LoginPage}>
         </Route>
-        <Route exact path="/register">
-          <RegisterPage/>
+        <Route exact path="/register" component={RegisterPage}>
         </Route>
       </Switch>
   </Router>

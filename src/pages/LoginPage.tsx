@@ -1,14 +1,16 @@
 import * as React from 'react';
 import Login from "../components/login/Login"
 import axios, { AxiosInstance } from "axios"
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-export interface LoginPageProps {
-    
+interface LoginPageProps extends RouteComponentProps {
 }
  
-export interface LoginPageState {
+interface LoginPageState {
     password: string;
     email: string;
+    isError: boolean;
+    errorMessage:string;
 }
  
 class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
@@ -17,10 +19,12 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
         super(props);
         this.state = {
             password:'',
-            email:'' 
+            email:'',
+            isError: false,
+            errorMessage:'Parola nu este corecta.'
         };
         this.instance = axios.create({
-            baseURL: 'https://localhost:3000',
+            baseURL: 'http://localhost:3000',
           });
     }
 
@@ -28,14 +32,31 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 
     handleChange = (data:any)=>{
         this.setState({
-            ...data
+            ...data,
+            isError: false
         })
+    }
+    clearUserData() {
+        this.setState({
+            password: '',
+            isError: true
+        });
     }
 
     submit  = async ()=>{
-        console.log("ma logez");
-       // const result =await this.instance.post("/login",this.state);
-       // const data = result.data;
+        try {
+            const result = await this.instance.post("/login",this.state);
+            const data = result.data;
+            console.log("E bine,",data);
+            this.props.history.push('/reset');
+        } catch(error) {
+            const {response} = error;
+            console.log(response.data); // make some text appear if this error is received
+            this.setState({
+                isError: true
+            });
+            this.clearUserData();
+        }
     }
 
     render() { 
@@ -48,4 +69,4 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
     }
 }
  
-export default LoginPage;
+export default withRouter(LoginPage);
