@@ -24,7 +24,7 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
             errorMessage:'Parola nu este corecta.'
         };
         this.instance = axios.create({
-            baseURL: process.env.HOST,
+            baseURL: process.env.API_URL,
           });
     }
 
