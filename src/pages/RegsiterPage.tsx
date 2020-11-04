@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React from 'react';
 import Register from '../components/login/Register';
 import axios, { AxiosInstance } from 'axios';
 import validator from 'validator';
@@ -14,7 +14,7 @@ export interface RegisterPageState {
   errors: any;
 }
 
-class RegisterPage extends Component<RegisterPageProps, RegisterPageState> {
+class RegisterPage extends React.Component<RegisterPageProps, RegisterPageState> {
   instance: AxiosInstance;
 
   constructor(props: RegisterPageProps) {
