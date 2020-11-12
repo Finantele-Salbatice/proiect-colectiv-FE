@@ -7,18 +7,19 @@ import ActivateAccountPage from './pages/ActivateAccountPage';
 import ResetPassPage from './pages/ResetPassPage';
 import ChangePassPage from './pages/ChangePassPage';
 import React from 'react';
-function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route exact={true} path="/" component={LoginPage}></Route>
-        <Route exact={true} path="/register" component={RegisterPage}></Route>
-		<Route exact={true} path="/reset" component={ResetPassPage} />
-		<Route exact={true} path="/reset/:token" component={ChangePassPage} />
-        <Route exact={true} path="/activateAccount/:token" component={ActivateAccountPage}></Route>
-      </Switch>
-    </Router>
-  );
+
+function app() {
+	return (
+		<Router>
+			<Switch>
+				<Route exact={true} path="/" component={LoginPage}></Route>
+				<Route exact={true} path="/register" component={RegisterPage}></Route>
+				<Route exact={true} path="/reset" component={ResetPassPage} />
+				<Route exact={true} path="/reset/:token" component={ChangePassPage} />
+				<Route exact={true} path="/activateAccount/:token" component={ActivateAccountPage}></Route>
+			</Switch>
+		</Router>
+	);
 }
 
 export default app;
