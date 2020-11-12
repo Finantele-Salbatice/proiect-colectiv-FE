@@ -65,11 +65,11 @@ class ResetPassPage extends React.Component<ResetPassPageProps,ResetPassPageStat
                 isError : false,
                 errMessage : ''
             });
-            console.log(result);
+            
             this.props.history.push('/');
         }catch(err){
             const errResponse = err;
-            console.log(errResponse);
+            
             this.setState({
                 isError : true,
                 errMessage : `${errResponse.message}`

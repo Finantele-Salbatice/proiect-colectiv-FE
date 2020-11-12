@@ -80,18 +80,15 @@ class ChangePassPage extends React.Component<ChangePassPageProps,ChangePassPageS
             token : this.state.token,
             password : this.state.newpass
         }
-        console.log(body.token);
         try{
             const result = await this.instance.post('/updatePassword',body);
             this.setState({
                 isError : false,
                 errMessage : ''
             });
-            console.log(result);
             this.props.history.push('/');
         }catch(err){
             const errResponse = err;
-            console.log(errResponse);
             this.setState({
                 isError : true,
                 errMessage : `${errResponse.message}`
