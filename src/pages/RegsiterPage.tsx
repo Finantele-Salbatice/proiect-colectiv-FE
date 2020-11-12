@@ -58,10 +58,8 @@ class RegisterPage extends React.Component<
   		password: this.state.password,
   		email: this.state.email,
   	};
-  	console.log(body);
   	try {
-  		const result = await this.instance.post('/register', body);
-  		console.log(result);
+  		await this.instance.post('/register', body);
   	} catch (err) {
   		console.log(err.data);
   	}
@@ -70,7 +68,7 @@ class RegisterPage extends React.Component<
   validate = () => {
   	let val = true;
 
-  	const firstNames = this.state.firstName.replaceAll(' ', '');
+  	const firstNames = this.state.firstName.trim();
 
   	if (!validator.isAlpha(firstNames)) {
   		this.state.errors.firstNameError = 'First name is invalid';
