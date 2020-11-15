@@ -7,6 +7,7 @@ import ActivateAccountPage from './pages/ActivateAccountPage';
 import ResetPassPage from './pages/ResetPassPage';
 import ChangePassPage from './pages/ChangePassPage';
 import React from 'react';
+import AddBTAccount from './pages/AddBTAccount';
 
 function app() {
 	return (
@@ -17,6 +18,7 @@ function app() {
 				<Route exact={true} path="/reset" component={ResetPassPage} />
 				<Route exact={true} path="/reset/:token" component={ChangePassPage} />
 				<Route exact={true} path="/activateAccount/:token" component={ActivateAccountPage}></Route>
+				<Route exact={true} path="/addBTAccount/:id" component={AddBTAccount}></Route>
 			</Switch>
 		</Router>
 	);
