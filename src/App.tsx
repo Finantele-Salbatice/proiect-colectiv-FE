@@ -18,7 +18,7 @@ function app() {
 				<Route exact={true} path="/reset" component={ResetPassPage} />
 				<Route exact={true} path="/reset/:token" component={ChangePassPage} />
 				<Route exact={true} path="/activateAccount/:token" component={ActivateAccountPage}></Route>
-				<Route exact={true} path="/addBTAccount/:id" component={AddBTAccount}></Route>
+				<Route exact={true} path="/addBTAccount" component={AddBTAccount}></Route>
 			</Switch>
 		</Router>
 	);
