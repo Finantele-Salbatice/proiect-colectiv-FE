@@ -12,16 +12,15 @@ interface MatchParams {
 interface ActivateAccountPageProps extends RouteComponentProps<MatchParams> {}
 
 interface ActivateAccountPageState {
-	result: boolean;
+	redirect: boolean;
 }
 
 class AddBTAccount extends React.Component<ActivateAccountPageProps, ActivateAccountPageState> {
 	instance: AxiosInstance;
 	constructor(props: ActivateAccountPageProps) {
 		super(props);
-
 		this.state = {
-			result: true,
+			redirect: false,
 		};
 		this.instance = axios.create({
 			baseURL: SNOWPACK_PUBLIC_API_URL,
@@ -30,14 +29,13 @@ class AddBTAccount extends React.Component<ActivateAccountPageProps, ActivateAcc
 
 	async callback(params: any) {
 		await this.instance.post('/account/btcallback', params);
+		this.props.history.push('/main');
 	}
 
 	async componentDidMount() {
 		const query = parse(this.props.location.search, {
 			ignoreQueryPrefix: true,
 		});
-		const id = this.props.match.params.id;
-		query.accountId = id;
 		await this.callback(query);
 	}
 
@@ -45,7 +43,7 @@ class AddBTAccount extends React.Component<ActivateAccountPageProps, ActivateAcc
 		return (
 			<div>
 				<h1>
-						Hello
+						Loading...
 				</h1>
 			</div>
 		);
