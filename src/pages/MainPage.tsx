@@ -13,21 +13,21 @@ export interface MainPageState {
 const styles = createStyles({
 	container: {
 		display:'inline-flex',
-		flexDirection:'column'
+		flexDirection:'column',
 	},
 	cardBox: {
-		display:'inline-block'
+		display:'inline-block',
 	},
 	welcomeCard: {
 		width:'100%',
 		position:'relative',
 		left:'170px',
-		top:'30px'
+		top:'30px',
 	},
 	welcomeCardIcon : {
 		width:'40px',
 		height:'40px',
-	}
+	},
 });
 class MainPage extends React.Component<MainPageProps, MainPageState> {
 	render() {
@@ -38,23 +38,23 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 					<NavBar />
 				</div>
 				<div className = {classes.cardBox}>
-				<Card
-					className = {classes.welcomeCard}
-				>
-					<CardContent>
-						<Icon><InsertEmoticonIcon className = {classes.welcomeCardIcon}/></Icon>
-						<Typography variant="h5" component="h2">
+					<Card
+						className = {classes.welcomeCard}
+					>
+						<CardContent>
+							<Icon><InsertEmoticonIcon className = {classes.welcomeCardIcon}/></Icon>
+							<Typography variant="h5" component="h2">
 							Bine ai venit, {'"*introdu nume aici*"'} !
-						</Typography>
-						<Typography variant="body2" component="p">
-							<br />
+							</Typography>
+							<Typography variant="body2" component="p">
+								<br />
 							Aplicatia este inca in stare de dezvoltare, daca unele servicii nu functioneaza, ne puteti contacta !
-							<br />
-							<br />
+								<br />
+								<br />
 							Va multumim ca aveti incredere sa folositi aplicatia noastra !
-						</Typography>
-					</CardContent>
-				</Card>
+							</Typography>
+						</CardContent>
+					</Card>
 				</div>
 			</div>
 		);

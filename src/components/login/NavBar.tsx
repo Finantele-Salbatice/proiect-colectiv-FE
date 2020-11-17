@@ -17,8 +17,8 @@ const styles = createStyles({
 		flexShrink: 0,
 	},
 	drawerBox : {
-		display:'inline-block'
-	}
+		display:'inline-block',
+	},
 });
 
 class NavBar extends React.Component<NavBarProps, NavBarState> {
@@ -28,26 +28,26 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
     render() {
     	const { classes } = this.props;
     	return (
-			<div className={classes.drawerBox}>
-				<Drawer
-					variant="permanent"
-				>
-					<List>
-						<ListItem button key={1}>
-								<ListItemIcon> <AccountBalanceTwoToneIcon /></ListItemIcon>
-								<ListItemText primary={'Home'} />
-						</ListItem>
-						<ListItem button key={2}>
-							<ListItemIcon> <AccountBalanceWalletIcon /></ListItemIcon>
-							<ListItemText primary={'Tranzactii'} />
-						</ListItem>
-						<ListItem button key={3}>
-							<ListItemIcon> <AccountBoxIcon /></ListItemIcon>
-							<ListItemText primary={'Conturi'} />
-						</ListItem>
-					</List>
-				</Drawer>
-			</div>
+    		<div className={classes.drawerBox}>
+    			<Drawer
+    				variant="permanent"
+    			>
+    				<List>
+    					<ListItem button key={1}>
+    						<ListItemIcon> <AccountBalanceTwoToneIcon /></ListItemIcon>
+    						<ListItemText primary={'Home'} />
+    					</ListItem>
+    					<ListItem button key={2}>
+    						<ListItemIcon> <AccountBalanceWalletIcon /></ListItemIcon>
+    						<ListItemText primary={'Tranzactii'} />
+    					</ListItem>
+    					<ListItem button key={3}>
+    						<ListItemIcon> <AccountBoxIcon /></ListItemIcon>
+    						<ListItemText primary={'Conturi'} />
+    					</ListItem>
+    				</List>
+    			</Drawer>
+    		</div>
     	);
     }
 }
