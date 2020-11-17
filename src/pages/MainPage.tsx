@@ -35,9 +35,9 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		const { classes } = this.props;
 		return (
 			<div className = {classes.conatiner}>
-                <div>
-                    <MyAppBar pageTitle="Home" firstname="Georgel" lastname="Popescu"/>
-                </div>
+				<div>
+					<MyAppBar pageTitle="Home" firstname="Georgel" lastname="Popescu"/>
+				</div>
 				<div className = {classes.navBar}>
 					<NavBar />
 				</div>
