@@ -1,6 +1,7 @@
-import { Card, CardContent, createStyles, Typography, withStyles } from '@material-ui/core';
+import { Card, CardContent, createStyles, Icon, Typography, withStyles } from '@material-ui/core';
 import * as React from 'react';
 import NavBar from '../components/login/NavBar';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 
 export interface MainPageProps {
   classes: any;
@@ -11,41 +12,50 @@ export interface MainPageState {
 
 const styles = createStyles({
 	container: {
-		height:'100%',
+		display:'inline-flex',
+		flexDirection:'column'
 	},
-	test:{
-		wheight:'100%',
-		height:'200px',
-		backgroundColor:'red',
+	cardBox: {
+		display:'inline-block'
 	},
-	test2:{
-		marginTop:'200px',
+	welcomeCard: {
+		width:'100%',
+		position:'relative',
+		left:'170px',
+		top:'30px'
 	},
+	welcomeCardIcon : {
+		width:'40px',
+		height:'40px',
+	}
 });
 class MainPage extends React.Component<MainPageProps, MainPageState> {
 	render() {
 		const { classes } = this.props;
 		return (
-			<div>
-				<NavBar></NavBar>
-				<Card>
+			<div className = {classes.conatiner}>
+				<div className = {classes.navBar}>
+					<NavBar />
+				</div>
+				<div className = {classes.cardBox}>
+				<Card
+					className = {classes.welcomeCard}
+				>
 					<CardContent>
-						<Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
-						</Typography>
+						<Icon><InsertEmoticonIcon className = {classes.welcomeCardIcon}/></Icon>
 						<Typography variant="h5" component="h2">
-          benevolent
-						</Typography>
-						<Typography className={classes.pos} color="textSecondary">
-          adjective
+							Bine ai venit, {'"*introdu nume aici*"'} !
 						</Typography>
 						<Typography variant="body2" component="p">
-          well meaning and kindly.
 							<br />
-							{'"a benevolent smile"'}
+							Aplicatia este inca in stare de dezvoltare, daca unele servicii nu functioneaza, ne puteti contacta !
+							<br />
+							<br />
+							Va multumim ca aveti incredere sa folositi aplicatia noastra !
 						</Typography>
 					</CardContent>
 				</Card>
+				</div>
 			</div>
 		);
 	}
