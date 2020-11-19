@@ -47,11 +47,10 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 		try {
 			const result = await this.instance.post('/login', this.state);
 			const data = result.data;
-			console.log('E bine,', data);
-			this.props.history.push('/reset');
+			localStorage.setItem('token',data.token);
+			this.props.history.push('/main');
 		} catch (error) {
 			const { response } = error;
-			console.log(response.data); // make some text appear if this error is received
 			this.setState({
 				isError: true,
 			});
