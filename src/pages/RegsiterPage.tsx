@@ -1,5 +1,5 @@
 import React from 'react';
-import Register from '../components/login/Register';
+import Register from 'src/components/login/Register';
 import axios, { AxiosInstance } from 'axios';
 import validator from 'validator';
 

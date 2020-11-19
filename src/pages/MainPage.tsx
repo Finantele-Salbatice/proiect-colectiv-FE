@@ -1,8 +1,8 @@
 import { Card, CardContent, createStyles, Icon, Typography, withStyles } from '@material-ui/core';
 import * as React from 'react';
-import NavBar from '../components/NavBar';
+import NavBar from 'src/components/NavBar';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import MyAppBar from '../components/AppBar';
+import MyAppBar from 'src/components/AppBar';
 
 export interface MainPageProps {
   classes: any;
