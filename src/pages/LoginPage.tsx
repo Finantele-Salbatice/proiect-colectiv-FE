@@ -50,7 +50,7 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 			localStorage.setItem('token',data.token);
 			this.props.history.push('/main');
 		} catch (error) {
-			const { response } = error;
+			// const { response } = error;
 			this.setState({
 				isError: true,
 			});
