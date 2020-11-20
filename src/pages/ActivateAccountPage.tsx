@@ -49,11 +49,15 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     	this.getResult();
     }
 
+    redirectToLogin() {
+    	this.props.history.push('/');
+    }
+
     render() {
     	if (this.state.result) {
     		return (
     			<div>
-    				<ActivateAccountSuccess
+    				<ActivateAccountSuccess redirect={this.redirectToLogin}
     					{...this.state}
     				></ActivateAccountSuccess>
     			</div>
@@ -61,7 +65,7 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     	} else {
     		return (
     			<div>
-    				<ActivateAccountFail
+    				<ActivateAccountFail redirect={this.redirectToLogin}
     					{...this.state}
     				></ActivateAccountFail>
     			</div>

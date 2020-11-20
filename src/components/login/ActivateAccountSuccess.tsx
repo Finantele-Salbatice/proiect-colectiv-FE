@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 
 export interface ActivateAccountSuccessProps {
     classes: any;
+    redirect(): void;
 }
 
 export interface ActivateAccountSuccessState {}

@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 
 export interface ActivateAccountFailProps {
     classes: any;
+    redirect(): void;
 }
 
 export interface ActivateAccountFailState {}
@@ -83,7 +84,7 @@ class ActivateAccountFail extends React.Component<ActivateAccountFailProps, Acti
 						className = {classes.button}
 						variant="contained"
 						color="primary"
-						href="/">
+						onClick={() => this.props.redirect()}>
                         Mergeti inapoi la pagina de logare
 					</Button>
 				</div>
