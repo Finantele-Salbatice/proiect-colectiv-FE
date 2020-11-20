@@ -2,7 +2,6 @@ import { Card, CardContent, createStyles, Icon, Typography, withStyles ,Button }
 import * as React from 'react';
 import axios, { AxiosInstance } from 'axios';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import { Redirect } from 'react-router-dom';
 import NavBar from 'src/components/NavBar';
 import MyAppBar from 'src/components/AppBar';
 
@@ -14,7 +13,6 @@ export interface MainPageProps {
 }
 
 export interface MainPageState {
-  redirect: string;
 }
 
 const styles = createStyles({
@@ -44,9 +42,6 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 	instance: AxiosInstance;
 	constructor(props: MainPageProps) {
 		super(props);
-		this.state = {
-			redirect: '',
-		};
 		this.instance = axios.create({
 			baseURL: SNOWPACK_PUBLIC_API_URL,
 			headers: {
@@ -61,17 +56,12 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			};
 			const result = await this.instance.post('/account/add',data);
 			const link = result.data;
-			this.setState({
-				redirect: link,
-			});
+			window.location.replace(link);
 		} catch {
 		}
 	}
 	render() {
 		const { classes } = this.props;
-		if (this.state.redirect) {
-			return <Redirect to={this.state.redirect}/>;
-		}
 		return (
 			<div className = {classes.conatiner}>
 				<div>
