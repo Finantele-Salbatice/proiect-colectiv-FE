@@ -1,4 +1,4 @@
-import { createStyles, Divider, Drawer, ListItem, ListItemIcon, ListItemText, withStyles } from '@material-ui/core';
+import { createStyles, Drawer, ListItem, ListItemIcon, ListItemText, withStyles } from '@material-ui/core';
 import * as React from 'react';
 import List from '@material-ui/core/List';
 import AccountBalanceTwoToneIcon from '@material-ui/icons/AccountBalanceTwoTone';

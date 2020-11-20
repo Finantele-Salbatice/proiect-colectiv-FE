@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import ChangePass from '../components/login/ChangePass';
+import ChangePass from 'src/components/login/ChangePass';
 import validator from 'validator';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

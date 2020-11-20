@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Login from '../components/login/Login';
+import Login from 'src/components/login/Login';
 import axios, { AxiosInstance } from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 

@@ -1,10 +1,10 @@
 import { Card, CardContent, createStyles, Icon, Typography, withStyles ,Button } from '@material-ui/core';
 import * as React from 'react';
 import axios, { AxiosInstance } from 'axios';
-import NavBar from '../components/NavBar';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import MyAppBar from '../components/AppBar';
 import { Redirect } from 'react-router-dom';
+import NavBar from 'src/components/NavBar';
+import MyAppBar from 'src/components/AppBar';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;

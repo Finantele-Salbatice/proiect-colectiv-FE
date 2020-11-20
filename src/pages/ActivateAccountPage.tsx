@@ -4,8 +4,8 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
-import ActivateAccountSuccess from '../components/login/ActivateAccountSuccess';
-import ActivateAccountFail from '../components/login/ActivateAccountFail';
+import ActivateAccountSuccess from 'src/components/login/ActivateAccountSuccess';
+import ActivateAccountFail from 'src/components/login/ActivateAccountFail';
 
 interface MatchParams {
     token: string;
