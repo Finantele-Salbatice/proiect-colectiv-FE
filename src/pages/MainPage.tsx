@@ -14,6 +14,7 @@ export interface MainPageProps {
 }
 
 export interface MainPageState {
+  redirect: string;
 }
 
 const styles = createStyles({
@@ -43,6 +44,9 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 	instance: AxiosInstance;
 	constructor(props: MainPageProps) {
 		super(props);
+		this.state = {
+			redirect: '',
+		};
 		this.instance = axios.create({
 			baseURL: SNOWPACK_PUBLIC_API_URL,
 			headers: {
@@ -57,12 +61,17 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			};
 			const result = await this.instance.post('/account/add',data);
 			const link = result.data;
-			return <Redirect to={link}/>;
+			this.setState({
+				redirect: link,
+			});
 		} catch {
 		}
 	}
 	render() {
 		const { classes } = this.props;
+		if (this.state.redirect) {
+			return <Redirect to={this.state.redirect}/>;
+		}
 		return (
 			<div className = {classes.conatiner}>
 				<div>
