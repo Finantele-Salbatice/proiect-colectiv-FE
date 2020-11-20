@@ -46,8 +46,8 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 	submit = async() => {
 		try {
 			const result = await this.instance.post('/login', this.state);
-			const data = result.data;
-			localStorage.setItem('token',data.token);
+			const token = result.data;
+			localStorage.setItem('token', token);
 			this.props.history.push('/main');
 		} catch (error) {
 			//const { response } = error;
