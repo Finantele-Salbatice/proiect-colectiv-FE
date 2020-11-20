@@ -19,6 +19,10 @@ const styles = createStyles({
 	drawerBox : {
 		display:'inline-block',
 	},
+	logo:{
+		maxWidth:'100px',
+		marginBottom:'30px',
+	},
 });
 
 class NavBar extends React.Component<NavBarProps, NavBarState> {
@@ -33,6 +37,9 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
     				variant="permanent"
     			>
     				<List>
+    					<ListItem key={0}>
+    						<img src="logo.png" alt="logo" className={classes.logo} />
+    					</ListItem>
     					<ListItem button key={1}>
     						<ListItemIcon> <AccountBalanceTwoToneIcon /></ListItemIcon>
     						<ListItemText primary={'Home'} />

@@ -1,8 +1,13 @@
-import { Card, CardContent, createStyles, Icon, Typography, withStyles } from '@material-ui/core';
+import { Card, CardContent, createStyles, Icon, Typography, withStyles ,Button } from '@material-ui/core';
 import * as React from 'react';
+import axios, { AxiosInstance } from 'axios';
 import NavBar from '../components/NavBar';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import MyAppBar from '../components/AppBar';
+import { Redirect } from 'react-router-dom';
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
 
 export interface MainPageProps {
   classes: any;
@@ -29,14 +34,42 @@ const styles = createStyles({
 		width:'40px',
 		height:'40px',
 	},
+	button:{
+		marginLeft:'1340px',
+		//zIndex:1,
+	},
 });
 class MainPage extends React.Component<MainPageProps, MainPageState> {
+	instance: AxiosInstance;
+	constructor(props: MainPageProps) {
+		super(props);
+		this.instance = axios.create({
+			baseURL: SNOWPACK_PUBLIC_API_URL,
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('token')}`,
+			},
+		});
+	}
+	adaugaCont= async(bank: string)=>{
+		try {
+			const data = {
+				bank:bank,
+			};
+			const result = await this.instance.post('/account/Add',data);
+			const { link } = result.data;
+			return <Redirect to={link}/>;
+		} catch {
+		}
+	}
 	render() {
 		const { classes } = this.props;
 		return (
 			<div className = {classes.conatiner}>
 				<div>
 					<MyAppBar pageTitle="Home" firstname="Georgel" lastname="Popescu"/>
+					<Button variant="contained" color="primary"  className={classes.button} >
+ 						 Adauga BT
+					</Button>
 				</div>
 				<div className = {classes.navBar}>
 					<NavBar />
