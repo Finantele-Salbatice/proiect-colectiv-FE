@@ -50,13 +50,13 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			},
 		});
 	}
-	adaugaCont= async(bank: string)=>{
+	adaugaCont = async(bank: string)=>{
 		try {
 			const data = {
 				bank:bank,
 			};
-			const result = await this.instance.post('/account/Add',data);
-			const { link } = result.data;
+			const result = await this.instance.post('/account/add',data);
+			const link = result.data;
 			return <Redirect to={link}/>;
 		} catch {
 		}
@@ -67,7 +67,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			<div className = {classes.conatiner}>
 				<div>
 					<MyAppBar pageTitle="Home" firstname="Georgel" lastname="Popescu"/>
-					<Button variant="contained" color="primary"  className={classes.button} >
+					<Button variant="contained" color="primary"  className={classes.button} onClick={() => this.adaugaCont('bt')}>
  						 Adauga BT
 					</Button>
 				</div>
