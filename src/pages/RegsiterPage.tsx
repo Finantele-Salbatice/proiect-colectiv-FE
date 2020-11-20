@@ -115,9 +115,8 @@ class RegisterPage extends React.Component<
   			<Register
   				{...this.state}
   				handleChange={this.handleChange}
-  				submit={this.submit}
+  				submit={() => this.submit()}
   			>
-  				{' '}
   			</Register>
   		</div>
   	);
