@@ -1,13 +1,17 @@
 import * as React from 'react';
 import { createStyles, withStyles } from '@material-ui/core/styles';
 import ThumbDownAltOutlinedIcon from '@material-ui/icons/ThumbDownAltOutlined';
-import { Button } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, Icon, Typography } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 
 export interface ActivateAccountFailProps {
-    classes: any;
+	classes: any;
+	link:string;
 }
 
-export interface ActivateAccountFailState {}
+export interface ActivateAccountFailState {
+	redirect:boolean;
+}
 
 const styles = createStyles({
 	icon : {
@@ -16,35 +20,9 @@ const styles = createStyles({
 		width:'auto',
 		marginBottom:'10px',
 	},
-	mainBox : {
-		position:'relative',
-		marginLeft:'33%',
-		marginTop:'100px',
-		display:'inline-flex',
-		flexDirection:'column',
-		padding:'40px',
-		paddingTop:'25px',
-		border:'1px solid grey',
-		borderRadius:'5px',
-		backgroundColor:'#f2f2f2',
-		boxShadow:'5px 10px 8px #888888',
-	},
-	text : {
-		margin:'auto',
-		marginTop:'30px',
-	},
 	iconRow : {
 		borderBottom:'1px solid grey',
-		textAlign:'center',
-	},
-	textRow1 : {
-		margin:'auto',
-		textAlign:'center',
-	},
-	textRow2 : {
-		margin:'auto',
-		marginTop:'20px',
-		textAlign:'center',
+		marginLeft:'46%',
 	},
 	buttonRow : {
 		textAlign:'center',
@@ -57,39 +35,72 @@ const styles = createStyles({
 		'&:hover' : {
 			backgroundColor:'red',
 		},
+		color:'white',
+		margin:'auto'
 	},
+	cardBox: {
+		display:'inline-block',
+		marginTop:'100px',
+		marginLeft:'6%'
+	},
+	welcomeCard: {
+		width:'100%',
+		position:'relative',
+		left:'170px',
+		top:'30px',
+	},
+	cardText:{
+		textAlign:'center'
+	}
 });
 
 class ActivateAccountFail extends React.Component<ActivateAccountFailProps, ActivateAccountFailState> {
+	state = {
+		redirect: false
+	}
+
+	setRedirect = () => {
+		this.setState({
+			redirect: true
+		})
+	}
+	renderRedirect = () => {
+		if (this.state.redirect) {
+		  return <Redirect to={this.props.link}/>
+		}
+	}
 	render() {
 		const { classes } = this.props;
 		return (
-			<div className = {classes.mainBox}>
-				<div className = {classes.iconRow}>
-					<ThumbDownAltOutlinedIcon
+			<div className = {classes.cardBox}>
+				{this.renderRedirect()}
+				<Card
+					className = {classes.welcomeCard}
+				>
+					<CardContent>
+					<Icon className={classes.iconRow}>
+						<ThumbDownAltOutlinedIcon
 						className = {classes.icon}
-					/>
-				</div>
-				<div className = {classes.text}>
-					<p className = {classes.textRow1}>
-                        Contul dumneavoastra nu a putut fi activat !
-					</p>
-					<p className = {classes.textRow2}>
-                          Ne cerem scuze pentru inconvenienta !
-					</p>
-				</div>
-				<div className = {classes.buttonRow}>
-					<Button
-						className = {classes.button}
-						variant="contained"
-						color="primary"
-						href="/">
-                        Mergeti inapoi la pagina de logare
-					</Button>
-				</div>
+					/></Icon>
+					<Typography variant="h5" component="h2">
+					Din pacate, contul dumneavoastra nu a putut fi activat !
+					</Typography>
+					<Typography variant="body2" component="p" className={classes.cardText}>
+						<br />
+						Ne cerem scuze pentru incovenienta !
+						<br />
+						<br />
+						Va multumim pentru intelegere !
+					</Typography>
+					</CardContent>
+					<CardActions>
+						<Button size="small" className={classes.button} onClick={this.setRedirect}>Mergi catre pagina principala</Button>
+					</CardActions>
+				</Card>
 			</div>
 		);
 	}
 }
 
 export default withStyles(styles)(ActivateAccountFail);
+
