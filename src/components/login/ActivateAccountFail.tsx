@@ -2,11 +2,10 @@ import * as React from 'react';
 import { createStyles, withStyles } from '@material-ui/core/styles';
 import ThumbDownAltOutlinedIcon from '@material-ui/icons/ThumbDownAltOutlined';
 import { Button, Card, CardActions, CardContent, Icon, Typography } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
 
 export interface ActivateAccountFailProps {
-	classes: any;
-	link: string;
+    classes: any;
+    redirect(): void;
 }
 
 export interface ActivateAccountFailState {
@@ -59,21 +58,10 @@ class ActivateAccountFail extends React.Component<ActivateAccountFailProps, Acti
 		redirect: false,
 	}
 
-	setRedirect = () => {
-		this.setState({
-			redirect: true,
-		});
-	}
-	renderRedirect = () => {
-		if (this.state.redirect) {
-		  return <Redirect to={this.props.link}/>;
-		}
-	}
 	render() {
 		const { classes } = this.props;
 		return (
 			<div className = {classes.cardBox}>
-				{this.renderRedirect()}
 				<Card
 					className = {classes.welcomeCard}
 				>
@@ -94,7 +82,7 @@ class ActivateAccountFail extends React.Component<ActivateAccountFailProps, Acti
 						</Typography>
 					</CardContent>
 					<CardActions>
-						<Button size="small" className={classes.button} onClick={this.setRedirect}>Mergi catre pagina principala</Button>
+						<Button size="small" className={classes.button} onClick={() => this.props.redirect()}>Mergi catre pagina principala</Button>
 					</CardActions>
 				</Card>
 			</div>

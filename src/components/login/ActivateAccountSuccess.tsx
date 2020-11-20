@@ -3,11 +3,10 @@ import { createStyles, withStyles } from '@material-ui/core/styles';
 import DoneOutlineOutlinedIcon from '@material-ui/icons/DoneOutlineOutlined';
 import { Button, CardActions } from '@material-ui/core';
 import { Card, CardContent, Typography, Icon } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
 
 export interface ActivateAccountSuccessProps {
-	classes: any;
-	link: string;
+    classes: any;
+    redirect(): void;
 }
 
 export interface ActivateAccountSuccessState {
@@ -60,22 +59,10 @@ class ActivateAccountSuccess extends React.Component<ActivateAccountSuccessProps
 	state = {
 		redirect: false,
 	}
-
-	setRedirect = () => {
-		this.setState({
-			redirect: true,
-		});
-	}
-	renderRedirect = () => {
-		if (this.state.redirect) {
-		  return <Redirect to={this.props.link}/>;
-		}
-	}
 	render() {
 		const { classes } = this.props;
 		return (
 			<div className = {classes.cardBox}>
-				{this.renderRedirect()}
 				<Card
 					className = {classes.welcomeCard}
 				>
@@ -96,7 +83,7 @@ class ActivateAccountSuccess extends React.Component<ActivateAccountSuccessProps
 						</Typography>
 					</CardContent>
 					<CardActions>
-						<Button size="small" className={classes.button} onClick={this.setRedirect}>Mergi catre pagina principala din aplicatie</Button>
+						<Button size="small" className={classes.button} onClick={() => this.props.redirect()}>Mergi catre pagina principala din aplicatie</Button>
 					</CardActions>
 				</Card>
 			</div>

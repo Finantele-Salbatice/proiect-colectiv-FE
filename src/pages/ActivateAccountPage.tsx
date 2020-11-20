@@ -1,6 +1,6 @@
 import React from 'react';
 import axios, { AxiosInstance } from 'axios';
-import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
@@ -12,9 +12,9 @@ interface MatchParams {
 	token: string;
 }
 
-export interface ActivateAccountPageProps extends RouteComponentProps<MatchParams> {}
+interface ActivateAccountPageProps extends RouteComponentProps<MatchParams> {}
 
-export interface ActivateAccountPageState {
+interface ActivateAccountPageState {
 	result: boolean;
 	isLoading: boolean;
 }
@@ -24,7 +24,6 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
 
     constructor(props: ActivateAccountPageProps) {
     	super(props);
-
     	this.state = {
     		result: true,
     		isLoading:true,
@@ -33,9 +32,11 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     	this.instance = axios.create({
     		baseURL: SNOWPACK_PUBLIC_API_URL,
     	});
+
+    	this.redirectToLogin = this.redirectToLogin.bind(this);
     }
 
-    getResult = async()  => {
+    async getResult() {
     	try {
     		const { token } = this.props.match.params;
     		await this.instance.post('/activate', {
@@ -52,8 +53,12 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     	}
     }
 
-    componentDidMount() {
-    	this.getResult();
+    async componentDidMount() {
+    	await this.getResult();
+    }
+
+    redirectToLogin() {
+    	this.props.history.push('/');
     }
 
     render() {
@@ -63,29 +68,26 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     				marginLeft:'48%', marginTop:'20%',
     			}}/>
     		);
+    	}
+    	if (this.state.result) {
+    		return (
+    			<div>
+    				<ActivateAccountSuccess
+    					{...this.state}
+    					redirect={this.redirectToLogin}
+    				></ActivateAccountSuccess>
+    			</div>
+    		);
     	} else {
-    		if (this.state.result) {
-    			return (
-    				<div>
-    					<ActivateAccountSuccess
-    						{...this.state}
-    						link='/main'
-    					></ActivateAccountSuccess>
-    				</div>
-    			);
-    		} else {
-    			return (
-    				<div>
-    					<ActivateAccountFail
-    						{...this.state}
-    						link=''
-    					></ActivateAccountFail>
-    				</div>
-    			);
-    		}
+    		return (
+    			<div>
+    				<ActivateAccountFail
+    					redirect={this.redirectToLogin}
+    				></ActivateAccountFail>
+    			</div>
+    		);
     	}
     }
-
 }
 
 export default withRouter(ActivateAccountPage);
