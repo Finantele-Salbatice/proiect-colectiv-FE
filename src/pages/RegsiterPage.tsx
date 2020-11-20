@@ -2,10 +2,11 @@ import React from 'react';
 import Register from 'src/components/login/Register';
 import axios, { AxiosInstance } from 'axios';
 import validator from 'validator';
+import type { RouteComponentProps } from 'react-router-dom';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
-export interface RegisterPageProps {}
+export interface RegisterPageProps extends RouteComponentProps {}
 
 export interface RegisterPageState {
   firstName: string;
@@ -60,6 +61,7 @@ class RegisterPage extends React.Component<
   	};
   	try {
   		await this.instance.post('/register', body);
+  		this.props.history.push('/');
   	} catch (err) {
   		console.log(err.data);
   	}
@@ -113,9 +115,8 @@ class RegisterPage extends React.Component<
   			<Register
   				{...this.state}
   				handleChange={this.handleChange}
-  				submit={this.submit}
+  				submit={() => this.submit()}
   			>
-  				{' '}
   			</Register>
   		</div>
   	);

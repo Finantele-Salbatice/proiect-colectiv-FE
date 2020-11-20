@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 
 export interface ActivateAccountSuccessProps {
     classes: any;
+    redirect(): void;
 }
 
 export interface ActivateAccountSuccessState {}
@@ -82,7 +83,9 @@ class ActivateAccountSuccess extends React.Component<ActivateAccountSuccessProps
 					<Button
 						className = {classes.button}
 						variant="contained"
-						color="primary">
+						color="primary"
+						onClick={() => this.props.redirect()}
+					>
                         Mergeti la pagina principala
 					</Button>
 				</div>
