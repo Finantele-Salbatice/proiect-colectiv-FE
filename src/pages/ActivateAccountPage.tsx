@@ -26,8 +26,8 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     	super(props);
 
     	this.state = {
-			result: true,
-			isLoading:true,
+    		result: true,
+    		isLoading:true,
     	};
 
     	this.instance = axios.create({
@@ -43,7 +43,7 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     		});
     		this.setState({
     			isLoading:false,
-			});
+    		});
     	} catch (err) {
     		this.setState({
     			result:false,
@@ -54,35 +54,36 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
 
     componentDidMount() {
     	this.getResult();
-	}
+    }
 
     render() {
-		if(this.state.isLoading) {
-			return (
-				<CircularProgress style={{marginLeft:'48%', marginTop:'20%'}}/>
-			)
-		}
-		else {
-			if (this.state.result) {
-				return (
-					<div>
-						<ActivateAccountSuccess
-							{...this.state}
-							link='/main'
-						></ActivateAccountSuccess>
-					</div>
-				);
-			} else {
-				return (
-					<div>
-						<ActivateAccountFail
-							{...this.state}
-							link=''
-						></ActivateAccountFail>
-					</div>
-				);
-			}
-		}
+    	if (this.state.isLoading) {
+    		return (
+    			<CircularProgress style={{
+    				marginLeft:'48%', marginTop:'20%',
+    			}}/>
+    		);
+    	} else {
+    		if (this.state.result) {
+    			return (
+    				<div>
+    					<ActivateAccountSuccess
+    						{...this.state}
+    						link='/main'
+    					></ActivateAccountSuccess>
+    				</div>
+    			);
+    		} else {
+    			return (
+    				<div>
+    					<ActivateAccountFail
+    						{...this.state}
+    						link=''
+    					></ActivateAccountFail>
+    				</div>
+    			);
+    		}
+    	}
     }
 
 }

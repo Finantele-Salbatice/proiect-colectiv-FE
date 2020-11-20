@@ -21,11 +21,11 @@ export interface RegisterProps {
   isEmailError: boolean;
   isPasswordError: boolean;
   isPasswordConfirmError: boolean;
-  firstNameErrorMessage:string;
-  lastNameErrorMessage:string;
-  emailErrorMessage:string;
-  passwordErrorMessage:string;
-  passwordConfirmErrorMessage:string;
+  firstNameErrorMessage: string;
+  lastNameErrorMessage: string;
+  emailErrorMessage: string;
+  passwordErrorMessage: string;
+  passwordConfirmErrorMessage: string;
   handleChange(data: any): void;
   submit(): void;
 }
@@ -37,7 +37,7 @@ const styles = createStyles({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		margintTop:'5px'
+		margintTop:'5px',
 	},
 	inputNameBox: {
 		display: 'flex',
@@ -100,8 +100,10 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   };
 
   render() {
-	  const { classes, firstName, lastName, password, email, isFirstNameError, isLastNameError, isEmailError, isPasswordError, isPasswordConfirmError,
-				firstNameErrorMessage, lastNameErrorMessage, emailErrorMessage, passwordConfirmErrorMessage, passwordErrorMessage  } = this.props;
+	  const {
+  		classes, firstName, lastName, password, email, isFirstNameError, isLastNameError, isEmailError, isPasswordError, isPasswordConfirmError,
+  		firstNameErrorMessage, lastNameErrorMessage, emailErrorMessage, passwordConfirmErrorMessage, passwordErrorMessage,
+  	} = this.props;
   	return (
   		<Container component="main" maxWidth="xs">
   			<CssBaseline />
@@ -115,10 +117,10 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   					</Typography>
   				</div>
   				<form className={classes.form} noValidate>
-					<div className={classes.row}>
-						<TextField
-							className={classes.inputName}
-							error = {isFirstNameError}  
+  					<div className={classes.row}>
+  						<TextField
+  							className={classes.inputName}
+  							error = {isFirstNameError}
   							variant="outlined"
   							margin="normal"
   							required
@@ -135,10 +137,10 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   							{firstNameErrorMessage}
   						</div>
   					</div>
-					<div className={classes.row}>
-						<TextField
+  					<div className={classes.row}>
+  						<TextField
   							className={classes.inputName}
-							error = {isLastNameError}  
+  							error = {isLastNameError}
   							variant="outlined"
   							margin="normal"
   							required
@@ -158,7 +160,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   					<div className={classes.row}>
   						<TextField
   							className={classes.inputName}
-							error = {isEmailError}  
+  							error = {isEmailError}
   							variant="outlined"
   							margin="normal"
   							required
@@ -178,7 +180,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   					<div className={classes.row}>
   						<TextField
   							className={classes.inputName}
-							error = {isPasswordError}  
+  							error = {isPasswordError}
   							variant="outlined"
   							margin="normal"
   							required
@@ -199,7 +201,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   					<div className={classes.row}>
   						<TextField
   							className={classes.inputName}
-							error = {isPasswordConfirmError}  
+  							error = {isPasswordConfirmError}
   							variant="outlined"
   							margin="normal"
   							required

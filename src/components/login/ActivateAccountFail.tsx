@@ -6,11 +6,11 @@ import { Redirect } from 'react-router-dom';
 
 export interface ActivateAccountFailProps {
 	classes: any;
-	link:string;
+	link: string;
 }
 
 export interface ActivateAccountFailState {
-	redirect:boolean;
+	redirect: boolean;
 }
 
 const styles = createStyles({
@@ -36,12 +36,12 @@ const styles = createStyles({
 			backgroundColor:'red',
 		},
 		color:'white',
-		margin:'auto'
+		margin:'auto',
 	},
 	cardBox: {
 		display:'inline-block',
 		marginTop:'100px',
-		marginLeft:'6%'
+		marginLeft:'6%',
 	},
 	welcomeCard: {
 		width:'100%',
@@ -50,23 +50,23 @@ const styles = createStyles({
 		top:'30px',
 	},
 	cardText:{
-		textAlign:'center'
-	}
+		textAlign:'center',
+	},
 });
 
 class ActivateAccountFail extends React.Component<ActivateAccountFailProps, ActivateAccountFailState> {
 	state = {
-		redirect: false
+		redirect: false,
 	}
 
 	setRedirect = () => {
 		this.setState({
-			redirect: true
-		})
+			redirect: true,
+		});
 	}
 	renderRedirect = () => {
 		if (this.state.redirect) {
-		  return <Redirect to={this.props.link}/>
+		  return <Redirect to={this.props.link}/>;
 		}
 	}
 	render() {
@@ -78,20 +78,20 @@ class ActivateAccountFail extends React.Component<ActivateAccountFailProps, Acti
 					className = {classes.welcomeCard}
 				>
 					<CardContent>
-					<Icon className={classes.iconRow}>
-						<ThumbDownAltOutlinedIcon
-						className = {classes.icon}
-					/></Icon>
-					<Typography variant="h5" component="h2">
+						<Icon className={classes.iconRow}>
+							<ThumbDownAltOutlinedIcon
+								className = {classes.icon}
+							/></Icon>
+						<Typography variant="h5" component="h2">
 					Din pacate, contul dumneavoastra nu a putut fi activat !
-					</Typography>
-					<Typography variant="body2" component="p" className={classes.cardText}>
-						<br />
+						</Typography>
+						<Typography variant="body2" component="p" className={classes.cardText}>
+							<br />
 						Ne cerem scuze pentru incovenienta !
-						<br />
-						<br />
+							<br />
+							<br />
 						Va multumim pentru intelegere !
-					</Typography>
+						</Typography>
 					</CardContent>
 					<CardActions>
 						<Button size="small" className={classes.button} onClick={this.setRedirect}>Mergi catre pagina principala</Button>
