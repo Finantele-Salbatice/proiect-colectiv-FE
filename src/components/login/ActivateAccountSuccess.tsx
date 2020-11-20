@@ -83,7 +83,9 @@ class ActivateAccountSuccess extends React.Component<ActivateAccountSuccessProps
 					<Button
 						className = {classes.button}
 						variant="contained"
-						color="primary">
+						color="primary"
+						onClick={() => this.props.redirect()}
+					>
                         Mergeti la pagina principala
 					</Button>
 				</div>

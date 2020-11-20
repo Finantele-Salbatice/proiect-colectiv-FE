@@ -11,9 +11,9 @@ interface MatchParams {
     token: string;
 }
 
-export interface ActivateAccountPageProps extends RouteComponentProps<MatchParams> {}
+interface ActivateAccountPageProps extends RouteComponentProps<MatchParams> {}
 
-export interface ActivateAccountPageState {
+interface ActivateAccountPageState {
     result: boolean;
 }
 
@@ -22,7 +22,6 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
 
     constructor(props: ActivateAccountPageProps) {
     	super(props);
-
     	this.state = {
     		result: true,
     	};
@@ -30,9 +29,11 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     	this.instance = axios.create({
     		baseURL: SNOWPACK_PUBLIC_API_URL,
     	});
+
+    	this.redirectToLogin = this.redirectToLogin.bind(this);
     }
 
-    getResult = async()  => {
+    async getResult() {
     	try {
     		const { token } = this.props.match.params;
     		await this.instance.post('/activate', {
@@ -45,8 +46,8 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     	}
     }
 
-    componentDidMount() {
-    	this.getResult();
+    async componentDidMount() {
+    	await this.getResult();
     }
 
     redirectToLogin() {
