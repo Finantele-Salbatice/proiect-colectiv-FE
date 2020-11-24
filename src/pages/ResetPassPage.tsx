@@ -16,7 +16,7 @@ class ResetPassPage extends React.Component<
 	ResetPassPageProps,
 	ResetPassPageState
 > {
-	private service : ServiceApi;
+	private service: ServiceApi;
 
 	constructor(props: ResetPassPageProps) {
 		super(props);

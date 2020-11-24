@@ -13,7 +13,7 @@ interface LoginPageState {
 }
 
 class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
-	private service : ServiceApi;
+	private service: ServiceApi;
 	constructor(props: LoginPageProps) {
 		super(props);
 		this.state = {

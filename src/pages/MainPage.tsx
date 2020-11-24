@@ -32,7 +32,7 @@ const styles = createStyles({
 		position:'relative',
 		left:'170px',
 		top:'40px',
-		verticalAlign: 'center'
+		verticalAlign: 'center',
 	},
 	welcomeCardIcon : {
 		width:'40px',
@@ -45,7 +45,7 @@ const styles = createStyles({
 	},
 });
 class MainPage extends React.Component<MainPageProps, MainPageState> {
-	private service : ServiceApi;
+	private service: ServiceApi;
 	constructor(props: MainPageProps) {
 		super(props);
 		this.service = new ServiceApi();
@@ -67,7 +67,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			labels: ['Cont1','Cont2','Cont2','Cont3','Cont4'],
 			datasets: [{
 				data: [300, 50, 100,98,74],
-			}]
+			}],
 		};
 		return data;
 	}

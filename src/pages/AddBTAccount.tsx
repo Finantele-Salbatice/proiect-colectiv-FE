@@ -14,7 +14,7 @@ interface ActivateAccountPageState {
 }
 
 class AddBTAccount extends React.Component<ActivateAccountPageProps, ActivateAccountPageState> {
-	private service : ServiceApi;
+	private service: ServiceApi;
 	constructor(props: ActivateAccountPageProps) {
 		super(props);
 		this.state = {

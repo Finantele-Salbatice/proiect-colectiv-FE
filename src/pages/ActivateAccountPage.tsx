@@ -15,8 +15,8 @@ interface ActivateAccountPageState {
 }
 
 class ActivateAccountPage extends React.Component<ActivateAccountPageProps, ActivateAccountPageState> {
-	private service : ServiceApi;
-    constructor(props: ActivateAccountPageProps) {
+	private service: ServiceApi;
+	constructor(props: ActivateAccountPageProps) {
     	super(props);
     	this.state = {
     		result: true,
@@ -24,9 +24,9 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
 
 		this.service = new ServiceApi();
     	this.redirectToLogin = this.redirectToLogin.bind(this);
-    }
+	}
 
-    async getResult() {
+	async getResult() {
     	try {
     		const { token } = this.props.match.params;
     		await this.service.activateAccountRequest(token);
@@ -35,17 +35,17 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     			result:false,
     		});
     	}
-    }
+	}
 
-    async componentDidMount() {
+	async componentDidMount() {
     	await this.getResult();
-    }
+	}
 
-    redirectToLogin() {
+	redirectToLogin() {
     	this.props.history.push('/');
-    }
+	}
 
-    render() {
+	render() {
     	if (this.state.result) {
     		return (
     			<div>
@@ -63,7 +63,7 @@ class ActivateAccountPage extends React.Component<ActivateAccountPageProps, Acti
     			</div>
     		);
     	}
-    }
+	}
 
 }
 

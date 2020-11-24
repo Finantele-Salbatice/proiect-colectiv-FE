@@ -19,9 +19,9 @@ class RegisterPage extends React.Component<
   RegisterPageProps,
   RegisterPageState
 > {
-  private service : ServiceApi;
+  private service: ServiceApi;
   constructor(props: RegisterPageProps) {
-	super(props);
+  	super(props);
   	this.state = {
   		firstName: '',
   		lastName: '',
@@ -36,8 +36,8 @@ class RegisterPage extends React.Component<
   			passwordConfirmError: '',
   		},
   	};
-	
-	this.service = new ServiceApi();
+
+  	this.service = new ServiceApi();
   }
 
   handleChange = (data: any) => {
@@ -55,7 +55,7 @@ class RegisterPage extends React.Component<
   		email: this.state.email,
   	};
   	try {
-		await this.service.registerRequest(body);
+  		await this.service.registerRequest(body);
   		this.props.history.push('/');
   	} catch (err) {
   		console.log(err.data);

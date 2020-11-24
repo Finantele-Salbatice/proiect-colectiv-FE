@@ -18,7 +18,7 @@ interface ChangePassPageState {
 }
 
 class ChangePassPage extends React.Component<ChangePassPageProps, ChangePassPageState> {
-	private service : ServiceApi;
+	private service: ServiceApi;
 
 	constructor(props: ChangePassPageProps) {
 		super(props);

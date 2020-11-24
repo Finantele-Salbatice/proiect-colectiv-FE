@@ -3,48 +3,48 @@ import axios, { AxiosInstance } from 'axios';
 const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
 
 class ServiceApi {
-    private instance : AxiosInstance;
-    private authInstance : AxiosInstance;
+    private instance: AxiosInstance;
+    private authInstance: AxiosInstance;
     constructor() {
-        this.instance = axios.create({
-            baseURL: SNOWPACK_PUBLIC_API_URL,
-        });
+    	this.instance = axios.create({
+    		baseURL: SNOWPACK_PUBLIC_API_URL,
+    	});
 
-		this.authInstance = axios.create({
-			baseURL: SNOWPACK_PUBLIC_API_URL,
-			headers: {
-				Authorization: `Bearer ${localStorage.getItem('token')}`,
-			},
-		});
-    }
-    
-    async loginRequest(body : any){
-        return await this.instance.post('/login', body);
+    	this.authInstance = axios.create({
+    		baseURL: SNOWPACK_PUBLIC_API_URL,
+    		headers: {
+    			Authorization: `Bearer ${localStorage.getItem('token')}`,
+    		},
+    	});
     }
 
-    async registerRequest(body : any){
-        return await this.instance.post('/register', body);
+    async loginRequest(body: any) {
+    	return await this.instance.post('/login', body);
     }
 
-    async activateAccountRequest(token : string){
-        return await this.instance.post('/activate', {
-            token,
-        });
-    }
-    async resetRequest(body : any){
-        return await this.instance.post('/reset', body);
+    async registerRequest(body: any) {
+    	return await this.instance.post('/register', body);
     }
 
-    async changeRequest(body : any){
-        return await this.instance.post('/updatePassword', body);
+    async activateAccountRequest(token: string) {
+    	return await this.instance.post('/activate', {
+    		token,
+    	});
+    }
+    async resetRequest(body: any) {
+    	return await this.instance.post('/reset', body);
     }
 
-    async addBTAccountRequest(body : any){
-        return await this.instance.post('/account/btcallback', body);
+    async changeRequest(body: any) {
+    	return await this.instance.post('/updatePassword', body);
     }
 
-    async addAccount(body : any) : Promise<any>{
-        await this.authInstance.post('/account/add',body);
+    async addBTAccountRequest(body: any) {
+    	return await this.instance.post('/account/btcallback', body);
+    }
+
+    async addAccount(body: any): Promise<any> {
+    	await this.authInstance.post('/account/add',body);
     }
 }
 export default ServiceApi;
