@@ -1,11 +1,8 @@
-import axios, { AxiosInstance } from 'axios';
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import ChangePass from 'src/components/login/ChangePass';
 import validator from 'validator';
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
+import ServiceApi from 'src/remote/ServiceApi';
 
 interface RouteParams {
 	token: string;
@@ -21,11 +18,11 @@ interface ChangePassPageState {
 }
 
 class ChangePassPage extends React.Component<ChangePassPageProps, ChangePassPageState> {
-	instance: AxiosInstance;
+	private service : ServiceApi;
 
 	constructor(props: ChangePassPageProps) {
 		super(props);
-
+		this.service = new ServiceApi();
 		this.state = {
 			newpass: '',
 			confnewpass: '',
@@ -33,10 +30,6 @@ class ChangePassPage extends React.Component<ChangePassPageProps, ChangePassPage
 			isError: false,
 			errMessage: '',
 		};
-
-		this.instance = axios.create({
-			baseURL: SNOWPACK_PUBLIC_API_URL,
-		});
 	}
 
 	handleChange = (data: any) => {
@@ -84,7 +77,7 @@ class ChangePassPage extends React.Component<ChangePassPageProps, ChangePassPage
 			password: this.state.newpass,
 		};
 		try {
-			await this.instance.post('/updatePassword', body);
+			await this.service.changeRequest(body);
 			this.setState({
 				isError: false,
 				errMessage: '',

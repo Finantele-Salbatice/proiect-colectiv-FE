@@ -1,11 +1,8 @@
 import React from 'react';
-import axios, { AxiosInstance } from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
 import ActivateAccountSuccess from 'src/components/login/ActivateAccountSuccess';
 import ActivateAccountFail from 'src/components/login/ActivateAccountFail';
+import ServiceApi from 'src/remote/ServiceApi';
 
 interface MatchParams {
     token: string;
@@ -18,27 +15,21 @@ interface ActivateAccountPageState {
 }
 
 class ActivateAccountPage extends React.Component<ActivateAccountPageProps, ActivateAccountPageState> {
-    instance: AxiosInstance;
-
+	private service : ServiceApi;
     constructor(props: ActivateAccountPageProps) {
     	super(props);
     	this.state = {
     		result: true,
     	};
 
-    	this.instance = axios.create({
-    		baseURL: SNOWPACK_PUBLIC_API_URL,
-    	});
-
+		this.service = new ServiceApi();
     	this.redirectToLogin = this.redirectToLogin.bind(this);
     }
 
     async getResult() {
     	try {
     		const { token } = this.props.match.params;
-    		await this.instance.post('/activate', {
-    			token,
-    		});
+    		await this.service.activateAccountRequest(token);
     	} catch (err) {
     		this.setState({
     			result:false,

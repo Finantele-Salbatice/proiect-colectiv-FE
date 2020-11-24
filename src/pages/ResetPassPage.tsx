@@ -1,11 +1,8 @@
-import axios, { AxiosInstance } from 'axios';
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import ResetPass from 'src/components/login/ResetPass';
 import validator from 'validator';
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
+import ServiceApi from 'src/remote/ServiceApi';
 
 interface ResetPassPageProps extends RouteComponentProps {}
 
@@ -19,20 +16,16 @@ class ResetPassPage extends React.Component<
 	ResetPassPageProps,
 	ResetPassPageState
 > {
-	instance: AxiosInstance;
+	private service : ServiceApi;
 
 	constructor(props: ResetPassPageProps) {
 		super(props);
-
 		this.state = {
 			email: '',
 			isError: false,
 			errMessage: '',
 		};
-
-		this.instance = axios.create({
-			baseURL: SNOWPACK_PUBLIC_API_URL,
-		});
+		this.service = new ServiceApi();
 	}
 
 	handleChange = (data: any) => {
@@ -63,7 +56,7 @@ class ResetPassPage extends React.Component<
 			email: this.state.email,
 		};
 		try {
-			await this.instance.post('/reset', body);
+			await this.service.resetRequest(body);
 			this.setState({
 				isError: false,
 				errMessage: '',
