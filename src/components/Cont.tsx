@@ -1,6 +1,5 @@
-import { Card, CardContent, CardMedia, createStyles, Typography, withStyles } from '@material-ui/core';
+import { Card, CardContent, createStyles, Typography, withStyles } from '@material-ui/core';
 import * as React from 'react';
-import { Component } from 'react';
 
 export interface ContProps {
     sold: number;
