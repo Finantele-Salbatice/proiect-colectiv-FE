@@ -19,32 +19,32 @@ class ServiceApi {
     }
 
     async loginRequest(body: any) {
-    	return await this.instance.post('/login', body);
+    	return this.instance.post('/login', body);
     }
 
     async registerRequest(body: any) {
-    	return await this.instance.post('/register', body);
+    	return this.instance.post('/register', body);
     }
 
     async activateAccountRequest(token: string) {
-    	return await this.instance.post('/activate', {
+    	return this.instance.post('/activate', {
     		token,
     	});
     }
     async resetRequest(body: any) {
-    	return await this.instance.post('/reset', body);
+    	return this.instance.post('/reset', body);
     }
 
     async changeRequest(body: any) {
-    	return await this.instance.post('/updatePassword', body);
+    	return this.instance.post('/updatePassword', body);
     }
 
     async addBTAccountRequest(body: any) {
-    	return await this.instance.post('/account/btcallback', body);
+    	return this.instance.post('/account/btcallback', body);
     }
 
     async addAccount(body: any): Promise<any> {
-    	await this.authInstance.post('/account/add',body);
+    	return this.authInstance.post('/account/add',body);
     }
 }
 export default ServiceApi;
