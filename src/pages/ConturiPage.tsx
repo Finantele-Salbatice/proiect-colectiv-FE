@@ -1,10 +1,8 @@
-import { Button, Card, CardContent, createStyles, Icon, Typography } from '@material-ui/core';
+import { createStyles } from '@material-ui/core';
 import * as React from 'react';
-import { Component } from 'react';
 import MyAppBar from 'src/components/AppBar';
 import NavBar from 'src/components/NavBar';
 import Cont from 'src/components/Cont';
-import classes from '*.module.css';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 export interface ConturiPageProps {

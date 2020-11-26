@@ -168,7 +168,7 @@ class RegisterPage extends React.Component<
   		};
   		try {
   			//console.log(body);
-  			await this.instance.post('/register', body);
+  			await this.service.registerRequest(body);
   			this.setState({
   				firstName:'',
   				lastName:'',

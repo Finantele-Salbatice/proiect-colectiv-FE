@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegsiterPage';
+import RegisterPage from './pages/RegisterPage';
 import ActivateAccountPage from './pages/ActivateAccountPage';
 import ResetPassPage from './pages/ResetPassPage';
 import ChangePassPage from './pages/ChangePassPage';
