@@ -1,11 +1,9 @@
 import React from 'react';
 import Register from 'src/components/login/Register';
-import axios, { AxiosInstance } from 'axios';
 import validator from 'validator';
 import type { RouteComponentProps } from 'react-router-dom';
+import ServiceApi from 'src/remote/ServiceApi';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
 export interface RegisterPageProps extends RouteComponentProps {}
 
 export interface RegisterPageState {
@@ -30,8 +28,7 @@ class RegisterPage extends React.Component<
   RegisterPageProps,
   RegisterPageState
 > {
-  instance: AxiosInstance;
-
+  private service: ServiceApi;
   constructor(props: RegisterPageProps) {
   	super(props);
   	this.state = {
@@ -52,9 +49,7 @@ class RegisterPage extends React.Component<
   		passwordConfirmErrorMessage:'',
   	};
 
-  	this.instance = axios.create({
-  		baseURL: SNOWPACK_PUBLIC_API_URL,
-  	});
+  	this.service = new ServiceApi();
   }
 
   handleChange = (data: any) => {
@@ -72,7 +67,7 @@ class RegisterPage extends React.Component<
   		email: this.state.email,
   	};
   	try {
-  		await this.instance.post('/register', body);
+  		await this.service.registerRequest(body);
   		this.props.history.push('/');
   	} catch (err) {
   		console.log(err.data);

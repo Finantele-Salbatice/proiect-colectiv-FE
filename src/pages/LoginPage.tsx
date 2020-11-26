@@ -1,10 +1,7 @@
 import * as React from 'react';
 import Login from 'src/components/login/Login';
-import axios, { AxiosInstance } from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
+import ServiceApi from 'src/remote/ServiceApi';
 
 interface LoginPageProps extends RouteComponentProps {}
 
@@ -16,7 +13,7 @@ interface LoginPageState {
 }
 
 class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
-	instance: AxiosInstance;
+	private service: ServiceApi;
 	constructor(props: LoginPageProps) {
 		super(props);
 		this.state = {
@@ -25,9 +22,7 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 			isError: false,
 			errorMessage: 'Parola nu este corecta.',
 		};
-		this.instance = axios.create({
-			baseURL: SNOWPACK_PUBLIC_API_URL,
-		});
+		this.service = new ServiceApi();
 	}
 
 	handleChange = (data: any) => {
@@ -45,7 +40,7 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 
 	submit = async() => {
 		try {
-			const result = await this.instance.post('/login', this.state);
+			const result = await this.service.loginRequest(this.state);
 			const token = result.data;
 			localStorage.setItem('token', token);
 			this.props.history.push('/main');

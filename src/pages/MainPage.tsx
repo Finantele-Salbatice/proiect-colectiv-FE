@@ -1,12 +1,10 @@
 import { Card, CardContent, createStyles, Icon, Typography, withStyles ,Button } from '@material-ui/core';
 import * as React from 'react';
-import axios, { AxiosInstance } from 'axios';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import NavBar from 'src/components/NavBar';
 import MyAppBar from 'src/components/AppBar';
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
+import PieChartComponent from 'src/components/PieChart';
+import ServiceApi from 'src/remote/ServiceApi';
 
 export interface MainPageProps {
   classes: any;
@@ -29,39 +27,54 @@ const styles = createStyles({
 		left:'170px',
 		top:'30px',
 	},
+	pieCard : {
+		width:'100%',
+		position:'relative',
+		left:'170px',
+		top:'40px',
+		verticalAlign: 'center',
+	},
 	welcomeCardIcon : {
 		width:'40px',
 		height:'40px',
 	},
 	button:{
-		marginLeft:'1340px',
+		//marginLeft:'1340px',
+		marginLeft:'1100px',
 		//zIndex:1,
 	},
 });
 class MainPage extends React.Component<MainPageProps, MainPageState> {
-	instance: AxiosInstance;
+	private service: ServiceApi;
 	constructor(props: MainPageProps) {
 		super(props);
-		this.instance = axios.create({
-			baseURL: SNOWPACK_PUBLIC_API_URL,
-			headers: {
-				Authorization: `Bearer ${localStorage.getItem('token')}`,
-			},
-		});
+		this.service = new ServiceApi();
 	}
 	adaugaCont = async(bank: string)=>{
 		try {
 			const data = {
 				bank:bank,
 			};
-			const result = await this.instance.post('/account/add',data);
+			const result = await this.service.addAccount(data);
 			const link = result.data;
 			window.location.replace(link);
 		} catch {
 		}
 	}
+
+	getSolds = () => {
+		const data = {
+			labels: ['Cont1','Cont2','Cont2','Cont3','Cont4'],
+			datasets: [{
+				data: [300, 50, 100,98,74],
+			}],
+		};
+		return data;
+	}
+
 	render() {
 		const { classes } = this.props;
+		const data = this.getSolds();
 		return (
 			<div className = {classes.conatiner}>
 				<div>
@@ -89,6 +102,11 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 								<br />
 							Va multumim ca aveti incredere sa folositi aplicatia noastra !
 							</Typography>
+						</CardContent>
+					</Card>
+					<Card className = {classes.pieCard}>
+						<CardContent>
+							<PieChartComponent data = {data}/>
 						</CardContent>
 					</Card>
 				</div>

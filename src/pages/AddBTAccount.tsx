@@ -1,9 +1,7 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { parse } from 'qs';
-import axios, { AxiosInstance } from 'axios';
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
+import ServiceApi from 'src/remote/ServiceApi';
 
 interface MatchParams {
 	id: string;
@@ -16,19 +14,17 @@ interface ActivateAccountPageState {
 }
 
 class AddBTAccount extends React.Component<ActivateAccountPageProps, ActivateAccountPageState> {
-	instance: AxiosInstance;
+	private service: ServiceApi;
 	constructor(props: ActivateAccountPageProps) {
 		super(props);
 		this.state = {
 			redirect: false,
 		};
-		this.instance = axios.create({
-			baseURL: SNOWPACK_PUBLIC_API_URL,
-		});
+		this.service = new ServiceApi();
 	}
 
 	async callback(params: any) {
-		await this.instance.post('/account/btcallback', params);
+		await this.service.addBTAccountRequest(params);
 		this.props.history.push('/main');
 	}
 
