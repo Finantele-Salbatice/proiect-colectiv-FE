@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { createStyles, withStyles } from '@material-ui/core/styles';
 import DoneOutlineOutlinedIcon from '@material-ui/icons/DoneOutlineOutlined';
-import { Button } from '@material-ui/core';
+import { Button, CardActions } from '@material-ui/core';
+import { Card, CardContent, Typography, Icon } from '@material-ui/core';
 
 export interface ActivateAccountSuccessProps {
     classes: any;
     redirect(): void;
 }
 
-export interface ActivateAccountSuccessState {}
+export interface ActivateAccountSuccessState {
+	redirect: boolean;
+}
 
 const styles = createStyles({
 	icon : {
@@ -17,35 +20,9 @@ const styles = createStyles({
 		width:'auto',
 		marginBottom:'10px',
 	},
-	mainBox : {
-		position:'relative',
-		marginLeft:'33%',
-		marginTop:'100px',
-		display:'inline-flex',
-		flexDirection:'column',
-		padding:'40px',
-		paddingTop:'25px',
-		border:'1px solid grey',
-		borderRadius:'5px',
-		backgroundColor:'#ffffcc',
-		boxShadow:'5px 10px 8px #888888',
-	},
-	text : {
-		margin:'auto',
-		marginTop:'30px',
-	},
 	iconRow : {
 		borderBottom:'1px solid grey',
-		textAlign:'center',
-	},
-	textRow1 : {
-		margin:'auto',
-		textAlign:'center',
-	},
-	textRow2 : {
-		margin:'auto',
-		marginTop:'20px',
-		textAlign:'center',
+		marginLeft:'46%',
 	},
 	buttonRow : {
 		textAlign:'center',
@@ -58,37 +35,57 @@ const styles = createStyles({
 		'&:hover' : {
 			backgroundColor:'green',
 		},
+		color:'white',
+		margin:'auto',
+	},
+	cardBox: {
+		display:'inline-block',
+		marginTop:'100px',
+		marginLeft:'6%',
+	},
+	welcomeCard: {
+		width:'100%',
+		position:'relative',
+		left:'170px',
+		top:'30px',
+	},
+	cardText:{
+		textAlign:'center',
 	},
 });
 
 class ActivateAccountSuccess extends React.Component<ActivateAccountSuccessProps, ActivateAccountSuccessState> {
+
+	state = {
+		redirect: false,
+	}
 	render() {
 		const { classes } = this.props;
 		return (
-			<div className = {classes.mainBox}>
-				<div className = {classes.iconRow}>
-					<DoneOutlineOutlinedIcon
-						className = {classes.icon}
-					/>
-				</div>
-				<div className = {classes.text}>
-					<p className = {classes.textRow1}>
-                        Contul dumneavoastra a fost activat cu succes !
-					</p>
-					<p className = {classes.textRow2}>
-                          Bine ati venit in jungla Finantele Salbatice !
-					</p>
-				</div>
-				<div className = {classes.buttonRow}>
-					<Button
-						className = {classes.button}
-						variant="contained"
-						color="primary"
-						onClick={() => this.props.redirect()}
-					>
-                        Mergeti la pagina principala
-					</Button>
-				</div>
+			<div className = {classes.cardBox}>
+				<Card
+					className = {classes.welcomeCard}
+				>
+					<CardContent>
+						<Icon className={classes.iconRow}>
+							<DoneOutlineOutlinedIcon
+								className = {classes.icon}
+							/></Icon>
+						<Typography variant="h5" component="h2">
+					Felicitari, contul dumneavoastra a fost activat cu succes !
+						</Typography>
+						<Typography variant="body2" component="p" className={classes.cardText}>
+							<br />
+						Bun venit in jungla finantele salbatice !
+							<br />
+							<br />
+						Va multumim ca aveti incredere sa folositi aplicatia noastra !
+						</Typography>
+					</CardContent>
+					<CardActions>
+						<Button size="small" className={classes.button} onClick={() => this.props.redirect()}>Mergi catre pagina principala din aplicatie</Button>
+					</CardActions>
+				</Card>
 			</div>
 		);
 	}
