@@ -12,7 +12,16 @@ export interface RegisterPageState {
   password: string;
   email: string;
   passwordConfirm: string;
-  errors: any;
+  isFirstNameError: boolean;
+  isLastNameError: boolean;
+  isEmailError: boolean;
+  isPasswordError: boolean;
+  isPasswordConfirmError: boolean;
+  firstNameErrorMessage: string;
+  lastNameErrorMessage: string;
+  emailErrorMessage: string;
+  passwordErrorMessage: string;
+  passwordConfirmErrorMessage: string;
 }
 
 class RegisterPage extends React.Component<
@@ -28,13 +37,16 @@ class RegisterPage extends React.Component<
   		email: '',
   		password: '',
   		passwordConfirm: '',
-  		errors: {
-  			firstNameError: '',
-  			lastNameError: '',
-  			emailError: '',
-  			passwordError: '',
-  			passwordConfirmError: '',
-  		},
+  		isFirstNameError: false,
+  		isLastNameError: false,
+  		isEmailError: false,
+  		isPasswordError: false,
+  		isPasswordConfirmError: false,
+  		firstNameErrorMessage:'',
+  		lastNameErrorMessage:'',
+  		emailErrorMessage:'',
+  		passwordErrorMessage:'',
+  		passwordConfirmErrorMessage:'',
   	};
 
   	this.service = new ServiceApi();
@@ -62,46 +74,112 @@ class RegisterPage extends React.Component<
   	}
   };
 
-  validate = () => {
+  validate = async() => {
   	let val = true;
 
-  	const firstNames = this.state.firstName.trim();
-
-  	if (!validator.isAlpha(firstNames)) {
-  		this.state.errors.firstNameError = 'First name is invalid';
+  	if (this.state.firstName.length === 0) {
+  		this.setState({
+  			isFirstNameError:true,
+  			firstNameErrorMessage: 'Va rog introduceti un nume',
+  		});
+  		val = false;
+  	} else if (!this.state.firstName.match(/^[a-zA-Z]+$/)) {
+  		this.setState({
+  			isFirstNameError:true,
+  			firstNameErrorMessage: 'Numele trebuie sa contina doar litere',
+  		});
   		val = false;
   	} else {
-  		this.state.errors.firstNameError = '';
+  		this.setState({
+  			isFirstNameError:false,
+  			firstNameErrorMessage: '',
+  		});
   	}
 
-  	if (!validator.isAlpha(this.state.lastName)) {
-  		this.state.errors.lastNameError = 'Last name invalid';
+  	if (this.state.lastName.length === 0) {
+  		this.setState({
+  			isLastNameError:true,
+  			lastNameErrorMessage: 'Va rog introduceti un prenume',
+  		});
+  		val = false;
+  	} else if (!this.state.lastName.match(/^[a-zA-Z]+$/)) {
+  		this.setState({
+  			isLastNameError:true,
+  			lastNameErrorMessage: 'Prenumele trebuie sa contina doar litere',
+  		});
   		val = false;
   	} else {
-  		this.state.errors.lastNameError = '';
+  		this.setState({
+  			isLastNameError:false,
+  			lastNameErrorMessage: '',
+  		});
   	}
 
-  	if (!validator.isEmail(this.state.email)) {
-  		this.state.errors.emailError = 'E-mail invalid';
+  	if (this.state.email.length === 0) {
+  		this.setState({
+  			isEmailError: true,
+  			emailErrorMessage: 'Va rog introduceti un email',
+  		});
+  		val = false;
+  	} else if (!validator.isEmail(this.state.email)) {
+  		this.setState({
+  			isEmailError:true,
+  			emailErrorMessage: 'Email-ul este invalid',
+  		});
+  		val = false;
+	  } else {
+  		this.setState({
+  			isEmailError:false,
+  			emailErrorMessage: '',
+  		});
+  	}
+
+  	if (this.state.password.length < 5) {
+  		this.setState({
+  			isPasswordError:true,
+  			passwordErrorMessage: 'Parola trebuie sa contina cel putin 5 caractere',
+  		});
   		val = false;
   	} else {
-  		this.state.errors.emailError = '';
+  		if (this.state.password !== this.state.passwordConfirm) {
+  			this.setState({
+  				isPasswordError:true,
+  				isPasswordConfirmError:true,
+  				passwordErrorMessage: 'Parolele nu sunt identice',
+  				passwordConfirmErrorMessage: 'Parolele nu sunt identice',
+  			});
+  			val = false;
+  		} else {
+  			this.setState({
+  				isPasswordError:false,
+  				isPasswordConfirmError:false,
+  				passwordErrorMessage: '',
+  				passwordConfirmErrorMessage: '',
+  			});
+  		}
   	}
 
-  	if (
-  		this.state.password.length === 0 ||
-      this.state.passwordConfirm.length === 0 ||
-      this.state.password !== this.state.passwordConfirm
-  	) {
-  		this.state.errors.passwordError = 'Passwords must be  identical';
-  		this.state.errors.passwordConfirmError = 'Passwords must be identical';
-  		val = false;
-  	} else {
-  		this.state.errors.passwordError = '';
-  		this.state.errors.passwordConfirmError = '';
-  	}
-
-  	return val;
+  	if (val) {
+  		const body = {
+  			first_name: this.state.firstName,
+  			last_name: this.state.lastName,
+  			password: this.state.password,
+  			email: this.state.email,
+  		};
+  		try {
+  			//console.log(body);
+  			await this.instance.post('/register', body);
+  			this.setState({
+  				firstName:'',
+  				lastName:'',
+  				email:'',
+  				password:'',
+  				passwordConfirm:'',
+  			});
+  		} catch (err) {
+  			//console.log(err.data);
+  		}
+	  }
   };
 
   render() {

@@ -16,6 +16,16 @@ export interface RegisterProps {
   password: string;
   email: string;
   passwordConfirm: string;
+  isFirstNameError: boolean;
+  isLastNameError: boolean;
+  isEmailError: boolean;
+  isPasswordError: boolean;
+  isPasswordConfirmError: boolean;
+  firstNameErrorMessage: string;
+  lastNameErrorMessage: string;
+  emailErrorMessage: string;
+  passwordErrorMessage: string;
+  passwordConfirmErrorMessage: string;
   handleChange(data: any): void;
   submit(): void;
 }
@@ -27,6 +37,7 @@ const styles = createStyles({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
+		margintTop:'5px',
 	},
 	inputNameBox: {
 		display: 'flex',
@@ -35,7 +46,6 @@ const styles = createStyles({
 	},
 	inputName: {
 		marginBottom: '0px',
-		overflow: 'hidden',
 	},
 	form: {
 		width: '100%', // Fix IE 11 issue.
@@ -56,11 +66,12 @@ const styles = createStyles({
 	},
 	titleBox: {
 		display: 'flex',
-		flexDirection: 'row',
+		flexDirection: 'column',
 		alignItems: 'center',
 	},
 	icon: {
 		marginRight: '5px',
+		marginBottom : '5px',
 	},
 	inputAndErrorBlock: {
 		display: 'inline-block',
@@ -74,8 +85,6 @@ const styles = createStyles({
 	},
 	button: {
 		marginTop: '5px',
-		backgroundColor: 'green',
-		color: '#ffffcc',
 	},
 	main: {
 		backgroundColor: 'yellow',
@@ -83,13 +92,6 @@ const styles = createStyles({
 });
 
 class Register extends React.Component<RegisterProps, RegisterState> {
-  errors = {
-  	firstNameError: '',
-  	lastNameError: '',
-  	emailError: '',
-  	passwordError: '',
-  	passwordConfirmError: '',
-  };
 
   handleData = (type: any) => (event: any) => {
   	this.props.handleChange({
@@ -98,7 +100,10 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   };
 
   render() {
-  	const { classes, firstName, lastName, password, email } = this.props;
+	  const {
+  		classes, firstName, lastName, password, email, isFirstNameError, isLastNameError, isEmailError, isPasswordError, isPasswordConfirmError,
+  		firstNameErrorMessage, lastNameErrorMessage, emailErrorMessage, passwordConfirmErrorMessage, passwordErrorMessage,
+  	} = this.props;
   	return (
   		<Container component="main" maxWidth="xs">
   			<CssBaseline />
@@ -113,55 +118,50 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   				</div>
   				<form className={classes.form} noValidate>
   					<div className={classes.row}>
-  						<div className={classes.inputNameBox}>
-  							<div className={classes.inputNameColumn}>
-  								<div className={classes.inputAndErrorBlock}>
-  									<TextField
-  										className={classes.inputName}
-  										variant="filled"
-  										margin="normal"
-  										required
-  										fullWidth
-  										id="firstName"
-  										label="First Name"
-  										name="firstName"
-  										autoComplete="firstName"
-  										autoFocus
-  										value={firstName}
-  										onChange={this.handleData('firstName')}
-  									/>
-  									<div className={classes.errorMessage}>
-  										{this.errors.firstNameError}
-  									</div>
-  								</div>
-  							</div>
-  							<div className={classes.inputNameColumn}>
-  								<div className={classes.inputAndErrorBlock}>
-  									<TextField
-  										className={classes.inputName}
-  										variant="filled"
-  										margin="normal"
-  										required
-  										fullWidth
-  										id="lastName"
-  										label="Last Name"
-  										name="lastName"
-  										autoComplete="lastName"
-  										autoFocus
-  										value={lastName}
-  										onChange={this.handleData('lastName')}
-  									/>
-  									<div className={classes.errorMessage}>
-  										{this.errors.lastNameError}
-  									</div>
-  								</div>
-  							</div>
+  						<TextField
+  							className={classes.inputName}
+  							error = {isFirstNameError}
+  							variant="outlined"
+  							margin="normal"
+  							required
+  							fullWidth
+  							id="firstName"
+  							label="First Name"
+  							name="firstName"
+  							autoComplete="firstName"
+  							autoFocus
+  							value={firstName}
+  							onChange={this.handleData('firstName')}
+  						/>
+  						<div className={classes.errorMessage}>
+  							{firstNameErrorMessage}
   						</div>
   					</div>
   					<div className={classes.row}>
   						<TextField
   							className={classes.inputName}
-  							variant="filled"
+  							error = {isLastNameError}
+  							variant="outlined"
+  							margin="normal"
+  							required
+  							fullWidth
+  							id="lastName"
+  							label="Last Name"
+  							name="lastName"
+  							autoComplete="lastName"
+  							autoFocus
+  							value={lastName}
+  							onChange={this.handleData('lastName')}
+  						/>
+  						<div className={classes.errorMessage}>
+  							{lastNameErrorMessage}
+  						</div>
+  					</div>
+  					<div className={classes.row}>
+  						<TextField
+  							className={classes.inputName}
+  							error = {isEmailError}
+  							variant="outlined"
   							margin="normal"
   							required
   							fullWidth
@@ -174,13 +174,14 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   							onChange={this.handleData('email')}
   						/>
   						<div className={classes.errorMessage}>
-  							{this.errors.emailError}
+  							{emailErrorMessage}
   						</div>
   					</div>
   					<div className={classes.row}>
   						<TextField
   							className={classes.inputName}
-  							variant="filled"
+  							error = {isPasswordError}
+  							variant="outlined"
   							margin="normal"
   							required
   							fullWidth
@@ -194,13 +195,14 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   							onChange={this.handleData('password')}
   						/>
   						<div className={classes.errorMessage}>
-  							{this.errors.passwordError}
+  							{passwordErrorMessage}
   						</div>
   					</div>
   					<div className={classes.row}>
   						<TextField
   							className={classes.inputName}
-  							variant="filled"
+  							error = {isPasswordConfirmError}
+  							variant="outlined"
   							margin="normal"
   							required
   							fullWidth
@@ -214,14 +216,14 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   							onChange={this.handleData('passwordConfirm')}
   						/>
   						<div className={classes.errorMessage}>
-  							{this.errors.passwordConfirmError}
+  							{passwordConfirmErrorMessage}
   						</div>
   					</div>
   					<div className={classes.row}>
   						<Button
   							className={classes.button}
   							fullWidth
-  							variant="outlined"
+  							variant="contained"
   							color="primary"
   							onClick={this.props.submit}
   						>
