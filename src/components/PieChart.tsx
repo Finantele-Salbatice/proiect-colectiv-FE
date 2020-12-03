@@ -7,11 +7,10 @@ interface PieChartProps {
   data: any;
 }
 interface PieChartState {
-  //  data : any;
 }
 
 const generateColors = (size: number) => {
-	const colors: string[] = [];
+	let colors: string[] = [];
 	for (let i = 0; i < size; i++) {
 		let randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
 		while (colors.includes(randomColor)) {
@@ -38,9 +37,15 @@ class PieChartComponent extends React.Component<PieChartProps,PieChartState> {
 	render() {
 		const { classes,data } = this.props;
 		const colorData = addColors(data);
+		console.log(colorData);
 		return (
 			<div className = {classes.pie}>
-				<Pie data = {colorData} width = {10} height = {3.5}/>
+				{colorData.labels.length == 0 && (
+					<div>Nu aveti niciun cont adaugat...</div>
+				)}
+				{colorData.labels.length > 0 && (
+					<Pie data = {colorData} width = {10} height = {3.5}/>
+				)}
 			</div>
 
 		);

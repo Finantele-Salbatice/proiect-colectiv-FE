@@ -4,13 +4,18 @@ import MyAppBar from 'src/components/AppBar';
 import NavBar from 'src/components/NavBar';
 import Cont from 'src/components/Cont';
 import withStyles from '@material-ui/core/styles/withStyles';
+import ServiceApi from 'src/remote/ServiceApi';
+import jwt_decode from "jwt-decode";
+import type { User } from 'src/entity/User';
 
-export interface ConturiPageProps {
-    classes: any;
+export interface ConturiPageProps{
+	classes: any;
 }
 
 export interface ConturiPageState {
-
+	isLoading: boolean;
+	pageTitle: string;
+	user?: User | null;
 }
 
 const styles = createStyles({
@@ -38,12 +43,46 @@ const styles = createStyles({
 });
 
 class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
+	private service: ServiceApi;
+	constructor(props: ConturiPageProps) {
+		super(props);
+		this.state = {
+			isLoading: true,
+			pageTitle: 'Conturi',
+			user: null,
+		}
+		this.service = new ServiceApi();
+	}
+
+	getUserInfo = async () => {
+		const token = localStorage.getItem('token');
+		if(token !== null){
+			var decodeToken = JSON.stringify(jwt_decode(token));
+			var userId = Number(JSON.parse(decodeToken).userId);
+			const result = await this.service.userInfoRequest({'user' : userId});
+			return result.data;
+		}
+	}
+
+	async componentDidMount() {
+		const user = await this.getUserInfo();
+		this.setState({
+			...this.state,
+			isLoading: false,
+			user: user,
+		});
+	}
+
 	render() {
 		const { classes } = this.props;
 		return (
 			<div className = {classes.conatiner}>
 				<div>
-					<MyAppBar pageTitle="Home" firstname="Georgel" lastname="Popescu"/>
+					<MyAppBar 
+						pageTitle={this.state.pageTitle} 
+						firstname={this.state.user?.first_name} 
+						lastname={this.state.user?.last_name}
+					/>
 				</div>
 				<div className = {classes.navBar}>
 					<NavBar />
