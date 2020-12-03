@@ -5,7 +5,7 @@ import NavBar from 'src/components/NavBar';
 import MyAppBar from 'src/components/AppBar';
 import PieChartComponent from 'src/components/PieChart';
 import ServiceApi from 'src/remote/ServiceApi';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import type { User } from 'src/entity/User';
 
 export interface MainPageProps {
@@ -59,10 +59,10 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			pageTitle: 'Home',
 			user: null,
 			data: null,
-		}
+		};
 		this.service = new ServiceApi();
 	}
-	
+
 	async componentDidMount() {
 		const user = await this.getUserInfo();
 		const data = await this.getSolds(user);
@@ -73,7 +73,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			data: data,
 		});
 	}
-	
+
 	adaugaCont = async(bank: string)=>{
 		try {
 			const data = {
@@ -86,24 +86,30 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		}
 	}
 
-	getUserInfo = async () => {
+	getUserInfo = async() => {
 		const token = localStorage.getItem('token');
-		if(token !== null){
-			var decodeToken = JSON.stringify(jwt_decode(token));
-			var userId = Number(JSON.parse(decodeToken).userId);
-			const result = await this.service.userInfoRequest({'user' : userId});
+		if (token !== null) {
+			const decodeToken = JSON.stringify(jwt_decode(token));
+			const userId = Number(JSON.parse(decodeToken).userId);
+			const result = await this.service.userInfoRequest({
+				'user' : userId,
+			});
 			return result.data;
 		}
 	}
 
-	getSolds = async (user : User) => {
-		const userId = {'userId' : user.id};
-		const body = {'user' : userId};
+	getSolds = async(user: User) => {
+		const userId = {
+			'userId' : user.id,
+		};
+		const body = {
+			'user' : userId,
+		};
 		const accounts = await this.service.accountListRequest(JSON.stringify(body));
-		var labels: string[] = [];
-		var values: Number[] = [];
-		accounts.data.forEach((account: { bank: string; iban: string; currency: Number; }) => {
-			labels.push(account.bank+" "+account.iban);
+		const labels: string[] = [];
+		const values: number[] = [];
+		accounts.data.forEach((account: { bank: string; iban: string; currency: number; }) => {
+			labels.push(account.bank + ' ' + account.iban);
 			values.push(account.currency);
 		});
 		const data = {
@@ -122,13 +128,13 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 	}
 
 	render() {
-		const { classes } = this.props;;
+		const { classes } = this.props;
 		return (
 			<div className = {classes.conatiner}>
 				<div>
-					<MyAppBar 
-						pageTitle={this.state.pageTitle} 
-						firstname={this.state.user?.first_name} 
+					<MyAppBar
+						pageTitle={this.state.pageTitle}
+						firstname={this.state.user?.first_name}
 						lastname={this.state.user?.last_name}
 					/>
 					<Button variant="contained" color="primary"  className={classes.button} onClick={() => this.adaugaCont('bt')}>

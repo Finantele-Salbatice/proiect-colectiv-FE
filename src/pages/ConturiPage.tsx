@@ -5,7 +5,7 @@ import NavBar from 'src/components/NavBar';
 import Cont from 'src/components/Cont';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ServiceApi from 'src/remote/ServiceApi';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import type { User } from 'src/entity/User';
 
 export interface ConturiPageProps{
@@ -50,16 +50,18 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 			isLoading: true,
 			pageTitle: 'Conturi',
 			user: null,
-		}
+		};
 		this.service = new ServiceApi();
 	}
 
-	getUserInfo = async () => {
+	getUserInfo = async() => {
 		const token = localStorage.getItem('token');
-		if(token !== null){
-			var decodeToken = JSON.stringify(jwt_decode(token));
-			var userId = Number(JSON.parse(decodeToken).userId);
-			const result = await this.service.userInfoRequest({'user' : userId});
+		if (token !== null) {
+			const decodeToken = JSON.stringify(jwt_decode(token));
+			const userId = Number(JSON.parse(decodeToken).userId);
+			const result = await this.service.userInfoRequest({
+				'user' : userId,
+			});
 			return result.data;
 		}
 	}
@@ -78,9 +80,9 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 		return (
 			<div className = {classes.conatiner}>
 				<div>
-					<MyAppBar 
-						pageTitle={this.state.pageTitle} 
-						firstname={this.state.user?.first_name} 
+					<MyAppBar
+						pageTitle={this.state.pageTitle}
+						firstname={this.state.user?.first_name}
 						lastname={this.state.user?.last_name}
 					/>
 				</div>

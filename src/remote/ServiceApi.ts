@@ -48,12 +48,12 @@ class ServiceApi {
     	return this.authInstance.post('/account/add',body);
     }
 
-    async accountListRequest(body : any) : Promise<any>{
-        return this.authInstance.post('/account/list',body);
+    async accountListRequest(body: any): Promise<any> {
+    	return this.authInstance.post('/account/list',body);
     }
 
-    async userInfoRequest(body : any) : Promise<any> {
-        return this.authInstance.post('/info',body);
+    async userInfoRequest(body: any): Promise<any> {
+    	return this.authInstance.post('/info',body);
     }
 }
 export default ServiceApi;

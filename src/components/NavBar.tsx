@@ -26,9 +26,9 @@ const styles = createStyles({
 		marginBottom:'30px',
 	},
 	logoutBtn:{
-		width: '100%', 
-		height: 50, 
-		justifyContent: 'center', 
+		width: '100%',
+		height: 50,
+		justifyContent: 'center',
 		alignItems: 'center',
 		position: 'absolute',
 		bottom: 0,
@@ -38,16 +38,16 @@ const styles = createStyles({
 
 class NavBar extends React.Component<NavBarProps, NavBarState> {
     state = {
-	}
+    }
 
     render() {
-		const { classes } = this.props;
+    	const { classes } = this.props;
 
-		function handleLogout(){
-			localStorage.removeItem('token');
-			const baseURL = window.location.origin;
-			window.location.replace(`${baseURL}`);
-		}
+    	function handleLogout() {
+    		localStorage.removeItem('token');
+    		const baseURL = window.location.origin;
+    		window.location.replace(`${baseURL}`);
+    	}
 
     	return (
     		<div className={classes.drawerBox}>
@@ -61,27 +61,27 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
     					<ListItem button key={1}>
     						<ListItemIcon> <AccountBalanceTwoToneIcon /></ListItemIcon>
     						<Link to="/main">
-								<ListItemText primary={'Home'} />
-							</Link>
+    							<ListItemText primary={'Home'} />
+    						</Link>
     					</ListItem>
     					<ListItem button key={2}>
     						<ListItemIcon> <AccountBalanceWalletIcon /></ListItemIcon>
     						<Link to="/tranzactii">
-								<ListItemText primary={'Tranzactii'} />
-							</Link>
+    							<ListItemText primary={'Tranzactii'} />
+    						</Link>
     					</ListItem>
     					<ListItem button key={3}>
     						<ListItemIcon> <AccountBoxIcon /></ListItemIcon>
-							<Link to="/conturi">
-								<ListItemText primary={'Conturi'} />
-							</Link>
+    						<Link to="/conturi">
+    							<ListItemText primary={'Conturi'} />
+    						</Link>
     					</ListItem>
     				</List>
-					<Button 
-						className = {classes.logoutBtn} 
-						variant="contained" 
-						color="primary"
-						onClick={() => handleLogout()}>Logout</Button>
+    				<Button
+    					className = {classes.logoutBtn}
+    					variant="contained"
+    					color="primary"
+    					onClick={() => handleLogout()}>Logout</Button>
     			</Drawer>
     		</div>
     	);
