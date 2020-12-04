@@ -91,7 +91,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 
 	getUserInfo = async() => {
 		const user = localStorage.getItem('user');
-		if (user != null) {
+		if (user !== null) {
 			return JSON.parse(user);
 		}
 		const token = localStorage.getItem('token');
