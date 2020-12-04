@@ -44,8 +44,8 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
     	const { classes } = this.props;
 
     	function handleLogout() {
-			localStorage.removeItem('token');
-			localStorage.removeItem('user');
+    		localStorage.removeItem('token');
+    		localStorage.removeItem('user');
     		const baseURL = window.location.origin;
     		window.location.replace(`${baseURL}`);
     	}

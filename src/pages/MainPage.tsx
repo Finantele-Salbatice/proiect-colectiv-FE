@@ -68,7 +68,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			...this.state,
 			isLoading:true,
 			user: user,
-		})
+		});
 		const data = await this.getSolds(user);
 		this.setState({
 			...this.state,
@@ -91,8 +91,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 
 	getUserInfo = async() => {
 		const user = localStorage.getItem('user');
-		console.log(`User from main : ${user}`);
-		if(user != null){
+		if (user != null) {
 			return JSON.parse(user);
 		}
 		const token = localStorage.getItem('token');

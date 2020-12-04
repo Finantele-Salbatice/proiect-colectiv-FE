@@ -55,7 +55,7 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 
 	getUserInfo = async() => {
 		const user = localStorage.getItem('user');
-		if(user !== null){
+		if (user !== null) {
 			return JSON.parse(user);
 		}
 		const token = localStorage.getItem('token');
@@ -70,7 +70,6 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 
 	async componentDidMount() {
 		const user = await this.getUserInfo();
-		console.log(`User : ${JSON.stringify(user)}`);
 		this.setState({
 			...this.state,
 			isLoading: false,
