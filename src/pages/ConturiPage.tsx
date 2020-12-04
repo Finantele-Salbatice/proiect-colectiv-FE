@@ -5,7 +5,6 @@ import NavBar from 'src/components/NavBar';
 import Cont from 'src/components/Cont';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ServiceApi from 'src/remote/ServiceApi';
-import jwt_decode from 'jwt-decode';
 import type { User } from 'src/entity/User';
 
 export interface ConturiPageProps{
@@ -55,19 +54,23 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 	}
 
 	getUserInfo = async() => {
+		const user = localStorage.getItem('user');
+		if(user !== null){
+			return JSON.parse(user);
+		}
 		const token = localStorage.getItem('token');
 		if (token !== null) {
-			const decodeToken = JSON.stringify(jwt_decode(token));
-			const userId = Number(JSON.parse(decodeToken).userId);
 			const result = await this.service.userInfoRequest({
-				'user' : userId,
+				'user' : token,
 			});
+			localStorage.setItem('user',JSON.stringify(result.data));
 			return result.data;
 		}
 	}
 
 	async componentDidMount() {
 		const user = await this.getUserInfo();
+		console.log(`User : ${JSON.stringify(user)}`);
 		this.setState({
 			...this.state,
 			isLoading: false,

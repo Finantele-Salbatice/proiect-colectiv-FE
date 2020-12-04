@@ -1,11 +1,10 @@
-import { Card, CardContent, createStyles, Icon, Typography, withStyles ,Button } from '@material-ui/core';
+import { Card, CardContent, createStyles, Icon, Typography, withStyles ,Button, CircularProgress } from '@material-ui/core';
 import * as React from 'react';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import NavBar from 'src/components/NavBar';
 import MyAppBar from 'src/components/AppBar';
 import PieChartComponent from 'src/components/PieChart';
 import ServiceApi from 'src/remote/ServiceApi';
-import jwt_decode from 'jwt-decode';
 import type { User } from 'src/entity/User';
 
 export interface MainPageProps {
@@ -65,11 +64,15 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 
 	async componentDidMount() {
 		const user = await this.getUserInfo();
+		this.setState({
+			...this.state,
+			isLoading:true,
+			user: user,
+		})
 		const data = await this.getSolds(user);
 		this.setState({
 			...this.state,
 			isLoading: false,
-			user: user,
 			data: data,
 		});
 	}
@@ -87,18 +90,23 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 	}
 
 	getUserInfo = async() => {
+		const user = localStorage.getItem('user');
+		console.log(`User from main : ${user}`);
+		if(user != null){
+			return JSON.parse(user);
+		}
 		const token = localStorage.getItem('token');
 		if (token !== null) {
-			const decodeToken = JSON.stringify(jwt_decode(token));
-			const userId = Number(JSON.parse(decodeToken).userId);
 			const result = await this.service.userInfoRequest({
-				'user' : userId,
+				'user' : token,
 			});
+			localStorage.setItem('user',JSON.stringify(result.data));
 			return result.data;
 		}
 	}
 
 	getSolds = async(user: User) => {
+		console.log(JSON.stringify(user));
 		const userId = {
 			'userId' : user.id,
 		};
@@ -165,6 +173,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 						</Card>
 						<Card className = {classes.pieCard}>
 							<CardContent>
+								{this.state.isLoading && <CircularProgress/>}
 								{!this.state.isLoading && (
 									<PieChartComponent data = {this.state.data}/>
 								)}
