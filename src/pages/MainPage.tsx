@@ -105,7 +105,6 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 	}
 
 	getSolds = async(user: User) => {
-		console.log(JSON.stringify(user));
 		const userId = {
 			'userId' : user.id,
 		};
