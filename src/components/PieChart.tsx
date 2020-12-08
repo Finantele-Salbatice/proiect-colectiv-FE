@@ -37,7 +37,6 @@ class PieChartComponent extends React.Component<PieChartProps,PieChartState> {
 	render() {
 		const { classes,data } = this.props;
 		const colorData = addColors(data);
-		console.log(colorData);
 		return (
 			<div className = {classes.pie}>
 				{colorData.labels.length == 0 && (
