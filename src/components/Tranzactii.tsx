@@ -69,7 +69,7 @@ const styles = createStyles({
 		flexWrap: 'wrap',
 		width:'65%',
 		marginLeft:'12%',
-		justifyContent:'center'
+		justifyContent:'center',
 	},
 	cardBox: {
 		display:'inline-block',
@@ -98,18 +98,18 @@ const styles = createStyles({
 	},
 	textField: {
 		width: 200,
-		marginLeft:'auto'
+		marginLeft:'auto',
 	},
 	filtreLine : {
 		display:'inline-flex',
 		flexDirection:'row',
 		marginLeft:'auto',
-		marginBottom:'10px'
+		marginBottom:'10px',
 	},
 	filters : {
 		margin:'auto',
-		display:'inline'
-	}
+		display:'inline',
+	},
 });
 
 class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
