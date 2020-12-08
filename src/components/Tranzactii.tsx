@@ -64,9 +64,12 @@ const rows = [
 const styles = createStyles({
 	container: {
 		//display:'inline-flex',
-		//flexDirection:'column',
-		display: 'flex',
+		flexDirection:'column',
+		display: 'inline-flex',
 		flexWrap: 'wrap',
+		width:'65%',
+		marginLeft:'12%',
+		justifyContent:'center'
 	},
 	cardBox: {
 		display:'inline-block',
@@ -95,42 +98,51 @@ const styles = createStyles({
 	},
 	textField: {
 		width: 200,
-		marginLeft:'20px',
+		marginLeft:'auto'
 	},
-	test: {
-		marginLeft:'200px',
+	filtreLine : {
+		display:'inline-flex',
+		flexDirection:'row',
+		marginLeft:'auto',
+		marginBottom:'10px'
 	},
+	filters : {
+		margin:'auto',
+		display:'inline'
+	}
 });
 
 class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 	render() {
 		const { classes } = this.props;
 		return (
-			<div>
-				<div className={classes.test}>
-					<TextField
-						id="dateFrom"
-						label="From"
-						type="date"
-						defaultValue="2017-05-24"
-						className={classes.textField}
-						InputLabelProps={{
-							shrink: true,
-						}}
-					/>
-					<TextField
-						id="dateTo"
-						label="To"
-						type="date"
-						defaultValue="2017-05-24"
-						className={classes.textField}
-						InputLabelProps={{
-							shrink: true,
-						}}
-					/>
+			<div className = {classes.container}>
+				<div className={classes.filtreLine}>
+					<div className={classes.filters}>
+						<TextField
+							id="dateFrom"
+							label="From"
+							type="date"
+							defaultValue="2017-05-24"
+							className={classes.textField}
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+						<TextField
+							id="dateTo"
+							label="To"
+							type="date"
+							defaultValue="2017-05-24"
+							className={classes.textField}
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+					</div>
 				</div>
-				<div className={classes.test} style={{
-					height: 600, width: '70%',
+				<div style={{
+					height: 600,
 				}}>
 					<DataGrid rows={rows} columns={columns} pageSize={16} />
 				</div>
