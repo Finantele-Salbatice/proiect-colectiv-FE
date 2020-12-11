@@ -3,7 +3,8 @@ import { ColDef, DataGrid } from '@material-ui/data-grid';
 import * as React from 'react';
 
 export interface TranzactiiProps {
-    classes: any;
+	classes: any;
+	rows: any;
 }
 
 export interface TranzactiiState {
@@ -33,31 +34,31 @@ const columns: ColDef[] = [
 
 const rows = [
 	{
-		id: 1, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mama la iulius' , data :'cand vr eu',
+		id: 1, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'cev' , data :'cand vr eu',
 	},
 	{
-		id: 2, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mama la iulius' ,data :'cand vr eu',
+		id: 2, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'cev' ,data :'cand vr eu',
 	},
 	{
-		id: 3, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mama la iulius' ,data :'cand vr eu',
+		id: 3, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'cev' ,data :'cand vr eu',
 	},
 	{
-		id: 4, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mama la iulius' ,data :'cand vr eu',
+		id: 4, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mcev' ,data :'cand vr eu',
 	},
 	{
-		id: 5, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mama la iulius' ,data :'cand vr eu',
+		id: 5, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mamacev' ,data :'cand vr eu',
 	},
 	{
-		id: 6, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mama la iulius' ,data :'cand vr eu',
+		id: 6, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'cev' ,data :'cand vr eu',
 	},
 	{
-		id: 7, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mama la iulius' ,data :'cand vr eu',
+		id: 7, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'cev ',data :'cand vr eu',
 	},
 	{
-		id: 8, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mama la iulius' ,data :'cand vr eu',
+		id: 8, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mamcev' ,data :'cand vr eu',
 	},
 	{
-		id: 9, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'mama la iulius' ,data :'cand vr eu',
+		id: 9, suma: 'Snow', currency: 'Jon', details: 35,beneficiary:'macev' ,data :'cand vr eu',
 	},
 ];
 

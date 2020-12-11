@@ -46,5 +46,9 @@ class ServiceApi {
     async addAccount(body: any): Promise<any> {
     	return this.authInstance.post('/account/add',body);
     }
+
+    async getAllTransactions(body: any): Promise<any> {
+    	return this.authInstance.post('/transactions/list',body);
+    }
 }
 export default ServiceApi;
