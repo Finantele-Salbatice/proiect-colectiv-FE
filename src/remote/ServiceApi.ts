@@ -48,7 +48,10 @@ class ServiceApi {
     }
 
     async getAllTransactions(body: any): Promise<any> {
-    	return this.authInstance.post('/transactions/list',body);
+    	console.log('daa');
+    	const c = await this.authInstance.post('/transactions/list',body);
+    	console.log(c);
+    	return c.data;
     }
 }
 export default ServiceApi;

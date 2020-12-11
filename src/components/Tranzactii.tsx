@@ -16,7 +16,7 @@ const columns: ColDef[] = [
 		field: 'id', headerName: 'ID', width: 70,
 	},
 	{
-		field: 'suma', headerName: 'Suma', width: 100,
+		field: 'amount', headerName: 'Suma', width: 100,
 	},
 	{
 		field: 'currency', headerName: 'Currency', width: 130,
@@ -28,7 +28,7 @@ const columns: ColDef[] = [
 		field: 'beneficiary', headerName: 'Beneficiary' ,width: 150,
 	},
 	{
-		field: 'data', headerName: 'Data' ,width: 120,
+		field: 'date_time', headerName: 'Data' ,width: 150,
 	},
 ];
 
@@ -145,7 +145,7 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 				<div style={{
 					height: 600,
 				}}>
-					<DataGrid rows={rows} columns={columns} pageSize={16} />
+					<DataGrid rows={this.props.rows} columns={columns} pageSize={16} />
 				</div>
 			</div>
 		);

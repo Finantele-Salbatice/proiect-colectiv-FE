@@ -16,16 +16,18 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 	private service: ServiceApi;
 	constructor(props: TranzactiiPageProps) {
 		super(props);
+		this.state = {
+			list: [],
+		};
 		this.service = new ServiceApi();
 	}
 
-	getListItems = async()=>{
+	async componentDidMount() {
 		const data = await this.service.getAllTransactions({
-			limit:10,
-			skip:0,
+			skip: 0, limit:5,
 		});
 		this.setState({
-			list:data,
+			list:data.data,
 		});
 	}
 
