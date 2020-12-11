@@ -115,9 +115,9 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		const accounts = await this.service.accountListRequest(JSON.stringify(body));
 		const labels: string[] = [];
 		const values: number[] = [];
-		accounts.data.forEach((account : Account) => {
+		accounts.data.forEach((account: Account) => {
 			labels.push(account.bank + ' ' + account.iban);
-			values.push(account.balance || 0);		
+			values.push(account.balance || 0);
 		});
 		const data = {
 			labels : labels,
