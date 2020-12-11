@@ -6,6 +6,7 @@ import MyAppBar from 'src/components/AppBar';
 import PieChartComponent from 'src/components/PieChart';
 import ServiceApi from 'src/remote/ServiceApi';
 import type { User } from 'src/entity/User';
+import type { Account } from 'src/entity/Account';
 
 export interface MainPageProps {
   classes: any;
@@ -114,9 +115,9 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		const accounts = await this.service.accountListRequest(JSON.stringify(body));
 		const labels: string[] = [];
 		const values: number[] = [];
-		accounts.data.forEach((account: { bank: string; iban: string; currency: number; }) => {
+		accounts.data.forEach((account : Account) => {
 			labels.push(account.bank + ' ' + account.iban);
-			values.push(account.currency);
+			values.push(account.balance || 0);		
 		});
 		const data = {
 			labels : labels,
@@ -124,12 +125,6 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 				data: values,
 			}],
 		};
-		/*const data = {
-			labels: ['Cont1','Cont2','Cont3','Cont4','Cont5'],
-			datasets: [{
-				data: [300, 50, 100,98,74],
-			}],
-		};*/
 		return data;
 	}
 
