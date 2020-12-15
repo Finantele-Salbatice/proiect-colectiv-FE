@@ -70,7 +70,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			isLoading:true,
 			user: user,
 		});
-		const data = await this.getSolds(user);
+		const data = await this.getSolds();
 		this.setState({
 			...this.state,
 			isLoading: false,
@@ -95,24 +95,13 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		if (user !== null) {
 			return JSON.parse(user);
 		}
-		const token = localStorage.getItem('token');
-		if (token !== null) {
-			const result = await this.service.userInfoRequest({
-				'user' : token,
-			});
-			localStorage.setItem('user',JSON.stringify(result.data));
-			return result.data;
-		}
+		const result = await this.service.userInfoRequest();
+		localStorage.setItem('user',JSON.stringify(result.data));
+		return result.data;
 	}
 
-	getSolds = async(user: User) => {
-		const userId = {
-			'userId' : user.id,
-		};
-		const body = {
-			'user' : userId,
-		};
-		const accounts = await this.service.accountListRequest(JSON.stringify(body));
+	getSolds = async() => {
+		const accounts = await this.service.accountListRequest();
 		const labels: string[] = [];
 		const values: number[] = [];
 		accounts.data.forEach((account: Account) => {

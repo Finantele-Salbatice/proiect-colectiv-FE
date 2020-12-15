@@ -58,14 +58,9 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 		if (user !== null) {
 			return JSON.parse(user);
 		}
-		const token = localStorage.getItem('token');
-		if (token !== null) {
-			const result = await this.service.userInfoRequest({
-				'user' : token,
-			});
-			localStorage.setItem('user',JSON.stringify(result.data));
-			return result.data;
-		}
+		const result = await this.service.userInfoRequest();
+		localStorage.setItem('user',JSON.stringify(result.data));
+		return result.data;
 	}
 
 	async componentDidMount() {
