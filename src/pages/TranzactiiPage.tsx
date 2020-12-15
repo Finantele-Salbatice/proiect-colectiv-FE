@@ -24,7 +24,7 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 
 	async componentDidMount() {
 		const data = await this.service.getAllTransactions({
-			skip: 0, limit:5,
+			skip: 0, limit:9999,
 		});
 		this.setState({
 			list:data.data,
