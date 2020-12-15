@@ -44,7 +44,7 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 		this.setState({
 			...this.state,
 			user: user,
-		})
+		});
 		const data = await this.service.getAllTransactions({
 			skip: 0, limit:9999,
 		});

@@ -50,9 +50,9 @@ class ServiceApi {
     async getAllTransactions(body: any): Promise<any> {
     	const c = await this.authInstance.post('/transactions/list',body);
     	return c.data;
-	}
-	
-	async accountListRequest(): Promise<any> {
+    }
+
+    async accountListRequest(): Promise<any> {
     	return this.authInstance.post('/account/list');
     }
 
