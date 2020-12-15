@@ -10,6 +10,7 @@ import React from 'react';
 import AddBTAccount from './pages/AddBTAccount';
 import MainPage from './pages/MainPage';
 import ConturiPage from './pages/ConturiPage';
+import AddBCRAccount from './pages/AddBCRAcount';
 
 function app() {
 	return (
@@ -21,6 +22,7 @@ function app() {
 				<Route exact={true} path="/reset/:token" component={ChangePassPage} />
 				<Route exact={true} path="/activate/:token" component={ActivateAccountPage}></Route>
 				<Route exact={true} path="/addBTAccount" component={AddBTAccount}></Route>
+				<Route exact={true} path="/bcrsandbox" component={AddBCRAccount}></Route>
 				<Route exact={true} path="/main/" component={MainPage}></Route>
 				<Route exact={true} path="/conturi/" component={ConturiPage}></Route>
 			</Switch>
