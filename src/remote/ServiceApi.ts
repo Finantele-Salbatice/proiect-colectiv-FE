@@ -44,6 +44,10 @@ class ServiceApi {
     	return this.instance.post('/account/btcallback', body);
     }
 
+    async addBCRAccountRequest(body: any) {
+    	return this.instance.post('/account/bcrcallback', body);
+    }
+
     async addAccount(body: any): Promise<any> {
     	return this.authInstance.post('/account/add',body);
     }
