@@ -28,7 +28,7 @@ class Cont extends React.Component<ContProps, ContState> {
 		return (
 			<Card className={classes.root}>
 				<div>
-					<img src='bt.jpg' className={classes.image}></img>
+					<img src={this.props.banca + '.jpg'} className={classes.image}></img>
 				</div>
 				<CardContent>
 					<Typography component="h5" variant="h5">
