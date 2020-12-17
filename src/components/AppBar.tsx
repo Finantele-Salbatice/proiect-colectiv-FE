@@ -9,8 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 export interface AppBarProps {
     classes: any;
     pageTitle: string;
-    firstname: string;
-    lastname: string;
+    firstname?: string;
+    lastname?: string;
 }
 
 export interface AppBarState{
@@ -50,9 +50,11 @@ export class MyAppBar extends React.Component<AppBarProps,AppBarState> {
 							<Avatar className={classes.avatar}>
 								<AccountCircle/>
 							</Avatar>
-							<Typography variant="h6" className={classes.username}>
-								{`${firstname} ${lastname}`}
-							</Typography>
+							{firstname && lastname && (
+								<Typography variant="h6" className={classes.username}>
+									{`${firstname} ${lastname}`}
+								</Typography>
+							)}
 						</div>
 					</Toolbar>
 				</AppBar>

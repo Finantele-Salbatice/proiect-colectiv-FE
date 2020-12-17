@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import type { User } from 'src/entity/User';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
 
@@ -43,6 +44,10 @@ class ServiceApi {
     	return this.instance.post('/account/btcallback', body);
     }
 
+    async addBCRAccountRequest(body: any) {
+    	return this.instance.post('/account/bcrcallback', body);
+    }
+
     async addAccount(body: any): Promise<any> {
     	return this.authInstance.post('/account/add',body);
     }
@@ -51,6 +56,13 @@ class ServiceApi {
     	const c = await this.authInstance.post('/transactions/list',body);
     	console.log(c);
     	return c.data;
+    }
+    async accountListRequest(body: any): Promise<any> {
+    	return this.authInstance.post('/account/list',body);
+    }
+
+    async userInfoRequest(body: any): Promise<any> {
+    	return this.authInstance.post('/info',body);
     }
 }
 export default ServiceApi;

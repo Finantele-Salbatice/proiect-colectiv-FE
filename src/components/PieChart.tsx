@@ -7,7 +7,6 @@ interface PieChartProps {
   data: any;
 }
 interface PieChartState {
-  //  data : any;
 }
 
 const generateColors = (size: number) => {
@@ -40,7 +39,12 @@ class PieChartComponent extends React.Component<PieChartProps,PieChartState> {
 		const colorData = addColors(data);
 		return (
 			<div className = {classes.pie}>
-				<Pie data = {colorData} width = {10} height = {3.5}/>
+				{colorData.labels.length == 0 && (
+					<div>Nu aveti niciun cont adaugat...</div>
+				)}
+				{colorData.labels.length > 0 && (
+					<Pie data = {colorData} width = {10} height = {3.5}/>
+				)}
 			</div>
 
 		);
