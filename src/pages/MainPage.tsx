@@ -6,6 +6,8 @@ import MyAppBar from 'src/components/AppBar';
 import PieChartComponent from 'src/components/PieChart';
 import ServiceApi from 'src/remote/ServiceApi';
 import type { User } from 'src/entity/User';
+import type { Account } from 'src/entity/Account';
+import TranzactiiMainPage from 'src/components/TranzactiiMainPage';
 
 export interface MainPageProps {
   classes: any;
@@ -16,6 +18,7 @@ export interface MainPageState {
 	pageTitle: string;
 	user?: User | null;
 	data?: any;
+	tranzactii: any;
 }
 
 const styles = createStyles({
@@ -24,19 +27,15 @@ const styles = createStyles({
 		flexDirection:'column',
 	},
 	cardBox: {
-		display:'inline-block',
+		display:'flex',
+		flexDirection:'column',
+		justifyContent:'space-around',
 	},
 	welcomeCard: {
 		width:'100%',
-		position:'relative',
-		left:'170px',
-		top:'30px',
 	},
 	pieCard : {
 		width:'100%',
-		position:'relative',
-		left:'170px',
-		top:'40px',
 		verticalAlign: 'center',
 	},
 	welcomeCardIcon : {
@@ -48,6 +47,15 @@ const styles = createStyles({
 		marginLeft:'1100px',
 		//zIndex:1,
 	},
+	mainComponentContainer: {
+		display:'flex',
+		flexDirection:'row',
+		justifyContent:'space-around',
+		marginLeft: '5%',
+	},
+	tranzactiiComponent: {
+
+	},
 });
 class MainPage extends React.Component<MainPageProps, MainPageState> {
 	private service: ServiceApi;
@@ -58,18 +66,23 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			pageTitle: 'Home',
 			user: null,
 			data: null,
+			tranzactii: null,
 		};
 		this.service = new ServiceApi();
 	}
 
 	async componentDidMount() {
 		const user = await this.getUserInfo();
+		const tr = await this.service.getAllTransactions({
+			skip: 0, limit:5,
+		});
 		this.setState({
 			...this.state,
 			isLoading:true,
 			user: user,
+			tranzactii:tr.data,
 		});
-		const data = await this.getSolds(user);
+		const data = await this.getSolds();
 		this.setState({
 			...this.state,
 			isLoading: false,
@@ -99,29 +112,18 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		if (user !== null) {
 			return JSON.parse(user);
 		}
-		const token = localStorage.getItem('token');
-		if (token !== null) {
-			const result = await this.service.userInfoRequest({
-				'user' : token,
-			});
-			localStorage.setItem('user',JSON.stringify(result.data));
-			return result.data;
-		}
+		const result = await this.service.userInfoRequest();
+		localStorage.setItem('user',JSON.stringify(result.data));
+		return result.data;
 	}
 
-	getSolds = async(user: User) => {
-		const userId = {
-			'userId' : user.id,
-		};
-		const body = {
-			'user' : userId,
-		};
-		const accounts = await this.service.accountListRequest(JSON.stringify(body));
+	getSolds = async() => {
+		const accounts = await this.service.accountListRequest();
 		const labels: string[] = [];
 		const values: number[] = [];
-		accounts.data.forEach((account: { bank: string; iban: string; currency: number; }) => {
+		accounts.data.forEach((account: Account) => {
 			labels.push(account.bank + ' ' + account.iban);
-			values.push(account.currency);
+			values.push(account.balance || 0);
 		});
 		const data = {
 			labels : labels,
@@ -129,12 +131,6 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 				data: values,
 			}],
 		};
-		/*const data = {
-			labels: ['Cont1','Cont2','Cont3','Cont4','Cont5'],
-			datasets: [{
-				data: [300, 50, 100,98,74],
-			}],
-		};*/
 		return data;
 	}
 
@@ -162,32 +158,37 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 					<NavBar />
 				</div>
 				{!this.state.isLoading && (
-					<div className = {classes.cardBox}>
-						<Card
-							className = {classes.welcomeCard}
-						>
-							<CardContent>
-								<Icon><InsertEmoticonIcon className = {classes.welcomeCardIcon}/></Icon>
-								<Typography variant="h5" component="h2">
-								Bine ai venit, {`${this.state.user?.first_name} ${this.state.user?.last_name} !`}
-								</Typography>
-								<Typography variant="body2" component="p">
-									<br />
-								Aplicatia este inca in stare de dezvoltare, daca unele servicii nu functioneaza, ne puteti contacta !
-									<br />
-									<br />
-								Va multumim ca aveti incredere sa folositi aplicatia noastra !
-								</Typography>
-							</CardContent>
-						</Card>
-						<Card className = {classes.pieCard}>
-							<CardContent>
-								{this.state.isLoading && <CircularProgress/>}
-								{!this.state.isLoading && (
-									<PieChartComponent data = {this.state.data}/>
-								)}
-							</CardContent>
-						</Card>
+					<div className={classes.mainComponentContainer}>
+						<div className = {classes.cardBox}>
+							<Card
+								className = {classes.welcomeCard}
+							>
+								<CardContent>
+									<Icon><InsertEmoticonIcon className = {classes.welcomeCardIcon}/></Icon>
+									<Typography variant="h5" component="h2">
+									Bine ai venit, {`${this.state.user?.first_name} ${this.state.user?.last_name} !`}
+									</Typography>
+									<Typography variant="body2" component="p">
+										<br />
+									Aplicatia este inca in stare de dezvoltare, daca unele servicii nu functioneaza, ne puteti contacta !
+										<br />
+										<br />
+									Va multumim ca aveti incredere sa folositi aplicatia noastra !
+									</Typography>
+								</CardContent>
+							</Card>
+							<Card className = {classes.pieCard}>
+								<CardContent>
+									{this.state.isLoading && <CircularProgress/>}
+									{!this.state.isLoading && (
+										<PieChartComponent data = {this.state.data}/>
+									)}
+								</CardContent>
+							</Card>
+						</div>
+						<div className = {classes.tranzactiiComponent}>
+							<TranzactiiMainPage {...this.state}/>
+						</div>
 					</div>
 				)}
 			</div>

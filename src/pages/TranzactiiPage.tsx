@@ -11,6 +11,7 @@ export interface TranzactiiPageProps {
 
 export interface TranzactiiPageState {
 	list: any;
+	isLoading: boolean;
 	from: Date;
 	to: Date;
 	pageTitle: string;
@@ -48,9 +49,7 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 		}
 		const token = localStorage.getItem('token');
 		if (token !== null) {
-			const result = await this.service.userInfoRequest({
-				'user' : token,
-			});
+			const result = await this.service.userInfoRequest();
 			localStorage.setItem('user',JSON.stringify(result.data));
 			return result.data;
 		}
