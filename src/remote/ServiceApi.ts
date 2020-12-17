@@ -49,6 +49,7 @@ class ServiceApi {
 
     async getAllTransactions(body: any): Promise<any> {
     	const c = await this.authInstance.post('/transactions/list',body);
+    	console.log(c);
     	return c.data;
     }
 }

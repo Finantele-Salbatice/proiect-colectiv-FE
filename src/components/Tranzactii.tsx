@@ -1,5 +1,5 @@
 import { createStyles, TextField, withStyles } from '@material-ui/core';
-import { ColDef, DataGrid } from '@material-ui/data-grid';
+import { ColDef, DataGrid, ValueFormatterParams, ValueGetterParams } from '@material-ui/data-grid';
 import * as React from 'react';
 
 export interface TranzactiiProps {
@@ -28,7 +28,10 @@ const columns: ColDef[] = [
 		field: 'beneficiary', headerName: 'Beneficiary' ,width: 150,
 	},
 	{
-		field: 'date_time', headerName: 'Data' ,width: 150,
+		field: 'date_time', headerName: 'Data' ,width: 150, valueFormatter: (params: ValueFormatterParams) => {
+			const value = params.value || '';
+			 return  new Date(value.toString()).toLocaleDateString();
+		},
 	},
 ];
 
@@ -115,7 +118,7 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 				<div style={{
 					height: 600,
 				}}>
-					<DataGrid rows={this.props.rows} columns={columns} pageSize={16} />
+					<DataGrid rows={this.props.rows} columns={columns} pageSize={9} />
 				</div>
 			</div>
 		);
