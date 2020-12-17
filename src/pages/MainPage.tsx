@@ -91,19 +91,16 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 	}
 
 	adaugaCont = async(bank: string)=>{
-		try {
-			const data = {
-				bank:bank,
-			};
-			const result = await this.service.addAccount(data);
-			const link = result.data;
-			if (bank !== 'bcr') {
-				window.location.replace(link);
-			} else {
-				const baseURL = window.location.origin;
-    			window.location.replace(`${baseURL}` + '/main');
-			}
-		} catch {
+		const data = {
+			bank:bank,
+		};
+		const result = await this.service.addAccount(data);
+		const link = result.data;
+		if (bank === 'brd') {
+			const baseURL = window.location.origin;
+			window.location.replace(`${baseURL}` + '/main');
+		} else {
+			window.location.replace(link);
 		}
 	}
 
