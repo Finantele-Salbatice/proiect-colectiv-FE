@@ -3,6 +3,7 @@ import NavBar from 'src/components/NavBar';
 import MyAppBar from 'src/components/AppBar';
 import Tranzactii from '../components/Tranzactii';
 import ServiceApi from 'src/remote/ServiceApi';
+import type { User } from 'src/entity/User';
 
 export interface TranzactiiPageProps {
 	classes: any;
@@ -12,6 +13,8 @@ export interface TranzactiiPageState {
 	list: any;
 	from: Date;
 	to: Date;
+	pageTitle: string;
+	user?: User | null;
 }
 
 class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPageState> {
@@ -24,15 +27,33 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 			list: [],
 			to: date,
 			from: firstDay,
+			pageTitle:'Tranzactii',
+			user:null,
 		};
 		this.service = new ServiceApi();
 	}
 
 	async componentDidMount() {
+		const user = await this.getUserInfo();
 		const  data = await this.getData();
 		this.setState({
 			list:data,
+			user: user,
 		});
+	}
+	getUserInfo = async() => {
+		const user = localStorage.getItem('user');
+		if (user !== null) {
+			return JSON.parse(user);
+		}
+		const token = localStorage.getItem('token');
+		if (token !== null) {
+			const result = await this.service.userInfoRequest({
+				'user' : token,
+			});
+			localStorage.setItem('user',JSON.stringify(result.data));
+			return result.data;
+		}
 	}
 
 	async componentDidUpdate(prevProps: TranzactiiPageProps , prevState: TranzactiiPageState ) {
@@ -70,7 +91,10 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 		return (
 			<div>
 				<div>
-					<MyAppBar pageTitle="Tranzactii" firstname="Georgel" lastname="Popescu"/>
+					<MyAppBar
+						pageTitle={this.state.pageTitle}
+						firstname={this.state.user?.first_name}
+						lastname={this.state.user?.last_name}/>
 				</div>
 				<div>
 					<NavBar />
