@@ -142,6 +142,9 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 					<Button variant="contained" color="primary"  className={classes.button} onClick={() => this.adaugaCont('bt')}>
 						  Adauga BT
 					</Button>
+					<Button variant="contained" color="primary"   onClick={() => this.adaugaCont('bcr') }>
+						  Adauga BCR
+					</Button>
 				</div>
 				<div className = {classes.navBar}>
 					<NavBar />
