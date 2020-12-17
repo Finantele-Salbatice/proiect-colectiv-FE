@@ -7,6 +7,8 @@ import PieChartComponent from 'src/components/PieChart';
 import ServiceApi from 'src/remote/ServiceApi';
 import type { User } from 'src/entity/User';
 import type { Account } from 'src/entity/Account';
+import TranzactiiMainPage from 'src/components/TranzactiiMainPage';
+import Tranzactii from 'src/components/Tranzactii';
 
 export interface MainPageProps {
   classes: any;
@@ -25,19 +27,15 @@ const styles = createStyles({
 		flexDirection:'column',
 	},
 	cardBox: {
-		display:'inline-block',
+		display:'flex',
+		flexDirection:'column',
+		justifyContent:'space-around'
 	},
 	welcomeCard: {
 		width:'100%',
-		position:'relative',
-		left:'170px',
-		top:'30px',
 	},
 	pieCard : {
 		width:'100%',
-		position:'relative',
-		left:'170px',
-		top:'40px',
 		verticalAlign: 'center',
 	},
 	welcomeCardIcon : {
@@ -48,6 +46,15 @@ const styles = createStyles({
 		//marginLeft:'1340px',
 		marginLeft:'1100px',
 		//zIndex:1,
+	},
+	mainComponentContainer: {
+		display:'flex',
+		flexDirection:'row',
+		justifyContent:'space-around',
+		marginLeft: '5%',
+	},
+	tranzactiiComponent: {
+
 	},
 });
 class MainPage extends React.Component<MainPageProps, MainPageState> {
@@ -135,32 +142,37 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 					<NavBar />
 				</div>
 				{!this.state.isLoading && (
-					<div className = {classes.cardBox}>
-						<Card
-							className = {classes.welcomeCard}
-						>
-							<CardContent>
-								<Icon><InsertEmoticonIcon className = {classes.welcomeCardIcon}/></Icon>
-								<Typography variant="h5" component="h2">
-								Bine ai venit, {`${this.state.user?.first_name} ${this.state.user?.last_name} !`}
-								</Typography>
-								<Typography variant="body2" component="p">
-									<br />
-								Aplicatia este inca in stare de dezvoltare, daca unele servicii nu functioneaza, ne puteti contacta !
-									<br />
-									<br />
-								Va multumim ca aveti incredere sa folositi aplicatia noastra !
-								</Typography>
-							</CardContent>
-						</Card>
-						<Card className = {classes.pieCard}>
-							<CardContent>
-								{this.state.isLoading && <CircularProgress/>}
-								{!this.state.isLoading && (
-									<PieChartComponent data = {this.state.data}/>
-								)}
-							</CardContent>
-						</Card>
+					<div className={classes.mainComponentContainer}>
+						<div className = {classes.cardBox}>
+							<Card
+								className = {classes.welcomeCard}
+							>
+								<CardContent>
+									<Icon><InsertEmoticonIcon className = {classes.welcomeCardIcon}/></Icon>
+									<Typography variant="h5" component="h2">
+									Bine ai venit, {`${this.state.user?.first_name} ${this.state.user?.last_name} !`}
+									</Typography>
+									<Typography variant="body2" component="p">
+										<br />
+									Aplicatia este inca in stare de dezvoltare, daca unele servicii nu functioneaza, ne puteti contacta !
+										<br />
+										<br />
+									Va multumim ca aveti incredere sa folositi aplicatia noastra !
+									</Typography>
+								</CardContent>
+							</Card>
+							<Card className = {classes.pieCard}>
+								<CardContent>
+									{this.state.isLoading && <CircularProgress/>}
+									{!this.state.isLoading && (
+										<PieChartComponent data = {this.state.data}/>
+									)}
+								</CardContent>
+							</Card>
+						</div>
+						<div className = {classes.tranzactiiComponent}>
+							<TranzactiiMainPage/>
+						</div>
 					</div>
 				)}
 			</div>
