@@ -15,6 +15,7 @@ export interface ConturiPageState {
 	isLoading: boolean;
 	pageTitle: string;
 	user?: User | null;
+	list: any;
 }
 
 const styles = createStyles({
@@ -49,6 +50,7 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 			isLoading: true,
 			pageTitle: 'Conturi',
 			user: null,
+			list: [],
 		};
 		this.service = new ServiceApi();
 	}
@@ -65,9 +67,17 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 
 	async componentDidMount() {
 		const user = await this.getUserInfo();
+		const userId = {
+			'userId' : user.id,
+		};
+		const body = {
+			'user' : userId,
+		};
+		const accounts = await this.service.accountListRequest(JSON.stringify(body));
+		console.log(accounts);
 		this.setState({
 			...this.state,
-			isLoading: false,
+			list:accounts.data,
 			user: user,
 		});
 	}
@@ -88,8 +98,12 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 				</div>
 				<div className = {classes.cardBox}>
 					<div className={classes.welcomeCard}>
-					    <Cont iban={'1234-1234-124-124'} sold={123} banca={'Bt'} descriere={'Dragos are mere si merele sunt bune'}></Cont>
-						<Cont iban={'1234-1234-124-124'} sold={123} banca={'Bt'} descriere={'Dragos are mere si merele sunt bune'}></Cont>
+						{
+							this.state.list.map((elem: any, index: any)=>{
+								console.log(elem, index);
+								return <Cont key={index} iban={elem.iban} sold={elem.balance} banca={elem.bank} descriere={elem.description}></Cont>;
+							})
+						}
 					</div>
 				</div>
 			</div>

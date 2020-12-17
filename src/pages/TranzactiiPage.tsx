@@ -12,6 +12,8 @@ export interface TranzactiiPageProps {
 export interface TranzactiiPageState {
 	list: any;
 	isLoading: boolean;
+	from: Date;
+	to: Date;
 	pageTitle: string;
 	user?: User | null;
 }
@@ -20,38 +22,67 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 	private service: ServiceApi;
 	constructor(props: TranzactiiPageProps) {
 		super(props);
+		const date = new Date();
+		const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 		this.state = {
 			list: [],
-			isLoading: true,
-			pageTitle: 'Tranzactii',
-			user: null,
+			to: date,
+			from: firstDay,
+			pageTitle:'Tranzactii',
+			user:null,
 		};
 		this.service = new ServiceApi();
 	}
 
+	async componentDidMount() {
+		const user = await this.getUserInfo();
+		const  data = await this.getData();
+		this.setState({
+			list:data,
+			user: user,
+		});
+	}
 	getUserInfo = async() => {
 		const user = localStorage.getItem('user');
 		if (user !== null) {
 			return JSON.parse(user);
 		}
-		const result = await this.service.userInfoRequest();
-		localStorage.setItem('user',JSON.stringify(result.data));
-		return result.data;
+		const token = localStorage.getItem('token');
+		if (token !== null) {
+			const result = await this.service.userInfoRequest();
+			localStorage.setItem('user',JSON.stringify(result.data));
+			return result.data;
+		}
 	}
 
-	async componentDidMount() {
-		const user = await this.getUserInfo();
+	async componentDidUpdate(prevProps: TranzactiiPageProps , prevState: TranzactiiPageState ) {
+		const { from , to } = this.state;
+		if (from === prevState.from && to === prevState.to) {
+			return;
+		}
+		const  data = await this.getData();
 		this.setState({
-			...this.state,
-			user: user,
+			list:data,
 		});
-		const data = await this.service.getAllTransactions({
-			skip: 0, limit:9999,
-		});
+	}
+
+	async getData() {
+		try {
+			const { to , from } = this.state;
+			const data = await this.service.getAllTransactions({
+				skip: 0, limit:9999,to:to , from:from,
+			});
+			return data.data;
+		} catch (err) {
+			console.log(err);
+			return [];
+		}
+	}
+
+	dateChange =(data: any)=>{
+		console.log(data , 'asta e data');
 		this.setState({
-			...this.state,
-			isLoading: false,
-			list:data.data,
+			...data,
 		});
 	}
 
@@ -62,13 +93,12 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 					<MyAppBar
 						pageTitle={this.state.pageTitle}
 						firstname={this.state.user?.first_name}
-						lastname={this.state.user?.last_name}
-					/>
+						lastname={this.state.user?.last_name}/>
 				</div>
 				<div>
 					<NavBar />
 				</div>
-				<Tranzactii rows={this.state.list}> </Tranzactii>
+				<Tranzactii rows={this.state.list}  {...this.state} dateChange={this.dateChange}> </Tranzactii>
 			</div>
 		);
 	}

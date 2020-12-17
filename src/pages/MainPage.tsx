@@ -97,7 +97,12 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			};
 			const result = await this.service.addAccount(data);
 			const link = result.data;
-			window.location.replace(link);
+			if (bank !== 'bcr') {
+				window.location.replace(link);
+			} else {
+				const baseURL = window.location.origin;
+    			window.location.replace(`${baseURL}` + '/main');
+			}
 		} catch {
 		}
 	}
@@ -144,6 +149,9 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 					</Button>
 					<Button variant="contained" color="primary"   onClick={() => this.adaugaCont('bcr') }>
 						  Adauga BCR
+					</Button>
+					<Button variant="contained" color="primary"   onClick={() => this.adaugaCont('brd') }>
+						  Adauga BRD
 					</Button>
 				</div>
 				<div className = {classes.navBar}>

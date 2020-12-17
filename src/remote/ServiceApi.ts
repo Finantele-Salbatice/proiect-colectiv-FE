@@ -55,9 +55,8 @@ class ServiceApi {
     	const c = await this.authInstance.post('/transactions/list',body);
     	return c.data;
     }
-
-    async accountListRequest(): Promise<any> {
-    	return this.authInstance.post('/account/list');
+    async accountListRequest(body: any): Promise<any> {
+    	return this.authInstance.post('/account/list',body);
     }
 
     async userInfoRequest(): Promise<any> {

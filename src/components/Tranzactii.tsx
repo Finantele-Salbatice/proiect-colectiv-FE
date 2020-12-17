@@ -1,10 +1,15 @@
-import { createStyles, TextField, withStyles } from '@material-ui/core';
-import { ColDef, DataGrid } from '@material-ui/data-grid';
+import DateFnsUtils from '@date-io/date-fns';
+import { createStyles,  withStyles } from '@material-ui/core';
+import { ColDef, DataGrid, ValueFormatterParams } from '@material-ui/data-grid';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import * as React from 'react';
 
 export interface TranzactiiProps {
 	classes: any;
 	rows: any;
+	from: Date;
+	to:  Date;
+	dateChange: any;
 }
 
 export interface TranzactiiState {
@@ -28,7 +33,10 @@ const columns: ColDef[] = [
 		field: 'beneficiary', headerName: 'Beneficiary' ,width: 150,
 	},
 	{
-		field: 'date_time', headerName: 'Data' ,width: 150,
+		field: 'date_time', headerName: 'Date' ,width: 150, valueFormatter: (params: ValueFormatterParams) => {
+			const value = params.value || '';
+			 return  new Date(value.toString()).toLocaleDateString();
+		},
 	},
 ];
 
@@ -84,38 +92,49 @@ const styles = createStyles({
 });
 
 class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
+
+	handleData = (type: any) => (event: any , value: any) => {
+		console.log(event , value);
+		const data = {
+			[type]: event,
+		};
+		this.props.dateChange(data);
+	};
+
 	render() {
-		const { classes } = this.props;
+		const { classes  } = this.props;
 		return (
 			<div className = {classes.container}>
 				<div className={classes.filtreLine}>
 					<div className={classes.filters}>
-						<TextField
-							id="dateFrom"
-							label="From"
-							type="date"
-							defaultValue="2017-05-24"
-							className={classes.textField}
-							InputLabelProps={{
-								shrink: true,
-							}}
-						/>
-						<TextField
-							id="dateTo"
-							label="To"
-							type="date"
-							defaultValue="2017-05-24"
-							className={classes.textField}
-							InputLabelProps={{
-								shrink: true,
-							}}
-						/>
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardDatePicker
+								id="dateFrom"
+								label="From"
+								value={this.props.from}
+								className={classes.textField}
+								InputLabelProps={{
+									shrink: true,
+								}}
+								onChange={this.handleData('from')}
+							/>
+							<KeyboardDatePicker
+								id="dateTo"
+								label="To"
+								value={this.props.to}
+								className={classes.textField}
+								InputLabelProps={{
+									shrink: true,
+								}}
+								onChange={this.handleData('to')}
+							/>
+						</MuiPickersUtilsProvider>
 					</div>
 				</div>
 				<div style={{
 					height: 600,
 				}}>
-					<DataGrid rows={this.props.rows} columns={columns} pageSize={16} />
+					<DataGrid rows={this.props.rows} columns={columns} pageSize={9} />
 				</div>
 			</div>
 		);
