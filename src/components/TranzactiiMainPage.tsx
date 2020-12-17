@@ -32,11 +32,11 @@ const columns: ColDef[] = [
 		field: 'beneficiary', headerName: 'Beneficiary' ,width: 150,
 	},
 	{
-        field: 'date_time', headerName: 'Data' ,width: 150, valueFormatter: (params: ValueFormatterParams) => {
-            const value = params.value || '';
-             return  new Date(value.toString()).toLocaleDateString();
-        },
-    },
+		field: 'date_time', headerName: 'Data' ,width: 150, valueFormatter: (params: ValueFormatterParams) => {
+			const value = params.value || '';
+			return  new Date(value.toString()).toLocaleDateString();
+		},
+	},
 ];
 
 const rows = [
