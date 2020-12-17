@@ -1,5 +1,5 @@
 import { createStyles, TextField, withStyles } from '@material-ui/core';
-import { ColDef, DataGrid } from '@material-ui/data-grid';
+import { ColDef, DataGrid, ValueFormatterParams } from '@material-ui/data-grid';
 import * as React from 'react';
 import { Component } from 'react';
 
@@ -32,8 +32,11 @@ const columns: ColDef[] = [
 		field: 'beneficiary', headerName: 'Beneficiary' ,width: 150,
 	},
 	{
-		field: 'date_time', headerName: 'Data' ,width: 150,
-	},
+        field: 'date_time', headerName: 'Data' ,width: 150, valueFormatter: (params: ValueFormatterParams) => {
+            const value = params.value || '';
+             return  new Date(value.toString()).toLocaleDateString();
+        },
+    },
 ];
 
 const rows = [
