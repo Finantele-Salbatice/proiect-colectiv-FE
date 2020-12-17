@@ -1,7 +1,6 @@
-import { createStyles, TextField, withStyles } from '@material-ui/core';
+import { createStyles, withStyles } from '@material-ui/core';
 import { ColDef, DataGrid, ValueFormatterParams } from '@material-ui/data-grid';
 import * as React from 'react';
-import { Component } from 'react';
 
 export interface TranzactiiMainPageProps {
 	classes: any;

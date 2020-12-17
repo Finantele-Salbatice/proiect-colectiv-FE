@@ -8,7 +8,6 @@ import ServiceApi from 'src/remote/ServiceApi';
 import type { User } from 'src/entity/User';
 import type { Account } from 'src/entity/Account';
 import TranzactiiMainPage from 'src/components/TranzactiiMainPage';
-import Tranzactii from 'src/components/Tranzactii';
 
 export interface MainPageProps {
   classes: any;
