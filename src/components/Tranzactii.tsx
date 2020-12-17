@@ -1,10 +1,14 @@
 import { createStyles, TextField, withStyles } from '@material-ui/core';
 import { ColDef, DataGrid, ValueFormatterParams, ValueGetterParams } from '@material-ui/data-grid';
+import type { LensTwoTone } from '@material-ui/icons';
 import * as React from 'react';
 
 export interface TranzactiiProps {
 	classes: any;
 	rows: any;
+	from: string;
+	to:  string;
+	dateChange: any;
 }
 
 export interface TranzactiiState {
@@ -87,8 +91,27 @@ const styles = createStyles({
 });
 
 class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
+
+	handleData = (type: any) => (event: any) => {
+		let to , from;
+		if (type === 'to') {
+			 to = new Date(event.target.value);
+			from = new Date(this.props.from);
+		} else {
+			to = new Date(this.props.to);
+			from = new Date(event.target.value);
+		}
+		if (to >=  from) {
+			console.log(to);
+			const data = {
+				[type]: event.target.value,
+			};
+			this.props.dateChange(data);
+		}
+	};
+
 	render() {
-		const { classes } = this.props;
+		const { classes  } = this.props;
 		return (
 			<div className = {classes.container}>
 				<div className={classes.filtreLine}>
@@ -97,21 +120,23 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 							id="dateFrom"
 							label="From"
 							type="date"
-							defaultValue="2017-05-24"
+							value={this.props.from}
 							className={classes.textField}
 							InputLabelProps={{
 								shrink: true,
 							}}
+							onChange={this.handleData('from')}
 						/>
 						<TextField
 							id="dateTo"
 							label="To"
 							type="date"
-							defaultValue="2017-05-24"
+							value={this.props.to}
 							className={classes.textField}
 							InputLabelProps={{
 								shrink: true,
 							}}
+							onChange={this.handleData('to')}
 						/>
 					</div>
 				</div>
