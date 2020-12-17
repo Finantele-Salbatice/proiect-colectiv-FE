@@ -118,7 +118,9 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 	}
 
 	getSolds = async() => {
-		const accounts = await this.service.accountListRequest();
+		const accounts = await this.service.accountListRequest({
+			skip:0, limit: 9999,
+		});
 		const labels: string[] = [];
 		const values: number[] = [];
 		accounts.data.forEach((account: Account) => {

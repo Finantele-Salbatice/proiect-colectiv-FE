@@ -11,7 +11,6 @@ export interface TranzactiiPageProps {
 
 export interface TranzactiiPageState {
 	list: any;
-	isLoading: boolean;
 	from: Date;
 	to: Date;
 	pageTitle: string;
@@ -80,7 +79,6 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 	}
 
 	dateChange =(data: any)=>{
-		console.log(data , 'asta e data');
 		this.setState({
 			...data,
 		});

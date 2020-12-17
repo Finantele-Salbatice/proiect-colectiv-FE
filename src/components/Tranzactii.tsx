@@ -93,8 +93,7 @@ const styles = createStyles({
 
 class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 
-	handleData = (type: any) => (event: any , value: any) => {
-		console.log(event , value);
+	handleData = (type: any) => (event: any) => {
 		const data = {
 			[type]: event,
 		};

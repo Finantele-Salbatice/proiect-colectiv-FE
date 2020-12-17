@@ -74,7 +74,6 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 			'user' : userId,
 		};
 		const accounts = await this.service.accountListRequest(JSON.stringify(body));
-		console.log(accounts);
 		this.setState({
 			...this.state,
 			list:accounts.data,
@@ -100,7 +99,6 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 					<div className={classes.welcomeCard}>
 						{
 							this.state.list.map((elem: any, index: any)=>{
-								console.log(elem, index);
 								return <Cont key={index} iban={elem.iban} sold={elem.balance} banca={elem.bank} descriere={elem.description}></Cont>;
 							})
 						}
