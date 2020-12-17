@@ -29,7 +29,7 @@ const styles = createStyles({
 	cardBox: {
 		display:'flex',
 		flexDirection:'column',
-		justifyContent:'space-around'
+		justifyContent:'space-around',
 	},
 	welcomeCard: {
 		width:'100%',

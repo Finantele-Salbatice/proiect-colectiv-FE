@@ -4,16 +4,16 @@ import * as React from 'react';
 import { Component } from 'react';
 
 export interface TranzactiiMainPageProps {
-    classes:any;
+    classes: any;
 }
- 
+
 export interface TranzactiiMainPageState {
-    
+
 }
 
 const styles = createStyles({
 
-})
+});
 
 const columns: ColDef[] = [
 	{
@@ -36,34 +36,42 @@ const columns: ColDef[] = [
 	},
 ];
 
-
-
 const rows = [
-    {id: 1, amount: 100, currency: '$$$', details: 'asdasd', beneficiary: 'Ion', date_time: '1.1.2000'},
-    {id: 2, amount: 110, currency: '$$$', details: 'asdasdasd', beneficiary: 'Ghita', date_time: '1.1.2000'},
-    {id: 3, amount: 120, currency: '$$$', details: 'asdasd', beneficiary: 'Portita', date_time: '1.1.2000'},
-    {id: 4, amount: 130, currency: '$$$', details: 'asdasd', beneficiary: 'Matei', date_time: '1.1.2000'},
-    {id: 5, amount: 140, currency: '$$$', details: 'asdasd', beneficiary: 'Andrei', date_time: '1.1.2000'},
-]
- 
+	{
+		id: 1, amount: 100, currency: '$$$', details: 'asdasd', beneficiary: 'Ion', date_time: '1.1.2000',
+	},
+	{
+		id: 2, amount: 110, currency: '$$$', details: 'asdasdasd', beneficiary: 'Ghita', date_time: '1.1.2000',
+	},
+	{
+		id: 3, amount: 120, currency: '$$$', details: 'asdasd', beneficiary: 'Portita', date_time: '1.1.2000',
+	},
+	{
+		id: 4, amount: 130, currency: '$$$', details: 'asdasd', beneficiary: 'Matei', date_time: '1.1.2000',
+	},
+	{
+		id: 5, amount: 140, currency: '$$$', details: 'asdasd', beneficiary: 'Andrei', date_time: '1.1.2000',
+	},
+];
+
 class TranzactiiMainPage extends React.Component<TranzactiiMainPageProps, TranzactiiMainPageState> {
-    render() {
+	render() {
 		const { classes } = this.props;
 		return (
 			<div className = {classes.container}>
 				<div style={{
-                    height: 400,
-                    width: 752
+					height: 400,
+					width: 752,
 				}}>
-                    <DataGrid rows={rows} columns={columns} pageSize={5}
-                     hideFooter = {true}
-                     hideFooterRowCount = {true}
-                     hideFooterPagination = {true}
-                     />
+					<DataGrid rows={rows} columns={columns} pageSize={5}
+						hideFooter = {true}
+						hideFooterRowCount = {true}
+						hideFooterPagination = {true}
+					/>
 				</div>
 			</div>
 		);
 	}
 }
- 
+
 export default withStyles(styles)(TranzactiiMainPage);
