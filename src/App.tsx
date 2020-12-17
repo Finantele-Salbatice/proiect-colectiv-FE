@@ -10,6 +10,7 @@ import React from 'react';
 import AddBTAccount from './pages/AddBTAccount';
 import MainPage from './pages/MainPage';
 import ConturiPage from './pages/ConturiPage';
+import TranzactiiPage from './pages/TranzactiiPage';
 import AddBCRAccount from './pages/AddBCRAcount';
 
 function app() {
@@ -25,6 +26,7 @@ function app() {
 				<Route exact={true} path="/bcrsandbox" component={AddBCRAccount}></Route>
 				<Route exact={true} path="/main/" component={MainPage}></Route>
 				<Route exact={true} path="/conturi/" component={ConturiPage}></Route>
+				<Route exact={true} path="/tranzactii/" component={TranzactiiPage}></Route>
 			</Switch>
 		</Router>
 	);
