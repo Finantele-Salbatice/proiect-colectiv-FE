@@ -1,10 +1,11 @@
 import { createStyles, TextField, withStyles } from '@material-ui/core';
-import { ColDef, DataGrid } from '@material-ui/data-grid';
+import { ColDef, DataGrid, ValueFormatterParams } from '@material-ui/data-grid';
 import * as React from 'react';
 import { Component } from 'react';
 
 export interface TranzactiiMainPageProps {
-    classes: any;
+	classes: any;
+	tranzactii: any;
 }
 
 export interface TranzactiiMainPageState {
@@ -32,25 +33,10 @@ const columns: ColDef[] = [
 		field: 'beneficiary', headerName: 'Beneficiary' ,width: 150,
 	},
 	{
-		field: 'date_time', headerName: 'Data' ,width: 150,
-	},
-];
-
-const rows = [
-	{
-		id: 1, amount: 100, currency: '$$$', details: 'asdasd', beneficiary: 'Ion', date_time: '1.1.2000',
-	},
-	{
-		id: 2, amount: 110, currency: '$$$', details: 'asdasdasd', beneficiary: 'Ghita', date_time: '1.1.2000',
-	},
-	{
-		id: 3, amount: 120, currency: '$$$', details: 'asdasd', beneficiary: 'Portita', date_time: '1.1.2000',
-	},
-	{
-		id: 4, amount: 130, currency: '$$$', details: 'asdasd', beneficiary: 'Matei', date_time: '1.1.2000',
-	},
-	{
-		id: 5, amount: 140, currency: '$$$', details: 'asdasd', beneficiary: 'Andrei', date_time: '1.1.2000',
+		field: 'date_time', headerName: 'Data' ,width: 150, valueFormatter: (params: ValueFormatterParams) => {
+			const value = params.value || '';
+			return  new Date(value.toString()).toLocaleDateString();
+		},
 	},
 ];
 
@@ -63,7 +49,7 @@ class TranzactiiMainPage extends React.Component<TranzactiiMainPageProps, Tranza
 					height: 400,
 					width: 752,
 				}}>
-					<DataGrid rows={rows} columns={columns} pageSize={5}
+					<DataGrid rows={this.props.tranzactii} columns={columns} pageSize={5}
 						hideFooter = {true}
 						hideFooterRowCount = {true}
 						hideFooterPagination = {true}

@@ -59,5 +59,9 @@ class ServiceApi {
     async userInfoRequest(): Promise<any> {
     	return this.authInstance.post('/info');
     }
+
+    async getLastFiveTransactions(body: any): Promise<any> {
+    	return this.authInstance.post('/transactions/list',body);
+    }
 }
 export default ServiceApi;

@@ -19,6 +19,7 @@ export interface MainPageState {
 	pageTitle: string;
 	user?: User | null;
 	data?: any;
+	tranzactii: any;
 }
 
 const styles = createStyles({
@@ -66,16 +67,21 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			pageTitle: 'Home',
 			user: null,
 			data: null,
+			tranzactii: null,
 		};
 		this.service = new ServiceApi();
 	}
 
 	async componentDidMount() {
 		const user = await this.getUserInfo();
+		const tr = await this.service.getAllTransactions({
+			skip: 0, limit:5,
+		});
 		this.setState({
 			...this.state,
 			isLoading:true,
 			user: user,
+			tranzactii:tr.data,
 		});
 		const data = await this.getSolds();
 		this.setState({
@@ -171,7 +177,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 							</Card>
 						</div>
 						<div className = {classes.tranzactiiComponent}>
-							<TranzactiiMainPage/>
+							<TranzactiiMainPage {...this.state}/>
 						</div>
 					</div>
 				)}
