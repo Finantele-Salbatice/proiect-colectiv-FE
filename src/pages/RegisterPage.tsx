@@ -167,7 +167,6 @@ class RegisterPage extends React.Component<
   			email: this.state.email,
   		};
   		try {
-  			//console.log(body);
   			await this.service.registerRequest(body);
   			this.setState({
   				firstName:'',
@@ -177,7 +176,7 @@ class RegisterPage extends React.Component<
   				passwordConfirm:'',
   			});
   		} catch (err) {
-  			//console.log(err.data);
+  			console.log(err);
   		}
 	  }
   };

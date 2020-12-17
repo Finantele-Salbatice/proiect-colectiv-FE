@@ -48,9 +48,7 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 		}
 		const token = localStorage.getItem('token');
 		if (token !== null) {
-			const result = await this.service.userInfoRequest({
-				'user' : token,
-			});
+			const result = await this.service.userInfoRequest();
 			localStorage.setItem('user',JSON.stringify(result.data));
 			return result.data;
 		}
@@ -81,7 +79,6 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 	}
 
 	dateChange =(data: any)=>{
-		console.log(data , 'asta e data');
 		this.setState({
 			...data,
 		});

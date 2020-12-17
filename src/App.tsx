@@ -24,9 +24,9 @@ function app() {
 				<Route exact={true} path="/activate/:token" component={ActivateAccountPage}></Route>
 				<Route exact={true} path="/addBTAccount" component={AddBTAccount}></Route>
 				<Route exact={true} path="/bcrsandbox" component={AddBCRAccount}></Route>
-				<Route exact={true} path="/main/" component={MainPage}></Route>
-				<Route exact={true} path="/conturi/" component={ConturiPage}></Route>
-				<Route exact={true} path="/tranzactii/" component={TranzactiiPage}></Route>
+				<Route exact={true} path="/main" component={MainPage}></Route>
+				<Route exact={true} path="/conturi" component={ConturiPage}></Route>
+				<Route exact={true} path="/tranzactii" component={TranzactiiPage}></Route>
 			</Switch>
 		</Router>
 	);
