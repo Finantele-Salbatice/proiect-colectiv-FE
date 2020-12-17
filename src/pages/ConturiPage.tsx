@@ -106,7 +106,7 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 						{
 							this.state.list.map((elem: any, index: any)=>{
 								console.log(elem, index);
-								return <Cont key={index} iban={elem.iban} sold={elem.balance} banca={'Bt'} descriere={elem.description}></Cont>;
+								return <Cont key={index} iban={elem.iban} sold={elem.balance} banca={elem.bank} descriere={elem.description}></Cont>;
 							})
 						}
 					</div>
