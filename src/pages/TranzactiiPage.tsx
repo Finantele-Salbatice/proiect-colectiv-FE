@@ -10,28 +10,37 @@ export interface TranzactiiPageProps {
 
 export interface TranzactiiPageState {
 	list: any;
-	from: string;
-	to: string;
+	from: Date;
+	to: Date;
 }
 
 class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPageState> {
 	private service: ServiceApi;
 	constructor(props: TranzactiiPageProps) {
 		super(props);
-		const today = new Date();
-		const date =  today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		const startMonth =  today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+		const date = new Date();
+		const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 		this.state = {
 			list: [],
 			to: date,
-			from: startMonth,
+			from: firstDay,
 		};
 		this.service = new ServiceApi();
 	}
 
 	async componentDidMount() {
 		const  data = await this.getData();
-		console.log(data);
+		this.setState({
+			list:data,
+		});
+	}
+
+	async componentDidUpdate(prevProps: TranzactiiPageProps , prevState: TranzactiiPageState ) {
+		const { from , to } = this.state;
+		if (from === prevState.from && to === prevState.to) {
+			return;
+		}
+		const  data = await this.getData();
 		this.setState({
 			list:data,
 		});
@@ -39,8 +48,7 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 
 	async getData() {
 		try {
-			const to = new Date(this.state.to);
-			const from = new Date(this.state.from);
+			const { to , from } = this.state;
 			const data = await this.service.getAllTransactions({
 				skip: 0, limit:9999,to:to , from:from,
 			});
@@ -51,14 +59,10 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 		}
 	}
 
-	dateChange =async(data: any)=>{
+	dateChange =(data: any)=>{
+		console.log(data , 'asta e data');
 		this.setState({
 			...data,
-		});
-		const  dataList = await this.getData();
-		console.log(dataList);
-		this.setState({
-			list:dataList,
 		});
 	}
 
