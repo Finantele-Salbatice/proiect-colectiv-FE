@@ -38,8 +38,8 @@ const styles = createStyles({
 	},
 	buttonRow: {
 		display:'flex',
-		flexDirection:'row'
-	}
+		flexDirection:'row',
+	},
 });
 
 export class MyAppBar extends React.Component<AppBarProps,AppBarState> {
@@ -82,18 +82,18 @@ export class MyAppBar extends React.Component<AppBarProps,AppBarState> {
 						<div className={classes.buttonRow}>
 							<div>
 								<PopupState variant="popover" popupId="demo-popup-menu">
-								{(popupState:any) => (
-									<React.Fragment>
-									<Button variant="contained" color="primary" {...bindTrigger(popupState)}>
+									{(popupState: any) => (
+										<React.Fragment>
+											<Button variant="contained" color="primary" {...bindTrigger(popupState)}>
 										Adauga Cont
-									</Button>
-									<Menu {...bindMenu(popupState)}>
-										<MenuItem onClick={() => this.adaugaCont('bt')}>Adauga BT</MenuItem>
-										<MenuItem onClick={() => this.adaugaCont('bcr')}>Adauga BCR</MenuItem>
-										<MenuItem onClick={() => this.adaugaCont('brd')}>Adauga BRD</MenuItem>
-									</Menu>
-									</React.Fragment>
-								)}
+											</Button>
+											<Menu {...bindMenu(popupState)}>
+												<MenuItem onClick={() => this.adaugaCont('bt')}>Adauga BT</MenuItem>
+												<MenuItem onClick={() => this.adaugaCont('bcr')}>Adauga BCR</MenuItem>
+												<MenuItem onClick={() => this.adaugaCont('brd')}>Adauga BRD</MenuItem>
+											</Menu>
+										</React.Fragment>
+									)}
 								</PopupState>
 							</div>
 							<div>

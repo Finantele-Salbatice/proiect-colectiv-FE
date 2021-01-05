@@ -25,7 +25,7 @@ const styles = createStyles({
 	container: {
 		display:'inline-flex',
 		flexDirection:'column',
-		width:'100%'
+		width:'100%',
 	},
 	cardBox: {
 	},
@@ -44,19 +44,19 @@ const styles = createStyles({
 		display:'flex',
 		flexDirection:'row',
 		marginLeft:'1%',
-		marginTop:'1%'
+		marginTop:'1%',
 	},
 	tranzactiiComponent: {
 
 	},
 	navBar: {
 		marginTop:'-21px',
-		padding:'79px'
+		padding:'79px',
 	},
 	bigCont: {
 		display:'flex',
-		flexDirection:'row'
-	}
+		flexDirection:'row',
+	},
 });
 class MainPage extends React.Component<MainPageProps, MainPageState> {
 	private service: ServiceApi;
