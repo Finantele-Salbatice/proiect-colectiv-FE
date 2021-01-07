@@ -10,7 +10,7 @@ import type { Account } from 'src/entity/Account';
 import TranzactiiMainPage from 'src/components/TranzactiiMainPage';
 
 export interface MainPageProps {
-  classes: any;
+	classes: any;
 }
 
 export interface MainPageState {
@@ -66,8 +66,8 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			isLoading: true,
 			pageTitle: 'Home',
 			user: null,
-			data: null,
-			tranzactii: null,
+			data: [],
+			tranzactii: [],
 		};
 		this.service = new ServiceApi();
 	}
@@ -77,16 +77,11 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		const tr = await this.service.getAllTransactions({
 			skip: 0, limit:5,
 		});
-		this.setState({
-			...this.state,
-			isLoading:true,
-			user: user,
-			tranzactii:tr.data,
-		});
 		const data = await this.getSolds();
 		this.setState({
-			...this.state,
-			isLoading: false,
+			isLoading:false,
+			user: user,
+			tranzactii:tr.data,
 			data: data,
 		});
 	}
@@ -134,7 +129,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 							firstname={this.state.user?.first_name}
 							lastname={this.state.user?.last_name} />
 					</div>
-					{this.state.isLoading && (
+					{!this.state.isLoading && (
 						<div className={classes.mainComponentContainer}>
 							<div className={classes.cardBox}>
 								<Card
