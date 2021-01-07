@@ -59,24 +59,24 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
     					<ListItem key={0}>
     						<img src="logo.png" alt="logo" className={classes.logo} />
     					</ListItem>
-    					<ListItem button key={1}>
-    						<ListItemIcon> <AccountBalanceTwoToneIcon /></ListItemIcon>
-    						<Link to="/main">
+    					<Link to="/main">
+    						<ListItem button key={1}>
+    							<ListItemIcon> <AccountBalanceTwoToneIcon /></ListItemIcon>
     							<ListItemText primary={'Home'} />
-    						</Link>
-    					</ListItem>
-    					<ListItem button key={2}>
-    						<ListItemIcon> <AccountBalanceWalletIcon /></ListItemIcon>
-    						<Link to="/tranzactii">
+    						</ListItem>
+    					</Link>
+    					<Link to="/tranzactii">
+    						<ListItem button key={2}>
+    							<ListItemIcon> <AccountBalanceWalletIcon /></ListItemIcon>
     							<ListItemText primary={'Tranzactii'} />
-    						</Link>
-    					</ListItem>
-    					<ListItem button key={3}>
-    						<ListItemIcon> <AccountBoxIcon /></ListItemIcon>
-    						<Link to="/conturi">
+    						</ListItem>
+    					</Link>
+    					<Link to="/conturi">
+    						<ListItem button key={3}>
+    							<ListItemIcon> <AccountBoxIcon /></ListItemIcon>
     							<ListItemText primary={'Conturi'} />
-    						</Link>
-    					</ListItem>
+    						</ListItem>
+    					</Link>
     				</List>
     				<Button
     					className = {classes.logoutBtn}

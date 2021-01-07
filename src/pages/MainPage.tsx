@@ -25,11 +25,9 @@ const styles = createStyles({
 	container: {
 		display:'inline-flex',
 		flexDirection:'column',
+		width:'100%',
 	},
 	cardBox: {
-		display:'flex',
-		flexDirection:'column',
-		justifyContent:'space-around',
 	},
 	welcomeCard: {
 		width:'100%',
@@ -42,19 +40,22 @@ const styles = createStyles({
 		width:'40px',
 		height:'40px',
 	},
-	button:{
-		//marginLeft:'1340px',
-		marginLeft:'1100px',
-		//zIndex:1,
-	},
 	mainComponentContainer: {
 		display:'flex',
 		flexDirection:'row',
-		justifyContent:'space-around',
-		marginLeft: '5%',
+		marginLeft:'1%',
+		marginTop:'1%',
 	},
 	tranzactiiComponent: {
 
+	},
+	navBar: {
+		marginTop:'-21px',
+		padding:'79px',
+	},
+	bigCont: {
+		display:'flex',
+		flexDirection:'row',
 	},
 });
 class MainPage extends React.Component<MainPageProps, MainPageState> {
@@ -90,20 +91,6 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		});
 	}
 
-	adaugaCont = async(bank: string)=>{
-		const data = {
-			bank:bank,
-		};
-		const result = await this.service.addAccount(data);
-		const link = result.data;
-		if (bank === 'brd') {
-			const baseURL = window.location.origin;
-			window.location.replace(`${baseURL}` + '/main');
-		} else {
-			window.location.replace(link);
-		}
-	}
-
 	getUserInfo = async() => {
 		const user = localStorage.getItem('user');
 		if (user !== null) {
@@ -136,60 +123,52 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 	render() {
 		const { classes } = this.props;
 		return (
-			<div className = {classes.conatiner}>
-				<div>
-					<MyAppBar
-						pageTitle={this.state.pageTitle}
-						firstname={this.state.user?.first_name}
-						lastname={this.state.user?.last_name}
-					/>
-					<Button variant="contained" color="primary"  className={classes.button} onClick={() => this.adaugaCont('bt')}>
-						  Adauga BT
-					</Button>
-					<Button variant="contained" color="primary"   onClick={() => this.adaugaCont('bcr') }>
-						  Adauga BCR
-					</Button>
-					<Button variant="contained" color="primary"   onClick={() => this.adaugaCont('brd') }>
-						  Adauga BRD
-					</Button>
-				</div>
-				<div className = {classes.navBar}>
+			<div className={classes.bigCont}>
+				<div className={classes.navBar}>
 					<NavBar />
 				</div>
-				{!this.state.isLoading && (
-					<div className={classes.mainComponentContainer}>
-						<div className = {classes.cardBox}>
-							<Card
-								className = {classes.welcomeCard}
-							>
-								<CardContent>
-									<Icon><InsertEmoticonIcon className = {classes.welcomeCardIcon}/></Icon>
-									<Typography variant="h5" component="h2">
-									Bine ai venit, {`${this.state.user?.first_name} ${this.state.user?.last_name} !`}
-									</Typography>
-									<Typography variant="body2" component="p">
-										<br />
-									Aplicatia este inca in stare de dezvoltare, daca unele servicii nu functioneaza, ne puteti contacta !
-										<br />
-										<br />
-									Va multumim ca aveti incredere sa folositi aplicatia noastra !
-									</Typography>
-								</CardContent>
-							</Card>
-							<Card className = {classes.pieCard}>
-								<CardContent>
-									{this.state.isLoading && <CircularProgress/>}
-									{!this.state.isLoading && (
-										<PieChartComponent data = {this.state.data}/>
-									)}
-								</CardContent>
-							</Card>
-						</div>
-						<div className = {classes.tranzactiiComponent}>
-							<TranzactiiMainPage {...this.state}/>
-						</div>
+				<div className={classes.container}>
+					<div>
+						<MyAppBar
+							pageTitle={this.state.pageTitle}
+							firstname={this.state.user?.first_name}
+							lastname={this.state.user?.last_name} />
 					</div>
-				)}
+					{this.state.isLoading && (
+						<div className={classes.mainComponentContainer}>
+							<div className={classes.cardBox}>
+								<Card
+									className={classes.welcomeCard}
+								>
+									<CardContent>
+										<Icon><InsertEmoticonIcon className={classes.welcomeCardIcon} /></Icon>
+										<Typography variant="h5" component="h2">
+											Bine ai venit, {`${this.state.user?.first_name} ${this.state.user?.last_name} !`}
+										</Typography>
+										<Typography variant="body2" component="p">
+											<br />
+											Aplicatia este inca in stare de dezvoltare, daca unele servicii nu functioneaza, ne puteti contacta !
+											<br />
+											<br />
+											Va multumim ca aveti incredere sa folositi aplicatia noastra !
+										</Typography>
+									</CardContent>
+								</Card>
+								<Card className={classes.pieCard}>
+									<CardContent>
+										{this.state.isLoading && <CircularProgress />}
+										{!this.state.isLoading && (
+											<PieChartComponent data={this.state.data} />
+										)}
+									</CardContent>
+								</Card>
+							</div>
+							<div className={classes.tranzactiiComponent}>
+								<TranzactiiMainPage {...this.state}/>
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
 		);
 	}

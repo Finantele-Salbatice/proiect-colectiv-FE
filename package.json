@@ -24,6 +24,7 @@
     "chart.js": "^2.9.4",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
+    "material-ui-popup-state": "^1.7.1",
     "pre-commit": "^1.2.2",
     "qs": "^6.9.4",
     "react": "^16.13.1",
