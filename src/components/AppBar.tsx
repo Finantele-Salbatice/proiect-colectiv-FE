@@ -5,7 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Avatar from '@material-ui/core/Avatar';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import PopupState from 'material-ui-popup-state';
+import { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { Button, MenuItem, Menu } from '@material-ui/core';
 import ServiceApi from 'src/remote/ServiceApi';
 
