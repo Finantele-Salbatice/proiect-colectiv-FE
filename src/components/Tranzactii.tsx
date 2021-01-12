@@ -11,9 +11,9 @@ export interface TranzactiiProps {
 	from: Date;
 	to:  Date;
 	dateChange: any;
-	banca:any;
-	sumFrom:number;
-	sumTo:number;
+	banca: any;
+	sumFrom: number;
+	sumTo: number;
 }
 
 export interface TranzactiiState {
@@ -90,7 +90,7 @@ const styles = createStyles({
 	},
 	filters : {
 		display:'flex',
-		flexDirection:'row'
+		flexDirection:'row',
 	},
 	banckFilter: {
 		display:'flex',
@@ -100,8 +100,8 @@ const styles = createStyles({
 	},
 	sumFilter: {
 		display:'flex',
-		flexDirection:'row'
-	}
+		flexDirection:'row',
+	},
 });
 
 class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
@@ -109,12 +109,11 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 	handleData = (type: any) => (event: any) => {
 		let data;
 
-		if(type !== 'from' && type !== 'to') {
+		if (type !== 'from' && type !== 'to') {
 			data = {
 				[type]: event.target.value,
 			};
-		}
-		else {
+		} else {
 			data = {
 				[type]: event,
 			};
@@ -129,27 +128,31 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 			<div className = {classes.container}>
 				<div className={classes.filtreLine}>
 					<div className={classes.sumFilter}>
-						<TextField id="outlined-basic" label="Sum from" variant="outlined" value={this.props.sumFrom} style={{marginRight:'1%'}} />
+						<TextField id="outlined-basic" label="Sum from" variant="outlined" value={this.props.sumFrom} style={{
+							marginRight:'1%',
+						}} />
 						<TextField id="outlined-basic" label="Sum to" variant="outlined" value={this.props.sumTo} />
 					</div>
 					<div className={classes.banckFilter}>
 						<FormControl variant="outlined" className={classes.formControl}>
 							<InputLabel>Banca</InputLabel>
 							<Select
-							native
-							value={this.props.banca}
-							onChange={this.handleData('banca')}
-							label='Banca'
-							inputProps={{
-								name: 'banca',
-								id: 'outlined-age-native-simple',
-							}}
-							style={{width:'110%'}}
+								native
+								value={this.props.banca}
+								onChange={this.handleData('banca')}
+								label='Banca'
+								inputProps={{
+									name: 'banca',
+									id: 'outlined-age-native-simple',
+								}}
+								style={{
+									width:'110%',
+								}}
 							>
-							<option value="" />
-							<option value={'BT'}>BT</option>
-							<option value={'BCR'}>BCR</option>
-							<option value={'BRD'}>BRD</option>
+								<option value="" />
+								<option value={'BT'}>BT</option>
+								<option value={'BCR'}>BCR</option>
+								<option value={'BRD'}>BRD</option>
 							</Select>
 						</FormControl>
 					</div>
@@ -164,7 +167,9 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 									shrink: true,
 								}}
 								onChange={this.handleData('from')}
-								style={{marginRight:'1%'}} 
+								style={{
+									marginRight:'1%',
+								}}
 							/>
 							<KeyboardDatePicker
 								id="dateTo"

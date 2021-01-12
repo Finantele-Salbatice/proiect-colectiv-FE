@@ -15,9 +15,9 @@ export interface TranzactiiPageState {
 	to: Date;
 	pageTitle: string;
 	user?: User | null;
-	banca:string;
-	sumFrom:any;
-	sumTo:any;
+	banca: string;
+	sumFrom: any;
+	sumTo: any;
 }
 
 class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPageState> {
