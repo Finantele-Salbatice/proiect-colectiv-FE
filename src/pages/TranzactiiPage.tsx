@@ -86,17 +86,15 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 
 	render() {
 		return (
-			<div>
-				<div>
+			<div style={{display:'flex',flexDirection:'row',}}>
+				<NavBar />
+				<div style ={{display:'inline-flex',flexDirection:'column',width:'100%',}}>
 					<MyAppBar
-						pageTitle={this.state.pageTitle}
-						firstname={this.state.user?.first_name}
-						lastname={this.state.user?.last_name}/>
+							pageTitle={this.state.pageTitle}
+							firstname={this.state.user?.first_name}
+							lastname={this.state.user?.last_name}/>
+					<Tranzactii rows={this.state.list}  {...this.state} dateChange={this.dateChange} />
 				</div>
-				<div>
-					<NavBar />
-				</div>
-				<Tranzactii rows={this.state.list}  {...this.state} dateChange={this.dateChange}> </Tranzactii>
 			</div>
 		);
 	}
