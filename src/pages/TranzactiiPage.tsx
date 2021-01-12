@@ -15,6 +15,9 @@ export interface TranzactiiPageState {
 	to: Date;
 	pageTitle: string;
 	user?: User | null;
+	banca:string;
+	sumFrom:any;
+	sumTo:any;
 }
 
 class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPageState> {
@@ -29,6 +32,9 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 			from: firstDay,
 			pageTitle:'Tranzactii',
 			user:null,
+			banca:'',
+			sumFrom:null,
+			sumTo:null,
 		};
 		this.service = new ServiceApi();
 	}

@@ -1,6 +1,7 @@
 import DateFnsUtils from '@date-io/date-fns';
-import { createStyles,  withStyles } from '@material-ui/core';
+import { createStyles,  FormControl,  Input,  InputLabel,  Select,  TextField,  withStyles } from '@material-ui/core';
 import { ColDef, DataGrid, ValueFormatterParams } from '@material-ui/data-grid';
+import { Label } from '@material-ui/icons';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import * as React from 'react';
 
@@ -10,6 +11,9 @@ export interface TranzactiiProps {
 	from: Date;
 	to:  Date;
 	dateChange: any;
+	banca:any;
+	sumFrom:number;
+	sumTo:number;
 }
 
 export interface TranzactiiState {
@@ -79,23 +83,43 @@ const styles = createStyles({
 		marginLeft:'auto',
 	},
 	filtreLine : {
-		display:'inline-flex',
+		display:'flex',
 		flexDirection:'row',
-		marginLeft:'auto',
+		justifyContent:'space-between',
 		marginBottom:'10px',
 	},
 	filters : {
-		margin:'auto',
-		display:'inline',
+		display:'flex',
+		flexDirection:'row'
 	},
+	banckFilter: {
+		display:'flex',
+		justifyContent:'center',
+	},
+	formControl: {
+	},
+	sumFilter: {
+		display:'flex',
+		flexDirection:'row'
+	}
 });
 
 class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 
 	handleData = (type: any) => (event: any) => {
-		const data = {
-			[type]: event,
-		};
+		let data;
+
+		if(type !== 'from' && type !== 'to') {
+			data = {
+				[type]: event.target.value,
+			};
+		}
+		else {
+			data = {
+				[type]: event,
+			};
+		}
+
 		this.props.dateChange(data);
 	};
 
@@ -104,6 +128,31 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 		return (
 			<div className = {classes.container}>
 				<div className={classes.filtreLine}>
+					<div className={classes.sumFilter}>
+						<TextField id="outlined-basic" label="Sum from" variant="outlined" value={this.props.sumFrom} style={{marginRight:'1%'}} />
+						<TextField id="outlined-basic" label="Sum to" variant="outlined" value={this.props.sumTo} />
+					</div>
+					<div className={classes.banckFilter}>
+						<FormControl variant="outlined" className={classes.formControl}>
+							<InputLabel>Banca</InputLabel>
+							<Select
+							native
+							value={this.props.banca}
+							onChange={this.handleData('banca')}
+							label='Banca'
+							inputProps={{
+								name: 'banca',
+								id: 'outlined-age-native-simple',
+							}}
+							style={{width:'110%'}}
+							>
+							<option value="" />
+							<option value={'BT'}>BT</option>
+							<option value={'BCR'}>BCR</option>
+							<option value={'BRD'}>BRD</option>
+							</Select>
+						</FormControl>
+					</div>
 					<div className={classes.filters}>
 						<MuiPickersUtilsProvider utils={DateFnsUtils}>
 							<KeyboardDatePicker
@@ -115,6 +164,7 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 									shrink: true,
 								}}
 								onChange={this.handleData('from')}
+								style={{marginRight:'1%'}} 
 							/>
 							<KeyboardDatePicker
 								id="dateTo"
