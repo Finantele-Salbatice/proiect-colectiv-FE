@@ -89,21 +89,21 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 					/>
 					<div className = {classes.cardBox}>
 						<List>
-						{
-							this.state.list.map((elem: any, index: any)=>{
-								return (
-									<ListItem>
-											<Cont 
-											key={index} 
-											iban={elem.iban} 
-											sold={elem.balance} 
-											banca={elem.bank} 
-											descriere={elem.description} 
+							{
+								this.state.list.map((elem: any, index: any)=>{
+									return (
+										<ListItem>
+											<Cont
+												key={index}
+												iban={elem.iban}
+												sold={elem.balance}
+												banca={elem.bank}
+												descriere={elem.description}
 											/>
-									</ListItem>
-								);
-							})
-						}
+										</ListItem>
+									);
+								})
+							}
 						</List>
 					</div>
 				</div>

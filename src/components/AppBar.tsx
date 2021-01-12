@@ -29,7 +29,7 @@ const styles = createStyles({
 	},
 	username: {
 		marginTop:'auto',
-		marginBottom:'auto'
+		marginBottom:'auto',
 	},
 	avatar: {
 		display: 'inline-flex',
@@ -42,8 +42,8 @@ const styles = createStyles({
 	nameAndAvatarBox: {
 		display: 'flex',
 		flexDirection:'row',
-		justifyContent:'center'
-	}
+		justifyContent:'center',
+	},
 });
 
 export class MyAppBar extends React.Component<AppBarProps,AppBarState> {

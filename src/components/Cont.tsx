@@ -1,4 +1,4 @@
-import { Card, CardContent, createStyles, Grid, Paper, Typography, withStyles } from '@material-ui/core';
+import { createStyles, Paper, withStyles } from '@material-ui/core';
 import * as React from 'react';
 
 export interface ContProps {
@@ -17,7 +17,7 @@ const styles = createStyles({
 		display: 'flex',
 	},
 	pozaBox:{
-		display:'inline-block'
+		display:'inline-block',
 	},
 	image:{
 		width:'140px',
@@ -30,29 +30,29 @@ const styles = createStyles({
 	dateBox: {
 		display:'flex',
 		flexDirection:'row',
-		justifyContent:'space-between'
+		justifyContent:'space-between',
 	},
 	soldBox: {
 		display:'flex',
 		flexDirection:'column',
 		marginRight:'4%',
-		justifyContent:'center'
+		justifyContent:'center',
 	},
 	descriereL: {
 		display:'flex',
 		justifyContent:'center',
-		marginBottom:'1%'
+		marginBottom:'1%',
 	},
 	descriereBox: {
 		display:'flex',
 		flexDirection:'column',
 		justifyContent:'center',
-		paddingRight:'20px'
+		paddingRight:'20px',
 	},
 	descriere: {
 		display:'',
-		textAlign:'center'
-	}
+		textAlign:'center',
+	},
 });
 
 class Cont extends React.Component<ContProps, ContState> {
@@ -60,7 +60,9 @@ class Cont extends React.Component<ContProps, ContState> {
 		const { classes } = this.props;
 		return (
 			<div>
-				<Paper style={{display:'inline-block'}}>
+				<Paper style={{
+					display:'inline-block',
+				}}>
 					<div className={classes.contBox}>
 						<div className={classes.pozaBox}>
 							<img src={this.props.banca + '.jpg'} className={classes.image} />
