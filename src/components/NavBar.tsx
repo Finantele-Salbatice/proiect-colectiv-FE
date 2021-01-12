@@ -20,6 +20,8 @@ const styles = createStyles({
 	},
 	drawerBox : {
 		display:'inline-block',
+		marginTop:'-21px',
+		padding:'79px',
 	},
 	logo:{
 		maxWidth:'100px',

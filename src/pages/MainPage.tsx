@@ -49,10 +49,6 @@ const styles = createStyles({
 	tranzactiiComponent: {
 
 	},
-	navBar: {
-		marginTop:'-21px',
-		padding:'79px',
-	},
 	bigCont: {
 		display:'flex',
 		flexDirection:'row',
@@ -119,7 +115,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		const { classes } = this.props;
 		return (
 			<div className={classes.bigCont}>
-				<div className={classes.navBar}>
+				<div>
 					<NavBar />
 				</div>
 				<div className={classes.container}>
