@@ -1,4 +1,4 @@
-import { createStyles } from '@material-ui/core';
+import { createStyles, List, ListItem } from '@material-ui/core';
 import * as React from 'react';
 import MyAppBar from 'src/components/AppBar';
 import NavBar from 'src/components/NavBar';
@@ -19,26 +19,19 @@ export interface ConturiPageState {
 }
 
 const styles = createStyles({
+	bigCont: {
+		display:'flex',
+		flexDirection:'row',
+	},
 	container: {
 		display:'inline-flex',
 		flexDirection:'column',
+		width:'100%',
 	},
 	cardBox: {
-		display:'inline-block',
-	},
-	welcomeCard: {
+		marginTop:'1%',
 		width:'100%',
-		position:'relative',
-		left:'170px',
-		top:'30px',
-	},
-	welcomeCardIcon : {
-		width:'40px',
-		height:'40px',
-	},
-	button:{
-		marginLeft:'1340px',
-		//zIndex:1,
+		marginLeft:'1%',
 	},
 });
 
@@ -84,24 +77,34 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 	render() {
 		const { classes } = this.props;
 		return (
-			<div className = {classes.conatiner}>
+			<div className = {classes.bigCont}>
 				<div>
+					<NavBar />
+				</div>
+				<div className={classes.container}>
 					<MyAppBar
 						pageTitle={this.state.pageTitle}
 						firstname={this.state.user?.first_name}
 						lastname={this.state.user?.last_name}
 					/>
-				</div>
-				<div className = {classes.navBar}>
-					<NavBar />
-				</div>
-				<div className = {classes.cardBox}>
-					<div className={classes.welcomeCard}>
-						{
-							this.state.list.map((elem: any, index: any)=>{
-								return <Cont key={index} iban={elem.iban} sold={elem.balance} banca={elem.bank} descriere={elem.description}></Cont>;
-							})
-						}
+					<div className = {classes.cardBox}>
+						<List>
+							{
+								this.state.list.map((elem: any, index: any)=>{
+									return (
+										<ListItem>
+											<Cont
+												key={index}
+												iban={elem.iban}
+												sold={elem.balance}
+												banca={elem.bank}
+												descriere={elem.description}
+											/>
+										</ListItem>
+									);
+								})
+							}
+						</List>
 					</div>
 				</div>
 			</div>

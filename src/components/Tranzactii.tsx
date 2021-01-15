@@ -45,10 +45,9 @@ const styles = createStyles({
 		//display:'inline-flex',
 		flexDirection:'column',
 		display: 'inline-flex',
-		flexWrap: 'wrap',
 		width:'65%',
-		marginLeft:'12%',
-		justifyContent:'center',
+		marginLeft:'1%',
+		marginTop: '1%',
 	},
 	cardBox: {
 		display:'inline-block',

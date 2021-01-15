@@ -22,16 +22,14 @@ export interface AppBarState{
 }
 const styles = createStyles({
 	root: {
-		flexGrow: 1,
-		display: 'flex',
 	},
 	title: {
 		flexGrow : 1,
 		display: 'inline-flex',
 	},
 	username: {
-		marginLeft: '2px',
-		display: 'inline-flex',
+		marginTop:'auto',
+		marginBottom:'auto',
 	},
 	avatar: {
 		display: 'inline-flex',
@@ -40,6 +38,11 @@ const styles = createStyles({
 	buttonRow: {
 		display:'flex',
 		flexDirection:'row',
+	},
+	nameAndAvatarBox: {
+		display: 'flex',
+		flexDirection:'row',
+		justifyContent:'center',
 	},
 });
 
@@ -97,7 +100,7 @@ export class MyAppBar extends React.Component<AppBarProps,AppBarState> {
 									)}
 								</PopupState>
 							</div>
-							<div>
+							<div className={classes.nameAndAvatarBox}>
 								<Avatar className={classes.avatar}>
 									<AccountCircle/>
 								</Avatar>
@@ -108,7 +111,6 @@ export class MyAppBar extends React.Component<AppBarProps,AppBarState> {
 								)}
 							</div>
 						</div>
-					);
 					</Toolbar>
 				</AppBar>
 			</div>
