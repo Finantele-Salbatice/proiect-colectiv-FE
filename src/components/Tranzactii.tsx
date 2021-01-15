@@ -22,7 +22,7 @@ export interface TranzactiiState {
 
 const columns: ColDef[] = [
 	{
-		field: 'id', headerName: 'ID', width: 120
+		field: 'id', headerName: 'ID', width: 120,
 	},
 	{
 		field: 'amount', headerName: 'Suma', width: 240,
@@ -70,7 +70,7 @@ const styles = createStyles({
 	banckFilter: {
 		display:'inline-flex',
 		justifyContent:'center',
-		marginRight:'5%'
+		marginRight:'5%',
 	},
 	formControl: {
 	},
@@ -87,8 +87,8 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 
 		if (type !== 'from' && type !== 'to') {
 
-			if(type === 'sumFrom' || type === 'sumTo') {
-				if(!Number(event.target.value)) {
+			if (type === 'sumFrom' || type === 'sumTo') {
+				if (!Number(event.target.value)) {
 					return;
 				}
 			}
@@ -112,19 +112,23 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 			<div className = {classes.container}>
 				<div className={classes.filtreLine}>
 					<div className={classes.sumFilter}>
-						<TextField label="Sum from" variant="outlined" 
-							value={sumFrom} 
-							style={{marginRight:'1%', width: '40%'}} 
-							onChange={this.handleData('sumFrom')} 
+						<TextField label="Sum from" variant="outlined"
+							value={sumFrom}
+							style={{
+								marginRight:'1%', width: '40%',
+							}}
+							onChange={this.handleData('sumFrom')}
 							type="number"
-							/>
+						/>
 						<TextField
-						label="Sum to"
-						variant="outlined"
-						value={sumTo}
-						onChange={this.handleData('sumTo')}
-						style={{width:'40%'}}
-						type="number"
+							label="Sum to"
+							variant="outlined"
+							value={sumTo}
+							onChange={this.handleData('sumTo')}
+							style={{
+								width:'40%',
+							}}
+							type="number"
 						/>
 					</div>
 					<div className={classes.banckFilter}>
