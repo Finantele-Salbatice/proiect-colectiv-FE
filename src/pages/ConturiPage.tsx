@@ -30,7 +30,7 @@ const styles = createStyles({
 	},
 	cardBox: {
 		marginTop:'1%',
-		width:'100%',
+		width:'99%',
 		marginLeft:'1%',
 	},
 });
