@@ -4,6 +4,7 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import NavBar from 'src/components/NavBar';
 import MyAppBar from 'src/components/AppBar';
 import PieChartComponent from 'src/components/PieChart';
+import BarChartComponent from 'src/components/BarChart';
 import ServiceApi from 'src/remote/ServiceApi';
 import type { User } from 'src/entity/User';
 import type { Account } from 'src/entity/Account';
@@ -17,9 +18,26 @@ export interface MainPageState {
 	isLoading: boolean;
 	pageTitle: string;
 	user?: User | null;
+	accounts?: Map<number, Account>;
 	data?: any;
 	tranzactii: any;
+	spending?: any;
+	months?: any;
 }
+const months_dict : Map<string, string> = new Map([
+	["1", "Ianuarie"],
+	["2", "Februarie"],
+	["3", "Martie"],
+	["4","Aprilie"],
+	["5", "Mai"],
+	["6", "Iunie"],
+	["7", "Iulie"],
+	["8", "August"],
+	["9", "Septembrie"],
+	["10", "Octombrie"],
+	["11", "Noiembrie"],
+	["12", "Decembrie"]
+]);
 
 const styles = createStyles({
 	container: {
@@ -32,7 +50,7 @@ const styles = createStyles({
 	welcomeCard: {
 		width:'100%',
 	},
-	pieCard : {
+	chartCard : {
 		width:'100%',
 		verticalAlign: 'center',
 	},
@@ -62,8 +80,11 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			isLoading: true,
 			pageTitle: 'Home',
 			user: null,
+			accounts: new Map(),
 			data: [],
 			tranzactii: [],
+			spending: [],
+			months: [],
 		};
 		this.service = new ServiceApi();
 	}
@@ -74,12 +95,60 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			skip: 0, limit:5,
 		});
 		const data = await this.getSolds();
+		const reports = await this.getReports();
+		const spendings = reports.spending;
+		const months = reports.months;
+		
+		const spending_labels: string[] = [];
+		const spending_values: number[] = [];
+
+		spendings.forEach((x : any) => {
+			let a = this.state.accounts?.get(x.id);
+			spending_labels.push(`${a?.bank} ${a?.iban}`);
+			spending_values.push(x.spending);
+		});
+
+		const spending_data = {
+			labels : spending_labels,
+			datasets: [{
+				label: 'Cheltuieli per cont in ultimele 6 luni',
+				data: spending_values,
+			}],
+		};
+
+		const months_labels: string[] = [];
+		const months_values: number[] = [];
+
+		months.forEach((x : any) => {
+			console.log(JSON.stringify(x));
+			let s = x.month.split("/");
+			let year = s[0];
+			let month = months_dict.get(s[1]);
+			months_labels.push(`${month} ${year}`);
+			months_values.push(x.spending);
+		});
+
+		const months_data = {
+			labels : months_labels,
+			datasets: [{
+				label: 'Cheltuieli lunare',
+				data: months_values,
+			}],
+		};
+
 		this.setState({
 			isLoading:false,
 			user: user,
 			tranzactii:tr.data,
 			data: data,
+			spending: spending_data,
+			months: months_data
 		});
+	}
+
+	getReports = async() => {
+		const result = await this.service.getReportsRequest();
+		return result.data;
 	}
 
 	getUserInfo = async() => {
@@ -98,7 +167,11 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		});
 		const labels: string[] = [];
 		const values: number[] = [];
+		let dict : Map<number, Account> = new Map();
 		accounts.data.forEach((account: Account) => {
+			if(account.id !== undefined){
+				dict.set(account.id, account);
+			}
 			labels.push(account.bank + ' ' + account.iban);
 			values.push(account.balance || 0);
 		});
@@ -108,6 +181,9 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 				data: values,
 			}],
 		};
+		this.setState({
+			accounts: dict
+		});
 		return data;
 	}
 
@@ -145,11 +221,27 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 										</Typography>
 									</CardContent>
 								</Card>
-								<Card className={classes.pieCard}>
+								<Card className={classes.chartCard}>
 									<CardContent>
 										{this.state.isLoading && <CircularProgress />}
 										{!this.state.isLoading && (
 											<PieChartComponent data={this.state.data} />
+										)}
+									</CardContent>
+								</Card>
+								<Card>
+									<CardContent className={classes.chartCard}>
+										{this.state.isLoading && <CircularProgress />}
+										{!this.state.isLoading && (
+											<BarChartComponent data={this.state.spending} />
+										)}
+									</CardContent>
+								</Card>
+								<Card>
+									<CardContent className={classes.chartCard}>
+										{this.state.isLoading && <CircularProgress />}
+										{!this.state.isLoading && (
+											<BarChartComponent data={this.state.months} />
 										)}
 									</CardContent>
 								</Card>

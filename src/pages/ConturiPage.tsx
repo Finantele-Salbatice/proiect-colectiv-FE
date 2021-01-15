@@ -60,13 +60,9 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 
 	async componentDidMount() {
 		const user = await this.getUserInfo();
-		const userId = {
-			'userId' : user.id,
-		};
-		const body = {
-			'user' : userId,
-		};
-		const accounts = await this.service.accountListRequest(JSON.stringify(body));
+		const accounts = await this.service.accountListRequest({
+			skip:0, limit: 9999,
+		});
 		this.setState({
 			...this.state,
 			list:accounts.data,
