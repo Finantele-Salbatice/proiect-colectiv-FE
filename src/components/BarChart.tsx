@@ -10,7 +10,7 @@ interface BarChartState {
 }
 
 const generateColor = () => {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+	return '#' + Math.floor(Math.random() * 16777215).toString(16);
 };
 
 const styles = createStyles({
@@ -32,13 +32,13 @@ class BarChartComponent extends React.Component<BarChartProps,BarChartState> {
 					<div>Nu aveti niciun cont adaugat...</div>
 				)}
 				{colorData.labels.length > 0 && (
-                    <Bar 
-                    data = {colorData} 
-                    width = {80} 
-                    height = {250} 
-                    options={{
-                        maintainAspectRatio: false
-                      }}/>
+					<Bar
+						data = {colorData}
+						width = {80}
+						height = {250}
+						options={{
+							maintainAspectRatio: false,
+						}}/>
 				)}
 			</div>
 

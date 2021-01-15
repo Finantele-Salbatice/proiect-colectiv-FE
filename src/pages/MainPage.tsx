@@ -1,4 +1,4 @@
-import { Card, CardContent, createStyles, Icon, Typography, withStyles ,Button, CircularProgress } from '@material-ui/core';
+import { Card, CardContent, createStyles, Icon, Typography, withStyles , CircularProgress } from '@material-ui/core';
 import * as React from 'react';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import NavBar from 'src/components/NavBar';
@@ -24,19 +24,19 @@ export interface MainPageState {
 	spending?: any;
 	months?: any;
 }
-const months_dict : Map<string, string> = new Map([
-	["1", "Ianuarie"],
-	["2", "Februarie"],
-	["3", "Martie"],
-	["4","Aprilie"],
-	["5", "Mai"],
-	["6", "Iunie"],
-	["7", "Iulie"],
-	["8", "August"],
-	["9", "Septembrie"],
-	["10", "Octombrie"],
-	["11", "Noiembrie"],
-	["12", "Decembrie"]
+const monthsDict: Map<string, string> = new Map([
+	['1', 'Ianuarie'],
+	['2', 'Februarie'],
+	['3', 'Martie'],
+	['4','Aprilie'],
+	['5', 'Mai'],
+	['6', 'Iunie'],
+	['7', 'Iulie'],
+	['8', 'August'],
+	['9', 'Septembrie'],
+	['10', 'Octombrie'],
+	['11', 'Noiembrie'],
+	['12', 'Decembrie'],
 ]);
 
 const styles = createStyles({
@@ -98,41 +98,40 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		const reports = await this.getReports();
 		const spendings = reports.spending;
 		const months = reports.months;
-		
-		const spending_labels: string[] = [];
-		const spending_values: number[] = [];
 
-		spendings.forEach((x : any) => {
-			let a = this.state.accounts?.get(x.id);
-			spending_labels.push(`${a?.bank} ${a?.iban}`);
-			spending_values.push(x.spending);
+		const spendingLabels: string[] = [];
+		const spendingValues: number[] = [];
+
+		spendings.forEach((x: any) => {
+			const a = this.state.accounts?.get(x.id);
+			spendingLabels.push(`${a?.bank} ${a?.iban}`);
+			spendingValues.push(x.spending);
 		});
 
-		const spending_data = {
-			labels : spending_labels,
+		const spendingData = {
+			labels : spendingLabels,
 			datasets: [{
 				label: 'Cheltuieli per cont in ultimele 6 luni',
-				data: spending_values,
+				data: spendingValues,
 			}],
 		};
 
-		const months_labels: string[] = [];
-		const months_values: number[] = [];
+		const monthsLabels: string[] = [];
+		const monthsValues: number[] = [];
 
-		months.forEach((x : any) => {
-			console.log(JSON.stringify(x));
-			let s = x.month.split("/");
-			let year = s[0];
-			let month = months_dict.get(s[1]);
-			months_labels.push(`${month} ${year}`);
-			months_values.push(x.spending);
+		months.forEach((x: any) => {
+			const s = x.month.split('/');
+			const year = s[0];
+			const month = monthsDict.get(s[1]);
+			monthsLabels.push(`${month} ${year}`);
+			monthsValues.push(x.spending);
 		});
 
-		const months_data = {
-			labels : months_labels,
+		const monthsData = {
+			labels : monthsLabels,
 			datasets: [{
 				label: 'Cheltuieli lunare',
-				data: months_values,
+				data: monthsValues,
 			}],
 		};
 
@@ -141,8 +140,8 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			user: user,
 			tranzactii:tr.data,
 			data: data,
-			spending: spending_data,
-			months: months_data
+			spending: spendingData,
+			months: monthsData,
 		});
 	}
 
@@ -167,9 +166,9 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 		});
 		const labels: string[] = [];
 		const values: number[] = [];
-		let dict : Map<number, Account> = new Map();
+		const dict: Map<number, Account> = new Map();
 		accounts.data.forEach((account: Account) => {
-			if(account.id !== undefined){
+			if (account.id !== undefined) {
 				dict.set(account.id, account);
 			}
 			labels.push(account.bank + ' ' + account.iban);
@@ -182,7 +181,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
 			}],
 		};
 		this.setState({
-			accounts: dict
+			accounts: dict,
 		});
 		return data;
 	}
