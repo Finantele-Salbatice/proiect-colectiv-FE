@@ -20,7 +20,7 @@
     "@types/react-router-dom": "^5.1.6",
     "@types/react-transition-group": "^4.4.0",
     "@types/validator": "^13.1.0",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.4",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
