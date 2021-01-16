@@ -14,6 +14,7 @@ export interface TranzactiiProps {
 	cont: any;
 	sumFrom: number;
 	sumTo: number;
+	listConturi: any;
 }
 
 export interface TranzactiiState {
@@ -85,7 +86,7 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 	handleData = (type: any) => (event: any) => {
 		let data;
 
-		if (type !== 'from' && type !== 'to') {
+		if (type !== 'from' && type !== 'to' && type !== 'cont') {
 
 			if (type === 'sumFrom' || type === 'sumTo') {
 				if (!Number(event.target.value)) {
@@ -105,6 +106,12 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 
 		this.props.dateChange(data);
 	};
+
+	getConturi = () =>{
+		return this.props.listConturi.map((elem: any)=>{
+			return <option>{elem}</option>;
+		});
+	}
 
 	render() {
 		const { classes, sumFrom, sumTo } = this.props;
@@ -147,11 +154,7 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 									width:'100%',
 								}}
 							>
-								<option>RO39RNCB0002000000010006</option>
-								<option value={'BT'}>BT</option>
-								<option value={'BCR'}>BCR</option>
-								<option value={'BRD'}>BRD</option>
-								<option value="" />
+								{this.getConturi()}
 							</Select>
 						</FormControl>
 					</div>

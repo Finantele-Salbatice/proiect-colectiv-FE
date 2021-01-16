@@ -18,6 +18,7 @@ export interface TranzactiiPageState {
 	cont: string;
 	sumFrom: any;
 	sumTo: any;
+	listConturi: any;
 }
 
 class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPageState> {
@@ -33,8 +34,9 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 			pageTitle:'Tranzactii',
 			user:null,
 			cont:'',
-			sumFrom:null,
-			sumTo:null,
+			sumFrom:0,
+			sumTo:999999999,
+			listConturi: ['sdadas','asdasd'],
 		};
 		this.service = new ServiceApi();
 	}
@@ -61,8 +63,8 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 	}
 
 	async componentDidUpdate(prevProps: TranzactiiPageProps , prevState: TranzactiiPageState ) {
-		const { from , to } = this.state;
-		if (from === prevState.from && to === prevState.to) {
+		const { from , to, sumFrom , sumTo } = this.state;
+		if (from === prevState.from && to === prevState.to && sumTo === prevState.sumTo  && sumFrom === prevState.sumFrom) {
 			return;
 		}
 		const  data = await this.getData();
@@ -73,9 +75,9 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 
 	async getData() {
 		try {
-			const { to , from } = this.state;
+			const { to , from , sumFrom , sumTo } = this.state;
 			const data = await this.service.getAllTransactions({
-				skip: 0, limit:9999,to:to , from:from,
+				skip: 0, limit:9999,to:to , from:from, amountAbove:sumFrom , amountBelow:sumTo,
 			});
 			return data.data;
 		} catch (err) {
