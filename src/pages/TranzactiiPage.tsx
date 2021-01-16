@@ -15,7 +15,7 @@ export interface TranzactiiPageState {
 	to: Date;
 	pageTitle: string;
 	user?: User | null;
-	cont: string;
+	cont:	string| null;
 	sumFrom: any;
 	sumTo: any;
 	listConturi: any;
@@ -33,7 +33,7 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 			from: firstDay,
 			pageTitle:'Tranzactii',
 			user:null,
-			cont:'',
+			cont:null,
 			sumFrom:0,
 			sumTo:999999999,
 			listConturi: ['sdadas','asdasd'],
@@ -44,9 +44,11 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 	async componentDidMount() {
 		const user = await this.getUserInfo();
 		const  data = await this.getData();
+		const accounts = await this.getConturi(user);
 		this.setState({
 			list:data,
 			user: user,
+			listConturi:accounts,
 		});
 	}
 	getUserInfo = async() => {
@@ -63,8 +65,8 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 	}
 
 	async componentDidUpdate(prevProps: TranzactiiPageProps , prevState: TranzactiiPageState ) {
-		const { from , to, sumFrom , sumTo } = this.state;
-		if (from === prevState.from && to === prevState.to && sumTo === prevState.sumTo  && sumFrom === prevState.sumFrom) {
+		const { from , to, sumFrom , sumTo , cont } = this.state;
+		if (from === prevState.from && to === prevState.to && sumTo === prevState.sumTo  && sumFrom === prevState.sumFrom && cont === prevState.cont) {
 			return;
 		}
 		const  data = await this.getData();
@@ -73,12 +75,28 @@ class TranzactiiPage extends React.Component<TranzactiiPageProps, TranzactiiPage
 		});
 	}
 
+	getConturi=async(user: any)=>{
+		const conturi = await this.service.accountListRequest({
+			'user':user.id,
+		});
+		return conturi.data;
+	}
+
 	async getData() {
 		try {
-			const { to , from , sumFrom , sumTo } = this.state;
-			const data = await this.service.getAllTransactions({
-				skip: 0, limit:9999,to:to , from:from, amountAbove:sumFrom , amountBelow:sumTo,
-			});
+			const { to , from , sumFrom , sumTo , cont } = this.state;
+			const opt: any = {
+				skip:0,
+				limit:9999,
+				to:to,
+				from:from,
+				amountAbove:Number(sumFrom),
+				amountBelow:Number(sumTo),
+			};
+			if (cont) {
+				opt.accountId = cont;
+			}
+			const data = await this.service.getAllTransactions(opt);
 			return data.data;
 		} catch (err) {
 			console.log(err);

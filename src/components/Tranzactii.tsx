@@ -1,7 +1,6 @@
 import DateFnsUtils from '@date-io/date-fns';
-import { createStyles,  FormControl,  Input,  InputLabel,  Select,  TextField,  withStyles } from '@material-ui/core';
+import { createStyles,  FormControl,  InputLabel,  Select,  TextField,  withStyles } from '@material-ui/core';
 import { ColDef, DataGrid, ValueFormatterParams } from '@material-ui/data-grid';
-import { Label } from '@material-ui/icons';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import * as React from 'react';
 
@@ -85,31 +84,28 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 
 	handleData = (type: any) => (event: any) => {
 		let data;
-
-		if (type !== 'from' && type !== 'to' && type !== 'cont') {
+		event.persist();
+		if (type !== 'from' && type !== 'to') {
 
 			if (type === 'sumFrom' || type === 'sumTo') {
 				if (!Number(event.target.value)) {
 					return;
 				}
 			}
-
 			data = {
 				[type]: event.target.value,
 			};
-
 		} else {
 			data = {
 				[type]: event,
 			};
 		}
-
 		this.props.dateChange(data);
 	};
 
 	getConturi = () =>{
 		return this.props.listConturi.map((elem: any)=>{
-			return <option>{elem}</option>;
+			return <option value={elem.id}>{elem.iban}</option>;
 		});
 	}
 
@@ -154,6 +150,7 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 									width:'100%',
 								}}
 							>
+								<option value={undefined}>{'Toate'}</option>
 								{this.getConturi()}
 							</Select>
 						</FormControl>
