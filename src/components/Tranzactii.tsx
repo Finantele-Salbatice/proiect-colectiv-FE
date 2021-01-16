@@ -84,7 +84,7 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 
 	handleData = (type: any) => (event: any) => {
 		let data;
-		event.persist();
+
 		if (type !== 'from' && type !== 'to') {
 
 			if (type === 'sumFrom' || type === 'sumTo') {
