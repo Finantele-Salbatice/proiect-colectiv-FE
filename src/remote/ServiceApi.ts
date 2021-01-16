@@ -52,20 +52,24 @@ class ServiceApi {
 		}
 
 		async getAllTransactions(body: any): Promise<any> {
-			const c = await this.authInstance.get('/transactions/list',  {
-				params: body,
-			});
-			return c.data;
+    	const c = await this.authInstance.get('/transactions/list',  {
+    		params: body,
+    	});
+    	return c.data;
 		}
 
 		async accountListRequest(body: any): Promise<any> {
-			return this.authInstance.get('/account/list', {
-				params: body,
-			});
+    	return this.authInstance.get('/account/list', {
+    		params: body,
+    	});
 		}
 
 		async userInfoRequest(): Promise<any> {
-			return this.authInstance.get('/info');
+    	return this.authInstance.get('/info');
+		}
+
+		async getReportsRequest(): Promise<any> {
+    	return this.authInstance.get('/account/reports');
 		}
 }
 export default ServiceApi;

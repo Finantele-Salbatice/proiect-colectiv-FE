@@ -70,7 +70,7 @@ class ResetPass extends React.Component<ResetPassProps, ResetPassState> {
   						required
   						name="email"
   						value={email}
-  						color="secondary"
+  						color="primary"
   						onChange={this.handleData('email')}
   					/>
   					<div>
@@ -83,7 +83,7 @@ class ResetPass extends React.Component<ResetPassProps, ResetPassState> {
   						variant="contained"
   						fullWidth
   						name="submitBtn"
-  						color="secondary"
+  						color="primary"
   						id="submitBtn"
   						onClick={this.submitClick}
   					>

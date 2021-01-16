@@ -48,6 +48,7 @@ class TranzactiiMainPage extends React.Component<TranzactiiMainPageProps, Tranza
 					height: 400,
 					width: 752,
 				}}>
+					<h2>Ultimele tale 5 tranzactii</h2>
 					<DataGrid rows={this.props.tranzactii} columns={columns} pageSize={5}
 						hideFooter = {true}
 						hideFooterRowCount = {true}
