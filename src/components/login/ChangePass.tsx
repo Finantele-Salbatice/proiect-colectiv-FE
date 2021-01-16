@@ -86,7 +86,7 @@ class ChangePass extends React.Component<ChangePassProps, ChangePassState> {
   						required
   						name="confnewpass"
   						value={confnewpass}
-  						color="secondary"
+  						color="primary"
   						onChange={this.handleData('confnewpass')}
   					/>
   					<div>
@@ -99,7 +99,7 @@ class ChangePass extends React.Component<ChangePassProps, ChangePassState> {
   						variant="contained"
   						fullWidth
   						name="submitBtn"
-  						color="secondary"
+  						color="primary"
   						id="submitBtn"
   						onClick={this.submitClick}
   					>
