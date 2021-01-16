@@ -30,7 +30,7 @@ const styles = createStyles({
 	},
 	cardBox: {
 		marginTop:'1%',
-		width:'100%',
+		width:'99%',
 		marginLeft:'1%',
 	},
 });
@@ -60,9 +60,14 @@ class ConturiPage extends React.Component<ConturiPageProps, ConturiPageState> {
 
 	async componentDidMount() {
 		const user = await this.getUserInfo();
-		const accounts = await this.service.accountListRequest({
-			skip:0, limit: 9999,
-		});
+		const userId = {
+			'userId' : user.id,
+		};
+		const body = {
+			'user' : userId,
+		};
+		const accounts = await this.service.accountListRequest(body);
+		console.log(accounts);
 		this.setState({
 			...this.state,
 			list:accounts.data,

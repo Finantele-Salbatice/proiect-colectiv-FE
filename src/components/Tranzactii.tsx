@@ -1,5 +1,5 @@
 import DateFnsUtils from '@date-io/date-fns';
-import { createStyles,  withStyles } from '@material-ui/core';
+import { createStyles,  FormControl,  InputLabel,  Select,  TextField,  withStyles } from '@material-ui/core';
 import { ColDef, DataGrid, ValueFormatterParams } from '@material-ui/data-grid';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import * as React from 'react';
@@ -10,6 +10,10 @@ export interface TranzactiiProps {
 	from: Date;
 	to:  Date;
 	dateChange: any;
+	cont: any;
+	sumFrom: number;
+	sumTo: number;
+	listConturi: any;
 }
 
 export interface TranzactiiState {
@@ -18,22 +22,22 @@ export interface TranzactiiState {
 
 const columns: ColDef[] = [
 	{
-		field: 'id', headerName: 'ID', width: 70,
+		field: 'id', headerName: 'ID', width: 120,
 	},
 	{
-		field: 'amount', headerName: 'Suma', width: 100,
+		field: 'amount', headerName: 'Suma', width: 240,
 	},
 	{
-		field: 'currency', headerName: 'Currency', width: 130,
+		field: 'currency', headerName: 'Currency', width: 240,
 	},
 	{
-		field: 'details', headerName: 'Details' ,width: 150,
+		field: 'details', headerName: 'Details' ,width: 240,
 	},
 	{
-		field: 'beneficiary', headerName: 'Beneficiary' ,width: 150,
+		field: 'beneficiary', headerName: 'Beneficiary' ,width: 240,
 	},
 	{
-		field: 'date_time', headerName: 'Date' ,width: 150, valueFormatter: (params: ValueFormatterParams) => {
+		field: 'date_time', headerName: 'Date' ,width: 240, valueFormatter: (params: ValueFormatterParams) => {
 			const value = params.value || '';
 			 return  new Date(value.toString()).toLocaleDateString();
 		},
@@ -45,65 +49,112 @@ const styles = createStyles({
 		//display:'inline-flex',
 		flexDirection:'column',
 		display: 'inline-flex',
-		width:'65%',
+		width:'98%',
 		marginLeft:'1%',
 		marginTop: '1%',
-	},
-	cardBox: {
-		display:'inline-block',
-	},
-	welcomeCard: {
-		width:'100%',
-		position:'relative',
-		left:'170px',
-		top:'30px',
-	},
-	pieCard : {
-		width:'100%',
-		position:'relative',
-		left:'170px',
-		top:'40px',
-		verticalAlign: 'center',
-	},
-	welcomeCardIcon : {
-		width:'40px',
-		height:'40px',
-	},
-	button:{
-		//marginLeft:'1340px',
-		marginLeft:'1100px',
-		//zIndex:1,
 	},
 	textField: {
 		width: 200,
 		marginLeft:'auto',
 	},
 	filtreLine : {
-		display:'inline-flex',
+		display:'flex',
 		flexDirection:'row',
-		marginLeft:'auto',
+		justifyContent:'space-between',
 		marginBottom:'10px',
 	},
 	filters : {
-		margin:'auto',
-		display:'inline',
+		display:'flex',
+		flexDirection:'row',
+	},
+	banckFilter: {
+		display:'inline-flex',
+		justifyContent:'center',
+		marginRight:'5%',
+	},
+	formControl: {
+	},
+	sumFilter: {
+		display:'inline-flex',
+		flexDirection:'row',
 	},
 });
 
 class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 
 	handleData = (type: any) => (event: any) => {
-		const data = {
-			[type]: event,
-		};
+		let data;
+		event.persist();
+		if (type !== 'from' && type !== 'to') {
+
+			if (type === 'sumFrom' || type === 'sumTo') {
+				if (!Number(event.target.value)) {
+					return;
+				}
+			}
+			data = {
+				[type]: event.target.value,
+			};
+		} else {
+			data = {
+				[type]: event,
+			};
+		}
 		this.props.dateChange(data);
 	};
 
+	getConturi = () =>{
+		return this.props.listConturi.map((elem: any)=>{
+			return <option value={elem.id}>{elem.iban}</option>;
+		});
+	}
+
 	render() {
-		const { classes  } = this.props;
+		const { classes, sumFrom, sumTo } = this.props;
 		return (
 			<div className = {classes.container}>
 				<div className={classes.filtreLine}>
+					<div className={classes.sumFilter}>
+						<TextField label="Sum from" variant="outlined"
+							value={sumFrom}
+							style={{
+								marginRight:'1%', width: '40%',
+							}}
+							onChange={this.handleData('sumFrom')}
+							type="number"
+						/>
+						<TextField
+							label="Sum to"
+							variant="outlined"
+							value={sumTo}
+							onChange={this.handleData('sumTo')}
+							style={{
+								width:'40%',
+							}}
+							type="number"
+						/>
+					</div>
+					<div className={classes.banckFilter}>
+						<FormControl variant="outlined" className={classes.formControl}>
+							<InputLabel>Cont</InputLabel>
+							<Select
+								native
+								value={this.props.cont}
+								onChange={this.handleData('cont')}
+								label='cont'
+								inputProps={{
+									name: 'cont',
+									id: 'outlined-age-native-simple',
+								}}
+								style={{
+									width:'100%',
+								}}
+							>
+								<option value={undefined}>{'Toate'}</option>
+								{this.getConturi()}
+							</Select>
+						</FormControl>
+					</div>
 					<div className={classes.filters}>
 						<MuiPickersUtilsProvider utils={DateFnsUtils}>
 							<KeyboardDatePicker
@@ -115,6 +166,9 @@ class Tranzactii extends React.Component<TranzactiiProps, TranzactiiState> {
 									shrink: true,
 								}}
 								onChange={this.handleData('from')}
+								style={{
+									marginRight:'1%',
+								}}
 							/>
 							<KeyboardDatePicker
 								id="dateTo"

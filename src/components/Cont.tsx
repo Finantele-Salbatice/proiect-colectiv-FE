@@ -20,8 +20,9 @@ const styles = createStyles({
 		display:'inline-block',
 	},
 	image:{
-		width:'140px',
+		maxWidth:'240px',
 		height:'140px',
+		padding: '15px',
 	},
 	contBox: {
 		display:'inline-flex',
