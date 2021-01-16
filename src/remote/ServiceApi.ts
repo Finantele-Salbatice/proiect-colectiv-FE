@@ -3,73 +3,73 @@ import axios, { AxiosInstance } from 'axios';
 const { SNOWPACK_PUBLIC_API_URL } = import.meta.env;
 
 class ServiceApi {
-    private instance: AxiosInstance;
-    private authInstance: AxiosInstance;
-    constructor() {
-    	this.instance = axios.create({
-    		baseURL: SNOWPACK_PUBLIC_API_URL,
-    	});
+		private instance: AxiosInstance;
+		private authInstance: AxiosInstance;
+		constructor() {
+			this.instance = axios.create({
+				baseURL: SNOWPACK_PUBLIC_API_URL,
+			});
 
-    	this.authInstance = axios.create({
-    		baseURL: SNOWPACK_PUBLIC_API_URL,
-    		headers: {
-    			Authorization: `Bearer ${localStorage.getItem('token')}`,
-    		},
-    	});
-    }
+			this.authInstance = axios.create({
+				baseURL: SNOWPACK_PUBLIC_API_URL,
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+				},
+			});
+		}
 
-    async loginRequest(body: any) {
-    	return this.instance.post('/login', body);
-    }
+		async loginRequest(body: any) {
+			return this.instance.post('/login', body);
+		}
 
-    async registerRequest(body: any) {
-    	return this.instance.post('/register', body);
-    }
+		async registerRequest(body: any) {
+			return this.instance.post('/register', body);
+		}
 
-    async activateAccountRequest(token: string) {
-    	return this.instance.post('/activate', {
-    		token,
-    	});
-    }
-    async resetRequest(body: any) {
-    	return this.instance.post('/reset', body);
-    }
+		async activateAccountRequest(token: string) {
+			return this.instance.post('/activate', {
+				token,
+			});
+		}
+		async resetRequest(body: any) {
+			return this.instance.post('/reset', body);
+		}
 
-    async changeRequest(body: any) {
-    	return this.instance.post('/updatePassword', body);
-    }
+		async changeRequest(body: any) {
+			return this.instance.post('/updatePassword', body);
+		}
 
-    async addBTAccountRequest(body: any) {
-    	return this.instance.post('/account/btcallback', body);
-    }
+		async addBTAccountRequest(body: any) {
+			return this.instance.post('/account/btcallback', body);
+		}
 
-    async addBCRAccountRequest(body: any) {
-    	return this.instance.post('/account/bcrcallback', body);
-    }
+		async addBCRAccountRequest(body: any) {
+			return this.instance.post('/account/bcrcallback', body);
+		}
 
-    async addAccount(body: any): Promise<any> {
-    	return this.authInstance.post('/account/add',body);
-    }
+		async addAccount(body: any): Promise<any> {
+			return this.authInstance.post('/account/add',body);
+		}
 
-    async getAllTransactions(body: any): Promise<any> {
+		async getAllTransactions(body: any): Promise<any> {
     	const c = await this.authInstance.get('/transactions/list',  {
     		params: body,
     	});
     	return c.data;
-    }
+		}
 
-    async accountListRequest(body: any): Promise<any> {
+		async accountListRequest(body: any): Promise<any> {
     	return this.authInstance.get('/account/list', {
     		params: body,
     	});
-    }
+		}
 
-    async userInfoRequest(): Promise<any> {
+		async userInfoRequest(): Promise<any> {
     	return this.authInstance.get('/info');
-    }
+		}
 
-    async getReportsRequest(): Promise<any> {
+		async getReportsRequest(): Promise<any> {
     	return this.authInstance.get('/account/reports');
-    }
+		}
 }
 export default ServiceApi;
