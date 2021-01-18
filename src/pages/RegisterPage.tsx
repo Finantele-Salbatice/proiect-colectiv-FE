@@ -74,7 +74,7 @@ class RegisterPage extends React.Component<
   	}
   };
 
-  validate = async() => {
+  validate = () => {
   	let val = true;
 
   	if (this.state.firstName.length === 0) {
@@ -158,27 +158,6 @@ class RegisterPage extends React.Component<
   			});
   		}
   	}
-
-  	if (val) {
-  		const body = {
-  			first_name: this.state.firstName,
-  			last_name: this.state.lastName,
-  			password: this.state.password,
-  			email: this.state.email,
-  		};
-  		try {
-  			await this.service.registerRequest(body);
-  			this.setState({
-  				firstName:'',
-  				lastName:'',
-  				email:'',
-  				password:'',
-  				passwordConfirm:'',
-  			});
-  		} catch (err) {
-  			console.log(err);
-  		}
-	  }
   };
 
   render() {
